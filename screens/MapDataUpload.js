@@ -2,26 +2,26 @@ import React, { Component } from "react";
 import {
     StyleSheet,
     View,
-    SafeAreaView,
     Text,
-    Alert,
     TouchableHighlight,
     ScrollView,
-    Image,
-    ActivityIndicator,
     TextInput,
-    KeyboardAvoidingView
+    KeyboardAvoidingView,
+
+
 } from "react-native";
+import {Picker} from '@react-native-picker/picker';
+
 import Firebase from "../components/config"
 
 
 export default class MapDataUpload extends Component{
-    state = {category:"",  title:"",phoneNumber:"",address:"",website:"",happyHour:"",drinkMenu:"",foodMenu:"",latitude:"",longitude:""};
+    state = {isBeer:false,isRestaurant:false,isDrink:false,isFood:false,category:"",  title:"",phoneNumber:"",address:"",website:"",happyHour:"",drinkMenu:"",foodMenu:"",latitude:'',longitude:'',avatar_url:""}
 
     render(){
         return (
             <ScrollView contentContainerStyle={styles.container}>
-                <KeyboardAvoidingView>
+                <View>
                     <View style={styles.inputContainer}>
                         <TextInput
                             style={styles.inputs}
@@ -90,16 +90,7 @@ export default class MapDataUpload extends Component{
                     <View style={styles.inputContainer}>
                         <TextInput
                             style={styles.inputs}
-                            placeholder="Longitude"
-                            keyboardType="default"
-                            underlineColorAndroid="transparent"
-                            onChangeText={(longitude) => this.setState({ longitude })}
-                        />
-                    </View>
-                    <View style={styles.inputContainer}>
-                        <TextInput
-                            style={styles.inputs}
-                            placeholder="latitude"
+                            placeholder="Latitude"
                             keyboardType="default"
                             underlineColorAndroid="transparent"
                             onChangeText={(latitude) => this.setState({ latitude })}
@@ -108,10 +99,41 @@ export default class MapDataUpload extends Component{
                     <View style={styles.inputContainer}>
                         <TextInput
                             style={styles.inputs}
-                            placeholder="Category"
+                            placeholder="Longitude"
                             keyboardType="default"
                             underlineColorAndroid="transparent"
-                            onChangeText={(category) => this.setState({ category })}
+                            onChangeText={(longitude) => this.setState({ longitude })}
+                        />
+                    </View>
+                    <View style={styles.inputContainer}>
+                        <Picker
+                            selectedValue={this.state.category}
+                            style={{ height: 50, width: 220, marginLeft: "24%" }}
+                            onValueChange={(category)=>this.setState({category})}
+                        >
+                            <Picker.Item label="Select Category" value="1" />
+                            <Picker.Item label="Food" value="Food" />
+                            <Picker.Item
+                                label="Restaurant"
+                                value="Restaurant"
+                            />
+                            <Picker.Item
+                                label="Cocktails"
+                                value="Cocktails"
+                            />
+                            <Picker.Item
+                                label="Beer"
+                                value="Beer"
+                            />
+                        </Picker>
+                    </View>
+                    <View style={styles.inputContainer}>
+                        <TextInput
+                            style={styles.inputs}
+                            placeholder="Avatar_URL"
+                            keyboardType="default"
+                            underlineColorAndroid="transparent"
+                            onChangeText={(avatar_url) => this.setState({ avatar_url })}
                         />
                     </View>
 
@@ -122,7 +144,7 @@ export default class MapDataUpload extends Component{
                         <Text style={styles.loginText}>Save</Text>
                     </TouchableHighlight>
 
-                </KeyboardAvoidingView>
+                </View>
             </ScrollView>
         )
     }
@@ -131,11 +153,11 @@ export default class MapDataUpload extends Component{
         Firebase.database()
             .ref('/places/')
             .push({
-                title: this.state.title,
+                name: this.state.title,
                 phoneNumber:this.state.phoneNumber,
                 website:this.state.website,
-                longitude:this.state.longitude,
-                latitude:this.state.latitude,
+                longitude:parseFloat(this.state.longitude),
+                latitude:parseFloat(this.state.latitude),
                 address:this.state.address,
                 happyHour:this.state.happyHour,
                 foodMenu:this.state.foodMenu,
@@ -143,8 +165,18 @@ export default class MapDataUpload extends Component{
                 category:this.state.category
             })
             .then(() => alert("Data Saved successfully."),
-            this.props.navigation.navigate("Home")
+            this.setState({
+                isBeer:false,isRestaurant:false,isDrink:false,isFood:false,category:"",  title:"",phoneNumber:"",address:"",website:"",happyHour:"",drinkMenu:"",foodMenu:"",latitude:'',longitude:'',avatar_url:""
+            }),
+            this.props.navigation.navigate("Admin")
+
             );
+    }
+
+
+    updateCategory(category) {
+        this.setState({ category: category});
+
     }
 }
 
@@ -153,7 +185,8 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: "center",
         justifyContent: "center",
-        alignContent: "center"
+        alignContent: "center",
+
     },
 
     wrapper: {

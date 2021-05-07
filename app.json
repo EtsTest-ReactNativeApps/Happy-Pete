@@ -18,17 +18,17 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.mypackage.com"
+      "bundleIdentifier": "com.mediashark.happypete"
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/HSPLogoWhite.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.mypackage.com",
+      "package": "com.mediashark.happypete",
       "config": {
         "googleMaps": {
-          "apiKey": "AIzaSyDzSno1FWz6rM8ttp6hWMFqOcG0OESPe-g  "
+          "apiKey": "AIzaSyCDn-KsRdw9W6AKogCtyF7CsCw5Ptg6efA"
         }
       }
     },

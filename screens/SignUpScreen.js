@@ -56,7 +56,7 @@ export default class SignUpScreen extends Component{
               >
                 <Text style={styles.loginText}>Sign Up</Text>
               </TouchableHighlight>
-              
+
               <TouchableHighlight
                 style={[styles.buttonContainer, styles.forgotButton]}
                 onPress={() =>
@@ -85,7 +85,7 @@ alignInputbox:{
 wrapper: {
   display: "flex",
   flex: 1,
-  
+
 },
 scrollViewWrapper: {
   marginTop: 70,
@@ -102,11 +102,6 @@ loginHeader: {
   color: "white",
   fontWeight: "300",
   marginBottom: 40
-},
-container: {
-  flex: 1,
-  justifyContent: "center",
-  alignItems: "center",
 },
 inputContainer: {
   borderBottomColor: "#fff8dc",
@@ -150,12 +145,7 @@ fixTotext: {
   justifyContent: "space-between",
   flexDirection: "row",
 },
-forgotButton: {
-  marginRight: 40,
-  fontWeight: "900",
-  color: "#00ffff",
-  fontSize: 17,
-},
+
 buttonContainerForgot: {
   marginTop: "4%",
   height: 35,

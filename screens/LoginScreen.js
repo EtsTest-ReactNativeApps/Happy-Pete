@@ -12,19 +12,57 @@ import {
   Picker,
 TextInput
 } from "react-native";
-import firebase from "../components/config";
-import auth from '@react-native-firebase/auth';
-
+import FirebaseConfig from "../components/config";
 
 
 export default class LoginScreen extends Component{
   state = {  email: "", password: ""};
+  validateForm=()=>{
+    if(this.state.email === "" || this.state.email === undefined){
+      alert("Please enter your email")
+    }else{
+      if(this.state.password===""||this.state.password===undefined){
+        alert("Please enter your password.")
+      }
+      else{
+        this.handleLogin()
+      }
+    }
+  }
   handleLogin = () => {
-    auth()
+    FirebaseConfig.auth()
         .signInWithEmailAndPassword(this.state.email, this.state.password)
-        .then(()=>{
-
+        .then((result)=>{
+          if(FirebaseConfig.auth().currentUser.emailVerified) {
+            let role = null;
+            FirebaseConfig.database().ref("users/")
+                .orderByChild("email").equalTo(this.state.email).once("value")
+                .then((snapshot) => {
+                  let userInfo = snapshot.val();
+                  for (let attributes in userInfo) {
+                    role = userInfo[attributes].role
+                  }
+                  if (role === "Admin") {
+                    this.props.navigation.navigate("Admin",{
+                      role:role
+                    })
+                  } else {
+                    this.props.navigation.navigate("Home",{
+                      role:role
+                    })
+                  }
+                })
+          }
+          else{
+            FirebaseConfig.auth().currentUser.sendEmailVerification().then(r => {
+              alert("Your email address is not verified yet, Please check your email and verify first")
+            });
+          }
         })
+        .catch((error)=>{
+          alert("Your Email or Password is wrong.")
+        })
+
   };
   render(){
   return (
@@ -63,15 +101,15 @@ export default class LoginScreen extends Component{
 
               <TouchableHighlight
                 style={[styles.buttonContainer, styles.loginButton]}
-                onPress={() => this.handleLogin()}
+                onPress={() => this.validateForm()}
               >
                 <Text style={styles.loginText}>Login</Text>
               </TouchableHighlight>
 
               <TouchableHighlight
-                style={[styles.buttonContainer, styles.forgotButton]}
+                style={[styles.buttonContainer, styles.forgotBtn]}
                 onPress={() =>
-                  this.props.navigation.navigate("ForgotPasswordScreen")
+                  this.props.navigation.navigate("ForgotPassword")
                 }
               >
                 <Text style={styles.loginText}>Forgot Password ?</Text>
@@ -168,4 +206,7 @@ buttonContainerForgot: {
 forgotText: {
   fontWeight: "800",
 },
+  forgotBtn:{
+  backgroundColor:'red'
+  }
 })

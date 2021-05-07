@@ -8,7 +8,8 @@ import {
     TouchableOpacity,
     Image,
     TouchableHighlight,
-    ImageBackground, FlatList,Dimensions
+    ImageBackground, FlatList, Dimensions, Alert,
+
 } from "react-native";
 import { Fontisto } from '@expo/vector-icons';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
@@ -19,202 +20,328 @@ import {Avatar, ListItem, SearchBar,Icon} from 'react-native-elements';
 import FeaturedMap from "./FeaturedMap";
 import Firebase from "../components/config";
 import DrinkScreen from "./DrinkScreen";
+import * as geolib from "geolib";
 
-const list = [
-    {
-        id:1,
-        name: 'The Lure',
-        avatar_url: 'http://thelurestpete.com/wp-content/uploads/2016/01/the-lure-white1-med.png',
-        subtitle: 'Sushi. Drinks, Billards',
-        website:'http://thelurestpete.com/',
-        longitude: 28.06967,
-        latitude: -82.27464
-    },
-    {
-        id:2,
-        name: 'The Oyster Bar',
-        avatar_url: 'https://oysterbarstpete.com/wp-content/uploads/2020/10/Rows-Only.png',
-        subtitle: '$2 Beers, $12 Mojitos',
-        website:'https://oysterbarstpete.com/',
-        longitude: 27.77161,
-        latitude: -82.63661
-    },
-    {
-        id:3,
-        name: 'The Datz',
-        avatar_url: 'https://datztampa.com/wp-content/uploads/2019/05/datzlogo.png',
-        subtitle: 'American Food, Breakfast & Brunch, Drinks',
-        webiste:'https://datztampa.com/stpete/menu/',
-        longitude: 28.19313,
-        latitude: -82.765710
-    },
-    {
-        id:4,
-        name:'The Thirsty First',
-        avatar_url: 'https://static.wixstatic.com/media/5920b0_e08d322e1132416d871432c9d320e637.png/v1/fill/w_269,h_219,al_c,q_85,usm_0.66_1.00_0.01/5920b0_e08d322e1132416d871432c9d320e637.webp',
-        subtitle: 'Happy Hour 11 AM - 7 PM, Monday - Friday',
-        website:'https://www.thirstyfirstlounge.com/',
-        longitude:28.27281,
-        latitude:-83.27564
-    }
-]
 
-export default class HomeScreen extends Component{
+export default class HomeScreen extends Component {
     state = {
         search: '',
-        drinkData:''
+        drinkData: '',
+        barLists: [],
+        bar:[],
+        role:this.props.navigation.getParam("role")
     };
 
-async componentDidMount() {
-    this.updateAsync();
-    try {
-        const update = await Updates.checkForUpdateAsync();
-        if (update.isAvailable) {
-            await Updates.fetchUpdateAsync();
+    async componentDidMount() {
+        const { navigation } = this.props;
+            this.fetchAllDetails()
+            this.getNearestPlace()
 
-            await Updates.reloadAsync();
-        }
-    } catch (e) {
-        // handle or log error
+
+
+
+
     }
-}renderItem = ({ item }) => (
 
-        <ListItem bottomDivider button onPress={()=>{this.goToBarDetails(item.id)}}>
-            <Avatar source={{uri: item.avatar_url}} />
+
+    renderItem = ({item}) => (
+
+        <ListItem bottomDivider button onPress={() => {
+            this.goToBarDetails(item.name)
+        }}>
+            {/*<Avatar source={{uri: item.avatar_url}} />*/}
             <ListItem.Content>
                 <ListItem.Title>{item.name}</ListItem.Title>
-                <ListItem.Subtitle>{item.subtitle}</ListItem.Subtitle>
+                <ListItem.Subtitle>{item.address}</ListItem.Subtitle>
             </ListItem.Content>
-            <ListItem.Chevron />
+            <ListItem.Chevron/>
         </ListItem>
 
     )
 
-    render(){
+    render() {
         return (
-        <ScrollView contentContainerStyle={styles.container}>
-            <View style={styles.Home}>
-                <View style={styles.fixToText}>
-                    <TouchableHighlight
-                        style={[styles.buttonContainer,styles.btnLeft, styles.clickButton]}
-                        onPress={() => this.props.navigation.navigate("Restaurant")}
-                    >
-                        <React.Fragment>
-                            <Ionicons name="restaurant" size={24} color="black" />
-                            <Text style={styles.clickText}>Restaurant</Text>
-                        </React.Fragment>
+            <View style={styles.container}>
+                <View style={styles.Home}>
+                    <View style={styles.fixToText}>
+                        <TouchableHighlight
+                            style={[styles.buttonContainer, styles.btnLeft, styles.clickButton]}
+                            onPress={() => this.fetchRestaurant()}
+                        >
+                            <React.Fragment>
+                                <Ionicons name="restaurant" size={24} color="black"/>
+                                <Text style={styles.clickText}>Restaurant</Text>
+                            </React.Fragment>
 
-                    </TouchableHighlight>
-                    <TouchableHighlight
-                        style={[styles.buttonContainer, styles.clickButton]}
-                        onPress={() => this.props.navigation.navigate("Cocktails")}
-                    >
-                        <React.Fragment>
-                            <FontAwesome5 name="cocktail" size={24} color="black" />
-                        <Text style={[styles.clickText]}>Cocktails</Text>
+                        </TouchableHighlight>
+                        <TouchableHighlight
+                            style={[styles.buttonContainer, styles.clickButton]}
+                            onPress={() => this.fetchDrink("Drink")}
+                        >
+                            <React.Fragment>
+                                <FontAwesome5 name="cocktail" size={24} color="black"/>
+                                <Text style={[styles.clickText]}>Cocktails</Text>
+                            </React.Fragment>
+                        </TouchableHighlight>
+                    </View>
+                    <View style={styles.fixToText}>
+                        <TouchableHighlight
+                            style={[styles.buttonContainer, styles.clickButton]}
+                            onPress={() => this.fetchFood()}
+                        ><React.Fragment>
+                            <Ionicons name="fast-food" size={24} color="black"/>
+                            <Text style={[styles.clickText, styles.marginIcon]}>Food</Text>
                         </React.Fragment>
+                        </TouchableHighlight>
+                        <TouchableHighlight
+                            style={[styles.buttonContainer, styles.clickButton]}
+                            onPress={() => this.fetchBeer()}
+                        >
+                            <React.Fragment>
+                                <FontAwesome5 name="beer" size={24} color="black"/>
+                                <Text style={[styles.clickText, styles.marginIcon]}>Beer</Text>
+                            </React.Fragment>
+                        </TouchableHighlight>
+                    </View>
+                </View>
+                <View style={styles.mapView}>
+                    <Text style={styles.mapText}>Featured Places</Text>
+                    <FeaturedMap children={this.state.barLists}/>
+                </View>
+                {this.state.bar===null || this.state.bar===[]?(
+                <View>
+                    {
+                        this.state.bar &&
+                        <FlatList
+                            data={this.state.bar}
+                            keyExtractor={(a, b) => b.toString()}
+                            renderItem={(item) => this.renderItem(item)}
+                        />
+
+                    }
+                    <TouchableHighlight
+                        style={styles.viewAll}
+                        onPress={() => this.props.navigation.navigate("AllPlaces",{
+                            role:this.state.role
+                        })}
+                    >
+                            <Text style={styles.clickText}>View All</Text>
                     </TouchableHighlight>
                 </View>
-                <View style={styles.fixToText}>
-                    <TouchableHighlight
-                        style={[styles.buttonContainer, styles.clickButton]}
-                        onPress={() => this.props.navigation.navigate("Food")}
-                    ><React.Fragment>
-                        <Ionicons name="fast-food" size={24} color="black" />
-                        <Text style={[styles.clickText,styles.marginIcon]}>Food</Text>
-                    </React.Fragment>
-                    </TouchableHighlight>
-                    <TouchableHighlight
-                        style={[styles.buttonContainer, styles.clickButton]}
-                        onPress={() => this.props.navigation.navigate("Beer")}
-                    >
-                        <React.Fragment>
-                        <FontAwesome5 name="beer" size={24} color="black" />
-                        <Text style={[styles.clickText,styles.marginIcon]}>Beer</Text>
-                        </React.Fragment>
-                    </TouchableHighlight>
-                </View>
-            </View>
-            <View style={styles.mapView}>
-                <Text style={styles.mapText}>Featured Places</Text>
-                <FeaturedMap/>
-            </View>
-            <View>
-                <FlatList
-                    keyExtractor={this.keyExtractor}
-                    data={list}
-                    renderItem={this.renderItem}
-                />
-            </View>
-        </ScrollView>
-
-    )
-    }
-
-        updateAsync=async()=>{
-            try {
-                const update = await Updates.checkForUpdateAsync();
-                if (update.isAvailable) {
-                    alert("A new update is available.")
-
+                    ):
+                    <View><Text style={styles.noplaces}>No nearest places or Bar found for your location</Text></View>
                 }
-            } catch (e) {
-                // handle or log error
-            }
-        }
-        update = async()=>{
-            this.setState({
-                updateAlert:false,
+            </View>
 
+        )
+    }
+
+    updateAsync = async () => {
+        try {
+            const update = await Updates.checkForUpdateAsync();
+            if (update.isAvailable) {
+                alert("A new update is available.")
+
+            }
+        } catch (e) {
+            // handle or log error
+        }
+    }
+    update = async () => {
+        this.setState({
+            updateAlert: false,
+
+        })
+        await Updates.fetchUpdateAsync();
+        await Updates.reloadAsync();
+
+
+    }
+
+    fetchRestaurant() {
+        let resData =[]
+        Firebase.database().ref("/places").orderByChild('category').equalTo('Restaurant')
+            .once("value").then(snapshot => {
+            snapshot.forEach((child) => {
+                resData.push({
+                    title: child.val().title,
+                    address: child.val().address,
+                    key: child.key,
+                    website: child.val().website,
+                    longitude: child.val().longitude,
+                    latitude: child.val().latitude,
+                    phoneNumber: child.val().phoneNumber,
+                    foodMenu: child.val().foodMenu,
+                    drinkMenu: child.val().drinkMenu,
+                    happyHour: child.val().happyHour,
+                    category:child.val().category
+                })
             })
-            await Updates.fetchUpdateAsync();
-            await Updates.reloadAsync();
-
-        }
-
-
-    /*fetchBardetails() {
-        Firebase.database
-    }*/
+            this.props.navigation.navigate("CategoryList",{
+                data:resData
+            })
+        })
+    }
     fetchDrink() {
+        let drinkData =[]
         Firebase.database().ref("/places").orderByChild('category').equalTo('Drink')
-            .once("value").then(snapshot=>{
-                let data = snapshot.val();
-                this.props.navigation.navigate("DrinkScreen",{
-                    drinkData:data
+            .once("value").then(snapshot => {
+            snapshot.forEach((child) => {
+                drinkData.push({
+                    title: child.val().title,
+                    address: child.val().address,
+                    key: child.key,
+                    website: child.val().website,
+                    longitude: child.val().longitude,
+                    latitude: child.val().latitude,
+                    phoneNumber: child.val().phoneNumber,
+                    foodMenu: child.val().foodMenu,
+                    drinkMenu: child.val().drinkMenu,
+                    happyHour: child.val().happyHour,
+                    category:child.val().category
                 })
+            })
+            this.props.navigation.navigate("CategoryList",{
+                data:drinkData
+            })
         })
     }
+
     fetchFood() {
+        let foodData =[]
         Firebase.database().ref("/places").orderByChild('category').equalTo('Food')
-            .once("value").then(snapshot=>{
-            let data = snapshot.val();
-            alert(data)
-        })
-    }
-    fetchBeer() {
-        Firebase.database().ref("/places").orderByChild('category').equalTo('Beer')
-            .once("value").then(snapshot=>{
-            let data = snapshot.val();
-            alert(data)
-        })
-    }
-
-
-    goToBarDetails(id) {
-        for(let i =0;i<list.length;i++){
-            if(list[i].id===id){
-                this.props.navigation.navigate("BarDetailsScreen",{
-                    name:list[i].name,
-                    subtitle:list[i].subtitle,
-                    avatar_url:list[i].avatar_url,
-                    id:list[i].id,
-                    website:list[i].website,
-                    longitude:list[i].longitude,
-                    latitude:list[i].latitude
+            .once("value").then(snapshot => {
+            snapshot.forEach((child) => {
+                foodData.push({
+                    title: child.val().title,
+                    address: child.val().address,
+                    key: child.key,
+                    category:child.val().category,
+                    website: child.val().website,
+                    longitude: child.val().longitude,
+                    latitude: child.val().latitude,
+                    phoneNumber: child.val().phoneNumber,
+                    foodMenu: child.val().foodMenu,
+                    drinkMenu: child.val().drinkMenu,
+                    happyHour: child.val().happyHour
                 })
+            })
+            this.props.navigation.navigate("CategoryList",{
+                data:foodData
+            })
+
+
+        })
+    }
+
+    fetchBeer() {
+       let beerData=[]
+        Firebase.database().ref("/places").orderByChild('category').equalTo('Beer')
+            .once("value").then(snapshot => {
+            snapshot.forEach((child) => {
+                beerData.push({
+                    title: child.val().title,
+                    address: child.val().address,
+                    key: child.key,
+                    website: child.val().website,
+                    longitude: child.val().longitude,
+                    latitude: child.val().latitude,
+                    phoneNumber: child.val().phoneNumber,
+                    foodMenu: child.val().foodMenu,
+                    drinkMenu: child.val().drinkMenu,
+                    happyHour: child.val().happyHour,
+                    category:child.val().category
+                })
+            })
+            this.props.navigation.navigate("CategoryList",{
+                data:beerData
+            })
+
+        })
+    }
+
+
+    goToBarDetails(name) {
+        let listDetails = this.state.bar;
+        for (let i  in listDetails) {
+            let title = listDetails[i].name
+            if (title === name) {
+                this.props.navigation.navigate("BarDetailsScreen", {
+                    name: listDetails[i].name,
+                    // avatar_url:list[i].avatar_url,
+                    website: listDetails[i].website,
+                    longitude: listDetails[i].longitude,
+                    latitude: listDetails[i].latitude,
+                    phoneNumber: listDetails[i].phoneNumber,
+                    address: listDetails[i].address,
+                    drinkMenu: listDetails[i].drinkMenu,
+                    foodMenu: listDetails[i].foodMenu,
+                    happyHour: listDetails[i].happyHour
+                })
+
             }
         }
+    }
+
+
+    fetchAllDetails() {
+        let bar=[]
+        Firebase.database().ref("/places")
+            .once("value").then(snapshot=>{
+            snapshot.forEach((child)=>{
+                    bar.push({
+                        name: child.val().name,
+                        address: child.val().address,
+                        key: child.key,
+                        website:child.val().website,
+                        longitude:child.val().longitude,
+                        latitude:child.val().latitude,
+                        phoneNumber:child.val().phoneNumber,
+                        foodMenu :child.val().foodMenu,
+                        drinkMenu:child.val().drinkMenu,
+                        happyHour: child.val().happyHour
+                    })
+                this.getNearestPlace(bar)
+            })
+        })
+    }
+
+    getNearestPlace(barList) {
+        navigator.geolocation = require('@react-native-community/geolocation');
+        navigator.geolocation.getCurrentPosition(
+            position => {
+                let bar=[]
+                for(let i in barList ){
+                    let dis= geolib.getDistance(position.coords, {
+                        latitude: barList[i].latitude,
+                        longitude: barList[i].longitude,
+                    })
+                    let disKM= dis/1000;
+
+                    if(disKM<=50){
+                        bar.push({
+                            name: barList[i].title,
+                            // avatar_url:list[i].avatar_url,
+                            website: barList[i].website,
+                            longitude: barList[i].longitude,
+                            latitude: barList[i].latitude,
+                            phoneNumber: barList[i].phoneNumber,
+                            address: barList[i].address,
+                            drinkMenu: barList[i].drinkMenu,
+                            foodMenu: barList[i].foodMenu,
+                            happyHour: barList[i].happyHour
+                        })
+                    }
+                }
+                this.setState({
+                    bar:bar
+                });
+            },
+            error => {
+                Alert.alert(error.message.toString());
+            },
+
+        );
 
     }
 }
@@ -379,6 +506,18 @@ const styles = StyleSheet.create({
     cardStyle:{
         borderRadius:25
     },
+    noplaces:{
+        marginTop:'3%',
+        color:'red',
+        fontSize:22,
+        fontWeight:'500'
+    },
+    viewAll:{
+        color:'#fff',
+        backgroundColor: "#00b5ec",
+        height:'10%',
+        width:'15%'
+    }
 
 
 })

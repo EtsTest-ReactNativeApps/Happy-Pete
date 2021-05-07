@@ -22,12 +22,26 @@ import MapDataUpload from "../screens/MapDataUpload";
 import DrinkScreen from "../screens/DrinkScreen";
 import BarDetailsScreen from "../screens/BarDetailsScreen";
 import BarMapScreen from "../screens/BarMapScreen";
-
+import LandingScreen from "../screens/LandingScreen";
+import RegistrationScreen from "../screens/RegistrationScreen";
+import LoginScreen from "../screens/LoginScreen";
+import FirebaseConfig from "../components/config";
+import CategoryList from "../screens/CategoryListScreen";
+import AdminSideMenu from "../AdminSideMenu";
+import AdminScreen from "../screens/AdminScreen";
+import AddAdminScreen from "../screens/AddAdmin";
+import CreateBlog from "../screens/CreateBlog";
+import ForgotPasswordScreen from "../screens/ForgotPasswordScreen";
+import AllPlaces from "../screens/AllPlaces";
 class NavigationDrawerStructure extends Component {
+
   toggleDrawer = () => {
     this.props.navigationProps.toggleDrawer();
   };
+
+
   render() {
+
     return (
       <View style={{ flexDirection: "row" }}>
         <TouchableOpacity onPress={this.toggleDrawer.bind(this)}>
@@ -43,6 +57,21 @@ class NavigationDrawerStructure extends Component {
 }
 
 const FirstActivity_StackNavigator = createStackNavigator({
+
+  Landing: {
+    screen: LandingScreen,
+    navigationOptions: ({ navigation }) => ({
+      headerRight: <Text style={styles.headerRight}>Happy St. Pete</Text>,
+      headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
+      headerStyle: {
+        backgroundColor: "#fff",
+      },
+      headerTintColor: "#fff",
+
+    }),
+  },
+
+
   Home: {
     screen: HomeScreen,
     navigationOptions: ({ navigation }) => ({
@@ -114,6 +143,103 @@ const FirstActivity_StackNavigator = createStackNavigator({
       headerTintColor: "#fff",
 
     }),
+  },
+  Login: {
+    screen: LoginScreen,
+    navigationOptions: ({ navigation }) => ({
+      headerRight: <Text style={styles.headerRight}>Happy St. Pete</Text>,
+      headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
+      headerStyle: {
+        backgroundColor: "#fff",
+      },
+      headerTintColor: "#fff",
+
+    }),
+  },
+  Register: {
+    screen: RegistrationScreen,
+    navigationOptions: ({ navigation }) => ({
+      headerRight: <Text style={styles.headerRight}>Happy St. Pete</Text>,
+      headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
+      headerStyle: {
+        backgroundColor: "#fff",
+      },
+      headerTintColor: "#fff",
+
+    }),
+  },
+  CategoryList: {
+    screen: CategoryList,
+    navigationOptions: ({ navigation }) => ({
+      headerRight: <Text style={styles.headerRight}>Happy St. Pete</Text>,
+      headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
+      headerStyle: {
+        backgroundColor: "#fff",
+      },
+      headerTintColor: "#fff",
+
+    }),
+
+  },
+  Admin: {
+    screen: AdminScreen,
+    navigationOptions: ({ navigation }) => ({
+      headerRight: <Text style={styles.headerRight}>Happy St. Pete</Text>,
+      headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
+      headerStyle: {
+        backgroundColor: "#fff",
+      },
+      headerTintColor: "#fff",
+
+    }),
+  },
+  AddAdmin: {
+    screen: AddAdminScreen,
+    navigationOptions: ({ navigation }) => ({
+      headerRight: <Text style={styles.headerRight}>Happy St. Pete</Text>,
+      headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
+      headerStyle: {
+        backgroundColor: "#fff",
+      },
+      headerTintColor: "#fff",
+
+    }),
+  },
+  CreateBlog: {
+    screen: CreateBlog,
+    navigationOptions: ({ navigation }) => ({
+      headerRight: <Text style={styles.headerRight}>Happy St. Pete</Text>,
+      headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
+      headerStyle: {
+        backgroundColor: "#fff",
+      },
+      headerTintColor: "#fff",
+
+    }),
+  },
+  ForgotPassword: {
+    screen: ForgotPasswordScreen,
+    navigationOptions: ({ navigation }) => ({
+      headerRight: <Text style={styles.headerRight}>Happy St. Pete</Text>,
+      headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
+      headerStyle: {
+        backgroundColor: "#fff",
+      },
+      headerTintColor: "#fff",
+
+    }),
+  },
+  AllPlaces: {
+    screen: AllPlaces,
+    navigationOptions: ({ navigation }) => ({
+      headerRight: <Text style={styles.headerRight}>Happy St. Pete</Text>,
+      headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
+      headerStyle: {
+        backgroundColor: "#fff",
+      },
+      headerTintColor: "#fff",
+
+    }),
   }
 
 });
@@ -126,8 +252,8 @@ const Drawer = createDrawerNavigator(
 
   },
   {
-    contentComponent: SideMenu,
-    drawerPosition: "right",
+    contentComponent: AdminSideMenu,
+    drawerPosition: "left",
     drawerWidth: Dimensions.get("window").width - 120,
   }
 );

@@ -1,69 +1,227 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet } from "react-native";
-import AnimatedMultistep from "../lib";
+import {
+    StyleSheet,
+    View,
+    SafeAreaView,
+    Text,
+    Alert,
+    TouchableHighlight,
+    ScrollView,
+    Image,
+    ActivityIndicator,
+    Picker,
+    TextInput
+} from "react-native";
+import FirebaseConfig from "../components/config";
 
-import Step1 from "../components/step1";
-import Step2 from "../components/step2";
-import Step3 from "../components/step3";
-import Step4 from "../components/step4";
-import Step5 from "../components/step5";
-import Step6 from "../components/step6";
-import Step7 from "../components/step7";
-import Step8 from "../components/step8";
-import Step9 from "../components/step9";
-import Step10 from "../components/step10";
-import Step11 from "../components/step11";
-import Step12 from "../components/step12";
-
-const allSteps = [
-    { name: "step 1", component: Step1 },
-    { name: "step 2", component: Step2 },
-    { name: "step 3", component: Step3 },
-    { name: "step 4", component: Step4 },
-    { name: "step 5", component: Step5 },
-    { name: "step 6", component: Step6 },
-    { name: "step 7", component: Step7 },
-    { name: "step 8", component: Step8 },
-    { name: "step 9", component: Step9 },
-    { name: "step 10", component: Step10 },
-    { name: "step 11", component: Step11 },
-    { name: "step 12", component: Step12 }
-];
-
-export default class RegistrationScreen extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {};
+export default class RegistrationScreen extends Component{
+    state = {  email: "", password: "",name:"",phoneNumber:null,address:""};
+    validateForm=()=>{
+        if(this.state.email===""||this.state.email===undefined){
+            alert("Please enter your email address.")
+        }
+        else{
+            if(this.state.password===""||this.state.password===undefined){
+                alert("Please enter your password.")
+            }
+            else{
+                if(this.state.name==="" || this.state.name===undefined){
+                    alert("Please enter your name")
+                }
+                else{
+                    this.handleRegistration()
+                }
+            }
+        }
     }
+    handleRegistration = () => {
+        FirebaseConfig.auth()
+            .createUserWithEmailAndPassword(this.state.email, this.state.password)
+            .then((user)=>{
+                FirebaseConfig.auth().currentUser.sendEmailVerification().then(r => {
+                    alert("An email sent to you, please verify and login again.")
+                    let userId=FirebaseConfig.auth().currentUser.uid
+                    if(userId){
+                        FirebaseConfig.database().ref("users/" + userId)
+                            .set({
+                                email: this.state.email,
+                                name: this.state.name,
+                                phoneNumber: this.state.phoneNumber,
+                                address: this.state.address,
+                                role:"Customer"
 
-    render() {
+                            }).then(r =>{
+                        })
+                    }
+                })
+
+             })
+            .catch((error)=>{
+                alert(error)
+            })
+    };
+    render(){
         return (
-            <View style={{ flex: 1, backgroundColor: "tansparent" }}>
-                <View style={styles.upperContainer}>
-                    <Text style={styles.loginText}>Register</Text>
-                </View>
-                <View style={styles.lowerContainer}>
-                    <AnimatedMultistep
-                        steps={allSteps}
-                        onFinish={this.finish}
-                        animate={true}
-                    />
+            <View style={styles.container}>
+                <View>
+                    <View style={styles.inputContainer}>
+                        <Image
+                            style={styles.inputIcon}
+                            source={require("../assets/mailIcon.jpg")}
+                        />
+                        <TextInput
+                            style={styles.inputs}
+                            placeholder="Email"
+                            keyboardType="email-address"
+                            autoCapitalize="none"
+                            underlineColorAndroid="transparent"
+                            onChangeText={(email) => this.setState({ email })}
+                        />
+                    </View>
+
+                    <View style={styles.inputContainer}>
+                        <Image
+                            style={styles.inputIcon}
+                            source={require("../assets/pwdIcon.png")}
+                        />
+                        <TextInput
+                            style={styles.inputs}
+                            placeholder="Password"
+                            keyboardType="default"
+                            secureTextEntry
+                            underlineColorAndroid="transparent"
+                            onChangeText={(password) => this.setState({ password })}
+                        />
+                    </View>
+                    <View style={styles.inputContainer}>
+                        <TextInput
+
+                            style={styles.inputs}
+                            placeholder="Name"
+                            keyboardType="default"
+                            autoCapitalize="none"
+                            underlineColorAndroid="transparent"
+                            onChangeText={(name) => this.setState({ name })}
+                        />
+                    </View>
+                    <View style={styles.inputContainer}>
+                        <TextInput
+                            style={styles.inputs}
+                            placeholder="Address"
+                            keyboardType="default"
+                            autoCapitalize="none"
+                            underlineColorAndroid="transparent"
+                            onChangeText={(address) => this.setState({ address })}
+                        />
+                    </View>
+                    <View style={styles.inputContainer}>
+                        <TextInput
+                            style={styles.inputs}
+                            placeholder="Phone Number"
+                            keyboardType="numeric"
+                            autoCapitalize="none"
+                            underlineColorAndroid="transparent"
+                            onChangeText={(phoneNumber) => this.setState({ phoneNumber})}
+                        />
+                    </View>
+
+                    <TouchableHighlight
+                        style={[styles.buttonContainer, styles.loginButton]}
+                        onPress={() => this.validateForm()}
+                    >
+                        <Text style={styles.loginText}>Register</Text>
+                    </TouchableHighlight>
+
                 </View>
             </View>
-        );
+        )
     }
 }
 
 const styles = StyleSheet.create({
-    upperContainer: {
-        alignItems:'center'
+    container: {
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "center",
+        alignContent: "center"
+    },
+
+    wrapper: {
+        display: "flex",
+        flex: 1,
+
+    },
+    scrollViewWrapper: {
+        marginTop: 70,
+        flex: 1
+    },
+    avoidView: {
+        paddingLeft: 30,
+        paddingRight: 30,
+        paddingTop: 20,
+        flex:1
+    },
+    loginHeader: {
+        fontSize: 28,
+        color: "white",
+        fontWeight: "300",
+        marginBottom: 40
+    },
+    inputContainer: {
+        borderBottomColor: "#fff8dc",
+        backgroundColor: "#FFFFFF",
+        borderRadius: 30,
+        borderBottomWidth: 1,
+        width: 250,
+        height: 45,
+        marginBottom: 20,
+        flexDirection: "row",
+        alignItems: "center",
+    },
+    inputs: {
+        height: 45,
+        marginLeft: 16,
+        borderBottomColor: "#FFFFFF",
+        flex: 1,
+    },
+    inputIcon: {
+        width: 30,
+        height: 30,
+        marginLeft: 15,
+        justifyContent: "center",
+    },
+    buttonContainer: {
+        height: 45,
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center",
+        marginBottom: 20,
+        width: 250,
+        borderRadius: 30,
+    },
+    loginButton: {
+        backgroundColor: "red",
     },
     loginText: {
-        fontSize: 28,
-        color: "#5a5050"
+        color: "white",
     },
-    lowerContainer: {
-        flex: 2
-    }
-});
+    fixTotext: {
+        justifyContent: "space-between",
+        flexDirection: "row",
+    },
+    buttonContainerForgot: {
+        marginTop: "4%",
+        height: 35,
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center",
+        marginBottom: 20,
+        width: "40%",
+        borderRadius: 15,
+        marginLeft: "20%",
+    },
+
+    forgotText: {
+        fontWeight: "800",
+    },
+})

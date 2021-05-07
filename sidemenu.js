@@ -1,6 +1,5 @@
-import PropTypes from "prop-types";
+
 import React, { Component } from "react";
-import { NavigationActions, createStackNavigator } from "react-navigation";
 import Home from "./screens/HomeScreen";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -11,10 +10,91 @@ import {
     StyleSheet,
     TouchableHighlight,
 } from "react-native";
-
+import FirebaseConfig from "./components/config";
 class SideMenu extends Component {
+    constructor(props) {
+        super(props);
+        this.state={
+            loggedin:false,
+            logout:'Login'
+        }
+    }
+    componentDidMount() {
+        const{navigation}=this.props
+            FirebaseConfig.auth().onAuthStateChanged((user)=>{
+                if(user){
+                    this.setState({
+                        loggedin:true,
+                        logout:'Logout'
+                    })
+                }
+            })
+
+
+    }
+
 
     render() {
+        const{loggedin}=this.state;
+        if(!loggedin){
+           return (
+               <View style={styles.container}>
+                   <ScrollView>
+                       <TouchableHighlight style={[styles.buttonContainerHome]}>
+                           <Text style={styles.kecText}>
+                               Happy St. Pete
+                           </Text>
+                       </TouchableHighlight>
+                       <View style={styles.fixIcon}>
+                           <Ionicons name="md-home" size={25} />
+                           <TouchableHighlight
+                               style={[styles.buttonContainerText]}
+                               onPress={() => this.props.navigation.navigate("Landing")}
+                           >
+                               <Text style={styles.clickText}>Home</Text>
+                           </TouchableHighlight>
+                       </View>
+                       <View style={styles.fixIcon}>
+                           <Ionicons name="md-notifications" size={25} />
+                           <TouchableHighlight
+                               style={[styles.buttonContainerText]}
+                               onPress={() => this.props.navigation.navigate("HappyHour")}
+                           >
+                               <Text style={styles.clickText}>Happy Hour</Text>
+                           </TouchableHighlight>
+                       </View>
+                       <View style={styles.fixIcon}>
+                           <Ionicons name="md-people" size={25} />
+                           <TouchableHighlight
+                               style={[styles.buttonContainerText]}
+                               onPress={() => this.props.navigation.navigate("HappyBlog")}
+                           >
+                               <Text style={styles.clickText}>Happy Blog</Text>
+                           </TouchableHighlight>
+                       </View>
+                       <View style={styles.fixIcon}>
+                           <Ionicons name="md-people" size={25} />
+                           <TouchableHighlight
+                               style={[styles.buttonContainerText]}
+                               onPress={() => this.props.navigation.navigate("Login")}
+                           >
+                               <Text style={styles.clickText}>Login</Text>
+                           </TouchableHighlight>
+                       </View>
+                       <View style={styles.fixIcon}>
+                           <Ionicons name="md-heart" size={25} />
+                           <TouchableHighlight
+                               style={[styles.buttonContainerText]}
+                               onPress={() => this.props.navigation.navigate("AboutApp")}
+                           >
+                               <Text style={styles.clickText}>Contact Us</Text>
+                           </TouchableHighlight>
+                       </View>
+                   </ScrollView>
+                   <View style={styles.footerContainer}/>
+               </View>
+           )
+        }
         return (
                 <View style={styles.container}>
                     <ScrollView>
@@ -50,15 +130,7 @@ class SideMenu extends Component {
                                 <Text style={styles.clickText}>Happy Blog</Text>
                             </TouchableHighlight>
                         </View>
-                        {/*<View style={styles.fixIcon}>
-                            <Ionicons name="md-people" size={25} />
-                            <TouchableHighlight
-                                style={[styles.buttonContainerText]}
-                                onPress={() => this.props.navigation.navigate("Login")}
-                            >
-                                <Text style={styles.clickText}>Login</Text>
-                            </TouchableHighlight>
-                        </View>*/}
+
                         <View style={styles.fixIcon}>
                             <Ionicons name="md-heart" size={25} />
                             <TouchableHighlight
@@ -68,20 +140,23 @@ class SideMenu extends Component {
                                 <Text style={styles.clickText}>Contact Us</Text>
                             </TouchableHighlight>
                         </View>
-                        {/*<View style={styles.fixIcon}>
-                            <Ionicons name="md-heart" size={25} />
-                            <TouchableHighlight
-                                style={[styles.buttonContainerText]}
-                                onPress={() => this.props.navigation.navigate("MapDataUpload")}
-                            >
-                                <Text style={styles.clickText}>Upload Places/Bar</Text>
-                            </TouchableHighlight>
-                        </View>*/}
+
+
                     </ScrollView>
                     <View style={styles.footerContainer}></View>
                 </View>
 
         );
+    }
+
+    onLogout() {
+        FirebaseConfig.auth().signOut().then(()=>{
+            this.setState({
+                logout:'Logout'
+            })
+            this.props.navigation.navigate("Landing")
+        });
+
     }
 }
 
