@@ -1,4 +1,4 @@
-package com.mypackage.com;
+package com.gomediashark.happypete;
 
 import android.os.Bundle;
 

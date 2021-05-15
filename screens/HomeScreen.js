@@ -36,11 +36,6 @@ export default class HomeScreen extends Component {
         const { navigation } = this.props;
             this.fetchAllDetails()
             this.getNearestPlace()
-
-
-
-
-
     }
 
 
@@ -61,22 +56,23 @@ export default class HomeScreen extends Component {
 
     render() {
         return (
-            <View style={styles.container}>
+            <ScrollView style={styles.container}>
                 <View style={styles.Home}>
                     <View style={styles.fixToText}>
                         <TouchableHighlight
-                            style={[styles.buttonContainer, styles.btnLeft, styles.clickButton]}
+                                       style={[styles.buttonContainer, styles.btnLeft, styles.clickButton]}
                             onPress={() => this.fetchRestaurant()}
                         >
                             <React.Fragment>
                                 <Ionicons name="restaurant" size={24} color="black"/>
-                                <Text style={styles.clickText}>Restaurant</Text>
+                                <Text style={styles.clickText}>Wine</Text>
                             </React.Fragment>
 
                         </TouchableHighlight>
                         <TouchableHighlight
+                            underlayColor={"none"}
                             style={[styles.buttonContainer, styles.clickButton]}
-                            onPress={() => this.fetchDrink("Drink")}
+                            onPress={() => this.fetchDrink()}
                         >
                             <React.Fragment>
                                 <FontAwesome5 name="cocktail" size={24} color="black"/>
@@ -129,9 +125,18 @@ export default class HomeScreen extends Component {
                     </TouchableHighlight>
                 </View>
                     ):
-                    <View><Text style={styles.noplaces}>No nearest places or Bar found for your location</Text></View>
+                    <View><Text style={styles.noplaces}>No nearest places or Bar found for your location</Text>
+                        <TouchableHighlight
+                            style={styles.viewAll}
+                            onPress={() => this.props.navigation.navigate("AllPlaces",{
+                                role:this.state.role
+                            })}
+                        >
+                            <Text style={styles.clickText}>View All</Text>
+                        </TouchableHighlight>
+                    </View>
                 }
-            </View>
+            </ScrollView>
 
         )
     }
@@ -164,7 +169,7 @@ export default class HomeScreen extends Component {
             .once("value").then(snapshot => {
             snapshot.forEach((child) => {
                 resData.push({
-                    title: child.val().title,
+                    title: child.val().name,
                     address: child.val().address,
                     key: child.key,
                     website: child.val().website,
@@ -184,11 +189,11 @@ export default class HomeScreen extends Component {
     }
     fetchDrink() {
         let drinkData =[]
-        Firebase.database().ref("/places").orderByChild('category').equalTo('Drink')
+        Firebase.database().ref("/places").orderByChild('category').equalTo('Cocktails')
             .once("value").then(snapshot => {
             snapshot.forEach((child) => {
                 drinkData.push({
-                    title: child.val().title,
+                    title: child.val().name,
                     address: child.val().address,
                     key: child.key,
                     website: child.val().website,
@@ -213,7 +218,7 @@ export default class HomeScreen extends Component {
             .once("value").then(snapshot => {
             snapshot.forEach((child) => {
                 foodData.push({
-                    title: child.val().title,
+                    title: child.val().name,
                     address: child.val().address,
                     key: child.key,
                     category:child.val().category,
@@ -240,7 +245,7 @@ export default class HomeScreen extends Component {
             .once("value").then(snapshot => {
             snapshot.forEach((child) => {
                 beerData.push({
-                    title: child.val().title,
+                    title: child.val().name,
                     address: child.val().address,
                     key: child.key,
                     website: child.val().website,
@@ -356,7 +361,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
     },
   container: {
-
+    height:hp('100%')
   },
     bestText:{
       marginTop:"5%",
@@ -515,8 +520,14 @@ const styles = StyleSheet.create({
     viewAll:{
         color:'#fff',
         backgroundColor: "#00b5ec",
-        height:'10%',
-        width:'15%'
+        height:hp('7%'),
+        width:'25%',
+        borderRadius:20,
+        display: 'flex',
+        justifyContent:'center',
+        alignItems:'center',
+        marginLeft:'35%',
+        marginTop:'5%'
     }
 
 

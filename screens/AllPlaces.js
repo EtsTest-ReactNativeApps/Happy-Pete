@@ -56,8 +56,9 @@ export default class AllPlaces extends Component {
             <View style={styles.container}>
                         <View>
                             {
-                                this.state.bar &&
+                                this.state.barLists &&
                                 <FlatList
+
                                     data={this.state.barLists}
                                     keyExtractor={(a, b) => b.toString()}
                                     renderItem={(item) => this.renderItem(item)}
@@ -69,7 +70,7 @@ export default class AllPlaces extends Component {
         )
     }
     goToBarDetails(name) {
-        let listDetails = this.state.bar;
+        let listDetails = this.state.barLists;
         for (let i  in listDetails) {
             let title = listDetails[i].name
             if (title === name) {

@@ -8,9 +8,10 @@ import {
     Text,
     View,
     StyleSheet,
-    TouchableHighlight,
+    TouchableHighlight
 } from "react-native";
 import FirebaseConfig from "./components/config";
+
 class AdminSideMenu extends Component {
     constructor(props) {
         super(props);
@@ -46,6 +47,7 @@ class AdminSideMenu extends Component {
                     <View style={styles.fixIcon}>
                         <Ionicons name="md-home" size={25} />
                         <TouchableHighlight
+                            underlayColor={"none"}
                             style={[styles.buttonContainerText]}
                             onPress={() => this.props.navigation.navigate("Home")}
                         >
@@ -55,17 +57,19 @@ class AdminSideMenu extends Component {
                     <View style={styles.fixIcon}>
                         <Ionicons name="md-notifications" size={25} />
                         <TouchableHighlight
+                            underlayColor={"none"}
                             style={[styles.buttonContainerText]}
-                            onPress={() => this.props.navigation.navigate("RcvNotification")}
+                            onPress={() => this.props.navigation.navigate("AboutApp")}
                         >
-                            <Text style={styles.clickText}>Happy Hour</Text>
+                            <Text style={styles.clickText}>About App</Text>
                         </TouchableHighlight>
                     </View>
                     <View style={styles.fixIcon}>
                         <Ionicons name="md-people" size={25} />
                         <TouchableHighlight
+                            underlayColor={"none"}
                             style={[styles.buttonContainerText]}
-                            onPress={() => this.props.navigation.navigate("Developers")}
+                            onPress={() => this.props.navigation.navigate("HappyBlog")}
                         >
                             <Text style={styles.clickText}>Happy Blog</Text>
                         </TouchableHighlight>
@@ -74,8 +78,9 @@ class AdminSideMenu extends Component {
                     <View style={styles.fixIcon}>
                         <Ionicons name="md-heart" size={25} />
                         <TouchableHighlight
+                            underlayColor={"none"}
                             style={[styles.buttonContainerText]}
-                            onPress={() => this.props.navigation.navigate("AboutApp")}
+                            onPress={() => this.props.navigation.navigate("ContactUs")}
                         >
                             <Text style={styles.clickText}>Contact Us</Text>
                         </TouchableHighlight>
@@ -83,11 +88,12 @@ class AdminSideMenu extends Component {
                     <View style={styles.fixIcon}>
                         <Ionicons name="md-heart" size={25} />
                         <TouchableHighlight
+                            underlayColor={"none"}
                             style={[styles.buttonContainerText]}
                             onPress={() => this.onLogout()}
                         >
                             {this.state.logout &&
-                            <Text style={styles.clickText}>{this.state.logout}</Text>}
+                            <Text style={styles.clickText}>Logout</Text>}
                         </TouchableHighlight>
                     </View>
                 </ScrollView>
@@ -98,12 +104,9 @@ class AdminSideMenu extends Component {
     }
 
     onLogout=()=> {
-        FirebaseConfig.auth().signOut().then(()=>{
-            this.setState({
-                logout:'Logout'
-            })
-            this.props.navigation.navigate("Landing")
-        });
+
+            this.props.navigation.navigate("Welcome")
+
     }
 }
 

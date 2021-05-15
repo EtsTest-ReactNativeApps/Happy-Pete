@@ -4,9 +4,9 @@
     "slug": "happypete",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./images/HSPLogoWhite.png",
+    "icon": "./assets/icon.png",
     "splash": {
-      "image": "./images/HappyStPeteLogo.png",
+      "image": "./assets/logo.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -22,7 +22,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/HSPLogoWhite.png",
+        "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.mediashark.happypete",

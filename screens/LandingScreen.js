@@ -1,18 +1,18 @@
-import React from 'react'
-import { Text, View, Button ,Image,StyleSheet,TouchableHighlight} from 'react-native'
-import {widthPercentageToDP as wp} from "react-native-responsive-screen";
+import React, {useEffect,useState} from 'react'
+import {Text, View, Button, Image, StyleSheet, TouchableHighlight} from 'react-native'
 
-export default function Landing({ navigation }) {
+export default function Welcome({ navigation }) {
+
     return (
         <View style={styles.container}>
-            <Image
+            {/*<Image
                 style={{
                     width:'80%',
                     height:"20%",
                     marginLeft:'11%',
                     borderRadius:35
                 }}
-                source={require('../images/undraw_welcome_cats_thqn.png')}/>
+                source={require('../images/undraw_welcome_cats_thqn.png')}/>*/}
             <View>
                 <TouchableHighlight
                     style={[styles.buttonContainer, styles.loginButton]}

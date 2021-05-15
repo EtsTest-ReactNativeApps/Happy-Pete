@@ -22,10 +22,11 @@ import MapDataUpload from "../screens/MapDataUpload";
 import DrinkScreen from "../screens/DrinkScreen";
 import BarDetailsScreen from "../screens/BarDetailsScreen";
 import BarMapScreen from "../screens/BarMapScreen";
-import LandingScreen from "../screens/LandingScreen";
+import Welcome from "../screens/LandingScreen";
 import RegistrationScreen from "../screens/RegistrationScreen";
 import LoginScreen from "../screens/LoginScreen";
 import FirebaseConfig from "../components/config";
+import ForgotPasswordScreen from "../screens/ForgotPasswordScreen";
 class NavigationDrawerStructure extends Component {
 
     toggleDrawer = () => {
@@ -51,8 +52,19 @@ class NavigationDrawerStructure extends Component {
 
 const FirstActivity_StackNavigator = createStackNavigator({
 
-    Landing: {
-        screen: LandingScreen,
+    Welcome: {
+        screen: Welcome,
+        navigationOptions: ({ navigation }) => ({
+            headerRight: <Text style={styles.headerRight}>Happy St. Pete</Text>,
+            headerLeft: null,
+            headerStyle: {
+                backgroundColor: "#fff",
+            },
+            headerTintColor: "#fff",
+        }),
+    },
+    Login: {
+        screen: LoginScreen,
         navigationOptions: ({ navigation }) => ({
             headerRight: <Text style={styles.headerRight}>Happy St. Pete</Text>,
             headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
@@ -60,8 +72,21 @@ const FirstActivity_StackNavigator = createStackNavigator({
                 backgroundColor: "#fff",
             },
             headerTintColor: "#fff",
+
         }),
     },
+    ForgotPassword: {
+        screen: ForgotPasswordScreen,
+        navigationOptions: ({ navigation }) => ({
+            headerRight: <Text style={styles.headerRight}>Happy St. Pete</Text>,
+            headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
+            headerStyle: {
+                backgroundColor: "#fff",
+            },
+            headerTintColor: "#fff",
+
+        }),
+    }
 
 });
 

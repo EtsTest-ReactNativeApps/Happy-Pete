@@ -134,7 +134,7 @@ export default class BarDetailsScreen extends Component{
                         />
                     }{this.state.destinationOrigin && this.state.origin &&
                         <MapViewDirections
-                            origin={this.state.origin}
+                            origin={this.state.origin[0]}
                             destination={this.state.destinationOrigin[0]}
                             apikey={GOOGLE_MAPS_APIKEY}
                             strokeWidth={3}

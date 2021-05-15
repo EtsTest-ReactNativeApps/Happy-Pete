@@ -79,7 +79,7 @@ export default class HomeScreen extends Component{
      getGeoLocation() {
         let barList =this.state.data
          navigator.geolocation = require('@react-native-community/geolocation');
-         navigator.geolocation.getCurrentPosition(
+         navigator.geolocation.getCurrentPosition(  
   position => {
       let bar=[]
       for(let i in barList ){

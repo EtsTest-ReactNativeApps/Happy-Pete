@@ -7,7 +7,7 @@ export default class ActionBarImage extends Component {
     return (
       <View style={{ flexDirection: "row" }}>
         <Image
-          source={require("../images/HappyStPeteLogolng-768x116.png")}
+          source={require("../assets/logo.png")}
           style={{
             width: 330,
             height: 80,

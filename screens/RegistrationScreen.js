@@ -15,7 +15,7 @@ import {
 import FirebaseConfig from "../components/config";
 
 export default class RegistrationScreen extends Component{
-    state = {  email: "", password: "",name:"",phoneNumber:null,address:""};
+    state = {  email: "", password: "",name:"",phoneNumber:null};
     validateForm=()=>{
         if(this.state.email===""||this.state.email===undefined){
             alert("Please enter your email address.")
@@ -47,7 +47,6 @@ export default class RegistrationScreen extends Component{
                                 email: this.state.email,
                                 name: this.state.name,
                                 phoneNumber: this.state.phoneNumber,
-                                address: this.state.address,
                                 role:"Customer"
 
                             }).then(r =>{
@@ -64,6 +63,21 @@ export default class RegistrationScreen extends Component{
         return (
             <View style={styles.container}>
                 <View>
+                    <View style={styles.inputContainer}>
+                        <Image
+                            style={styles.inputIcon}
+                            source={require("../assets/name.png")}
+                        />
+                        <TextInput
+
+                            style={styles.inputs}
+                            placeholder="Name"
+                            keyboardType="default"
+                            autoCapitalize="none"
+                            underlineColorAndroid="transparent"
+                            onChangeText={(name) => this.setState({ name })}
+                        />
+                    </View>
                     <View style={styles.inputContainer}>
                         <Image
                             style={styles.inputIcon}
@@ -93,31 +107,15 @@ export default class RegistrationScreen extends Component{
                             onChangeText={(password) => this.setState({ password })}
                         />
                     </View>
-                    <View style={styles.inputContainer}>
-                        <TextInput
 
-                            style={styles.inputs}
-                            placeholder="Name"
-                            keyboardType="default"
-                            autoCapitalize="none"
-                            underlineColorAndroid="transparent"
-                            onChangeText={(name) => this.setState({ name })}
-                        />
-                    </View>
                     <View style={styles.inputContainer}>
+                        <Image
+                            style={styles.inputIcon}
+                            source={require("../assets/mobile.png")}
+                        />
                         <TextInput
                             style={styles.inputs}
-                            placeholder="Address"
-                            keyboardType="default"
-                            autoCapitalize="none"
-                            underlineColorAndroid="transparent"
-                            onChangeText={(address) => this.setState({ address })}
-                        />
-                    </View>
-                    <View style={styles.inputContainer}>
-                        <TextInput
-                            style={styles.inputs}
-                            placeholder="Phone Number"
+                            placeholder="Mobile Number"
                             keyboardType="numeric"
                             autoCapitalize="none"
                             underlineColorAndroid="transparent"
@@ -200,7 +198,7 @@ const styles = StyleSheet.create({
         borderRadius: 30,
     },
     loginButton: {
-        backgroundColor: "red",
+        backgroundColor: "#2196F3",
     },
     loginText: {
         color: "white",

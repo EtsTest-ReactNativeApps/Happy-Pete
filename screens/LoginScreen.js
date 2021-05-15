@@ -10,9 +10,10 @@ import {
   Image,
   ActivityIndicator,
   Picker,
-TextInput
+  TextInput
 } from "react-native";
 import FirebaseConfig from "../components/config";
+
 
 
 export default class LoginScreen extends Component{
@@ -41,6 +42,7 @@ export default class LoginScreen extends Component{
                   let userInfo = snapshot.val();
                   for (let attributes in userInfo) {
                     role = userInfo[attributes].role
+
                   }
                   if (role === "Admin") {
                     this.props.navigation.navigate("Admin",{

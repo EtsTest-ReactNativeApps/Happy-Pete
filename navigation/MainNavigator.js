@@ -33,6 +33,7 @@ import AddAdminScreen from "../screens/AddAdmin";
 import CreateBlog from "../screens/CreateBlog";
 import ForgotPasswordScreen from "../screens/ForgotPasswordScreen";
 import AllPlaces from "../screens/AllPlaces";
+import Welcome from "../screens/LandingScreen";
 class NavigationDrawerStructure extends Component {
 
   toggleDrawer = () => {
@@ -57,21 +58,17 @@ class NavigationDrawerStructure extends Component {
 }
 
 const FirstActivity_StackNavigator = createStackNavigator({
-
-  Landing: {
-    screen: LandingScreen,
+  Welcome: {
+    screen: Welcome,
     navigationOptions: ({ navigation }) => ({
       headerRight: <Text style={styles.headerRight}>Happy St. Pete</Text>,
-      headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
+      headerLeft: null,
       headerStyle: {
         backgroundColor: "#fff",
       },
       headerTintColor: "#fff",
-
     }),
   },
-
-
   Home: {
     screen: HomeScreen,
     navigationOptions: ({ navigation }) => ({
@@ -148,7 +145,7 @@ const FirstActivity_StackNavigator = createStackNavigator({
     screen: LoginScreen,
     navigationOptions: ({ navigation }) => ({
       headerRight: <Text style={styles.headerRight}>Happy St. Pete</Text>,
-      headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
+      headerLeft:null,
       headerStyle: {
         backgroundColor: "#fff",
       },
@@ -160,7 +157,7 @@ const FirstActivity_StackNavigator = createStackNavigator({
     screen: RegistrationScreen,
     navigationOptions: ({ navigation }) => ({
       headerRight: <Text style={styles.headerRight}>Happy St. Pete</Text>,
-      headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
+      headerLeft: null,
       headerStyle: {
         backgroundColor: "#fff",
       },
@@ -221,7 +218,7 @@ const FirstActivity_StackNavigator = createStackNavigator({
     screen: ForgotPasswordScreen,
     navigationOptions: ({ navigation }) => ({
       headerRight: <Text style={styles.headerRight}>Happy St. Pete</Text>,
-      headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
+      headerLeft: null,
       headerStyle: {
         backgroundColor: "#fff",
       },
@@ -240,7 +237,8 @@ const FirstActivity_StackNavigator = createStackNavigator({
       headerTintColor: "#fff",
 
     }),
-  }
+  },
+
 
 });
 
