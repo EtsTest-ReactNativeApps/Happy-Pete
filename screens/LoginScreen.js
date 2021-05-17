@@ -185,6 +185,7 @@ inputContainer: {
   alignItems: "center",
   borderWidth:3,
   paddingVertical:25,
+  fontSize:18,
 },
 inputs: {
   height: 45,

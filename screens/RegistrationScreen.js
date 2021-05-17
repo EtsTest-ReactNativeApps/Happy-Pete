@@ -62,6 +62,8 @@ export default class RegistrationScreen extends Component{
     render(){
         return (
             <View style={styles.container}>
+                      <Text style={styles.heading}>LOGIN</Text>
+
                 <View>
                     <View style={styles.inputContainer}>
                         <Image
@@ -130,6 +132,12 @@ export default class RegistrationScreen extends Component{
                         <Text style={styles.loginText}>Register</Text>
                     </TouchableHighlight>
 
+            <View style={styles.login}>
+                <Text style={styles.loginTextBlack} onPress={() =>
+                    this.props.navigation.navigate("Login")
+                  }>Already a user? Login</Text>
+              </View>
+
                 </View>
             </View>
         )
@@ -140,9 +148,17 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: "center",
-        justifyContent: "center",
-        alignContent: "center"
+        justifyContent: "flex-start",
+        alignContent: "flex-start",
+        backgroundColor : "#F7F082",
     },
+    
+heading :{
+    color:"#000",
+    fontWeight : "bold",
+    marginVertical :40,
+    fontSize : 31,
+  },
 
     wrapper: {
         display: "flex",
@@ -165,43 +181,49 @@ const styles = StyleSheet.create({
         fontWeight: "300",
         marginBottom: 40
     },
+
     inputContainer: {
-        borderBottomColor: "#fff8dc",
-        backgroundColor: "#FFFFFF",
+        backgroundColor: "white",
         borderRadius: 30,
-        borderBottomWidth: 1,
-        width: 250,
+        width : 350,
         height: 45,
         marginBottom: 20,
         flexDirection: "row",
         alignItems: "center",
-    },
-    inputs: {
+        borderWidth:2,
+        paddingVertical:25,
+      },
+      inputs: {
         height: 45,
         marginLeft: 16,
         borderBottomColor: "#FFFFFF",
         flex: 1,
-    },
-    inputIcon: {
+        fontWeight:"500",
+        fontSize : 18
+      },
+      inputIcon: {
         width: 30,
         height: 30,
         marginLeft: 15,
         justifyContent: "center",
-    },
-    buttonContainer: {
+      },
+      buttonContainer: {
         height: 45,
         flexDirection: "row",
         justifyContent: "center",
         alignItems: "center",
-        marginBottom: 20,
-        width: 250,
+        marginTop: 20,
+        width: 350,
         borderRadius: 30,
-    },
-    loginButton: {
-        backgroundColor: "#2196F3",
-    },
+        paddingVertical:25,
+
+      },
+      loginButton: {
+        backgroundColor: "#000",
+      },
     loginText: {
         color: "white",
+        fontSize:18,
     },
     fixTotext: {
         justifyContent: "space-between",
@@ -222,4 +244,19 @@ const styles = StyleSheet.create({
     forgotText: {
         fontWeight: "800",
     },
+
+    login : {
+        display :"flex",
+        alignItems : "center",
+        justifyContent : "center",
+      },
+      
+      loginTextBlack : {
+        color : "#000",
+        fontWeight: "bold",
+        fontSize :18,
+        marginTop : 30,
+
+      },
+
 })

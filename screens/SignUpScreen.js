@@ -74,9 +74,10 @@ export default class SignUpScreen extends Component{
 const styles = StyleSheet.create({
 container: {
   flex: 1,
-  alignItems: "center",
+  alignItems: "flex-end",
   justifyContent: "center",
-  alignContent: "center"
+  alignContent: "center",
+  backgroundColor : "#F7F082"
 },
 alignInputbox:{
     flexDirection:"row",
