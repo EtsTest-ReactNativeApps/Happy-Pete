@@ -69,12 +69,16 @@ export default class LoginScreen extends Component{
   render(){
   return (
     <View style={styles.container}>
+      <Text style={styles.heading}>LOGIN</Text>
             <View>
+              
+              {/* input email */}
               <View style={styles.inputContainer}>
                 <Image
                   style={styles.inputIcon}
                   source={require("../assets/mailIcon.jpg")}
                 />
+
                 <TextInput
                   caretHidden
                   style={styles.inputs}
@@ -86,6 +90,7 @@ export default class LoginScreen extends Component{
                 />
               </View>
 
+              {/* input password */}
               <View style={styles.inputContainer}>
                 <Image
                   style={styles.inputIcon}
@@ -101,6 +106,15 @@ export default class LoginScreen extends Component{
                 />
               </View>
 
+              {/* forgot password */}
+              <View style={styles.forgotPassword}>
+                <Text style={styles.forgotPasswordText} onPress={() =>
+                    this.props.navigation.navigate("ForgotPassword")
+                  }>Forgot Password ?</Text>
+              </View>
+
+
+              {/* Login Button */}
               <TouchableHighlight
                 style={[styles.buttonContainer, styles.loginButton]}
                 onPress={() => this.validateForm()}
@@ -108,14 +122,16 @@ export default class LoginScreen extends Component{
                 <Text style={styles.loginText}>Login</Text>
               </TouchableHighlight>
 
-              <TouchableHighlight
-                style={[styles.buttonContainer, styles.forgotBtn]}
-                onPress={() =>
-                  this.props.navigation.navigate("ForgotPassword")
-                }
-              >
-                <Text style={styles.loginText}>Forgot Password ?</Text>
-              </TouchableHighlight>
+
+              {/* Signup */}
+              <View style={styles.signup}>
+                <Text style={styles.signupText} onPress={() =>
+                    this.props.navigation.navigate("Register")
+                  }>New here? Sign Up</Text>
+              </View>
+              
+
+
         </View>
         </View>
   )
@@ -126,8 +142,16 @@ const styles = StyleSheet.create({
 container: {
   flex: 1,
   alignItems: "center",
-  justifyContent: "center",
-  alignContent: "center"
+  justifyContent: "flex-start",
+  alignContent: "center",
+  backgroundColor : "#F7F082",
+},
+
+heading :{
+  color:"#000",
+  fontWeight : "bold",
+  marginVertical :40,
+  fontSize : 27,
 },
 
 wrapper: {
@@ -152,21 +176,22 @@ loginHeader: {
   marginBottom: 40
 },
 inputContainer: {
-  borderBottomColor: "#fff8dc",
   backgroundColor: "#FFFFFF",
   borderRadius: 30,
-  borderBottomWidth: 1,
-  width: 250,
+  width : 350,
   height: 45,
   marginBottom: 20,
   flexDirection: "row",
   alignItems: "center",
+  borderWidth:3,
+  paddingVertical:25,
 },
 inputs: {
   height: 45,
   marginLeft: 16,
   borderBottomColor: "#FFFFFF",
   flex: 1,
+  fontWeight:"500",
 },
 inputIcon: {
   width: 30,
@@ -180,11 +205,12 @@ buttonContainer: {
   justifyContent: "center",
   alignItems: "center",
   marginBottom: 20,
-  width: 250,
+  width: 350,
   borderRadius: 30,
+  paddingVertical:25,
 },
 loginButton: {
-  backgroundColor: "red",
+  backgroundColor: "#000",
 },
 loginText: {
   color: "white",
@@ -205,10 +231,31 @@ buttonContainerForgot: {
   marginLeft: "20%",
 },
 
-forgotText: {
-  fontWeight: "800",
+forgotPassword : {
+  display:"flex",
+  justifyContent : "center",
+  alignItems : "flex-end",
+  fontWeight : "800",
+  marginBottom :30,
 },
-  forgotBtn:{
-  backgroundColor:'red'
-  }
+
+forgotPasswordText: {
+  color : "#000",
+  fontWeight: "bold",
+},
+
+signup : {
+  display :"flex",
+  alignItems : "center",
+  justifyContent : "center",
+},
+
+signupText : {
+  color : "#000",
+  fontWeight: "bold",
+},
+
+forgotBtn:{
+  backgroundColor:'transparent'
+}
 })

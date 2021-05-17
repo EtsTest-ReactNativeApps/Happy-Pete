@@ -61,7 +61,7 @@ const FirstActivity_StackNavigator = createStackNavigator({
   Welcome: {
     screen: Welcome,
     navigationOptions: ({ navigation }) => ({
-      headerRight: <Text style={styles.headerRight}>Happy St. Pete</Text>,
+      headerRight: <Text style={styles.headerRight}>Varun</Text>,
       headerLeft: null,
       headerStyle: {
         backgroundColor: "#fff",
@@ -72,7 +72,7 @@ const FirstActivity_StackNavigator = createStackNavigator({
   Home: {
     screen: HomeScreen,
     navigationOptions: ({ navigation }) => ({
-      headerRight: <Text style={styles.headerRight}>Happy St. Pete</Text>,
+      headerRight: <Text style={styles.headerRight}>Varun</Text>,
       headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
       headerStyle: {
         backgroundColor: "#fff",
@@ -84,7 +84,7 @@ const FirstActivity_StackNavigator = createStackNavigator({
   FeaturedMap: {
     screen: FeaturedMap,
     navigationOptions: ({ navigation }) => ({
-      headerRight: <Text style={styles.headerRight}>Happy St. Pete</Text>,
+      headerRight: <Text style={styles.headerRight}>Varun</Text>,
       headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
       headerStyle: {
         backgroundColor: "#fff",
@@ -96,7 +96,7 @@ const FirstActivity_StackNavigator = createStackNavigator({
   MapDataUpload: {
     screen: MapDataUpload,
     navigationOptions: ({ navigation }) => ({
-      headerRight: <Text style={styles.headerRight}>Happy St. Pete</Text>,
+      headerRight: <Text style={styles.headerRight}>Varun</Text>,
       headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
       headerStyle: {
         backgroundColor: "#fff",
@@ -108,7 +108,7 @@ const FirstActivity_StackNavigator = createStackNavigator({
   DrinkScreen: {
     screen: DrinkScreen,
     navigationOptions: ({ navigation }) => ({
-      headerRight: <Text style={styles.headerRight}>Happy St. Pete</Text>,
+      headerRight: <Text style={styles.headerRight}>Varun</Text>,
       headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
       headerStyle: {
         backgroundColor: "#fff",
@@ -120,7 +120,7 @@ const FirstActivity_StackNavigator = createStackNavigator({
   BarDetailsScreen: {
     screen: BarDetailsScreen,
     navigationOptions: ({ navigation }) => ({
-      headerRight: <Text style={styles.headerRight}>Happy St. Pete</Text>,
+      headerRight: <Text style={styles.headerRight}>Varun</Text>,
       headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
       headerStyle: {
         backgroundColor: "#fff",
@@ -132,7 +132,7 @@ const FirstActivity_StackNavigator = createStackNavigator({
   BarMapScreen: {
     screen: BarMapScreen,
     navigationOptions: ({ navigation }) => ({
-      headerRight: <Text style={styles.headerRight}>Happy St. Pete</Text>,
+      headerRight: <Text style={styles.headerRight}>Varun</Text>,
       headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
       headerStyle: {
         backgroundColor: "#fff",
@@ -144,7 +144,7 @@ const FirstActivity_StackNavigator = createStackNavigator({
   Login: {
     screen: LoginScreen,
     navigationOptions: ({ navigation }) => ({
-      headerRight: <Text style={styles.headerRight}>Happy St. Pete</Text>,
+      headerRight: <Text style={styles.headerRight}>Varun</Text>,
       headerLeft:null,
       headerStyle: {
         backgroundColor: "#fff",
@@ -156,7 +156,7 @@ const FirstActivity_StackNavigator = createStackNavigator({
   Register: {
     screen: RegistrationScreen,
     navigationOptions: ({ navigation }) => ({
-      headerRight: <Text style={styles.headerRight}>Happy St. Pete</Text>,
+      headerRight: <Text style={styles.headerRight}>Varun</Text>,
       headerLeft: null,
       headerStyle: {
         backgroundColor: "#fff",
@@ -168,7 +168,7 @@ const FirstActivity_StackNavigator = createStackNavigator({
   CategoryList: {
     screen: CategoryList,
     navigationOptions: ({ navigation }) => ({
-      headerRight: <Text style={styles.headerRight}>Happy St. Pete</Text>,
+      headerRight: <Text style={styles.headerRight}>Varun</Text>,
       headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
       headerStyle: {
         backgroundColor: "#fff",
@@ -181,7 +181,7 @@ const FirstActivity_StackNavigator = createStackNavigator({
   Admin: {
     screen: AdminScreen,
     navigationOptions: ({ navigation }) => ({
-      headerRight: <Text style={styles.headerRight}>Happy St. Pete</Text>,
+      headerRight: <Text style={styles.headerRight}>Varun</Text>,
       headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
       headerStyle: {
         backgroundColor: "#fff",
@@ -193,7 +193,7 @@ const FirstActivity_StackNavigator = createStackNavigator({
   AddAdmin: {
     screen: AddAdminScreen,
     navigationOptions: ({ navigation }) => ({
-      headerRight: <Text style={styles.headerRight}>Happy St. Pete</Text>,
+      headerRight: <Text style={styles.headerRight}>Varun</Text>,
       headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
       headerStyle: {
         backgroundColor: "#fff",
@@ -205,7 +205,7 @@ const FirstActivity_StackNavigator = createStackNavigator({
   CreateBlog: {
     screen: CreateBlog,
     navigationOptions: ({ navigation }) => ({
-      headerRight: <Text style={styles.headerRight}>Happy St. Pete</Text>,
+      headerRight: <Text style={styles.headerRight}>Varun</Text>,
       headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
       headerStyle: {
         backgroundColor: "#fff",
@@ -217,7 +217,7 @@ const FirstActivity_StackNavigator = createStackNavigator({
   ForgotPassword: {
     screen: ForgotPasswordScreen,
     navigationOptions: ({ navigation }) => ({
-      headerRight: <Text style={styles.headerRight}>Happy St. Pete</Text>,
+      headerRight: <Text style={styles.headerRight}>Varun</Text>,
       headerLeft: null,
       headerStyle: {
         backgroundColor: "#fff",
@@ -229,7 +229,7 @@ const FirstActivity_StackNavigator = createStackNavigator({
   AllPlaces: {
     screen: AllPlaces,
     navigationOptions: ({ navigation }) => ({
-      headerRight: <Text style={styles.headerRight}>Happy St. Pete</Text>,
+      headerRight: <Text style={styles.headerRight}>Varun</Text>,
       headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
       headerStyle: {
         backgroundColor: "#fff",
