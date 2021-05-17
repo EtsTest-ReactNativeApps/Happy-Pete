@@ -145,6 +145,7 @@ container: {
   justifyContent: "flex-start",
   alignContent: "center",
   backgroundColor : "#F7F082",
+  fontSize : 18,
 },
 
 heading :{
@@ -193,6 +194,7 @@ inputs: {
   borderBottomColor: "#FFFFFF",
   flex: 1,
   fontWeight:"500",
+  fontSize : 18,
 },
 inputIcon: {
   width: 30,
@@ -215,6 +217,8 @@ loginButton: {
 },
 loginText: {
   color: "white",
+  fontSize : 18,
+  fontWeight : "bold",
 },
 fixTotext: {
   justifyContent: "space-between",
@@ -238,11 +242,13 @@ forgotPassword : {
   alignItems : "flex-end",
   fontWeight : "800",
   marginBottom :30,
+
 },
 
 forgotPasswordText: {
   color : "#000",
   fontWeight: "bold",
+  fontSize : 18
 },
 
 signup : {
@@ -254,6 +260,7 @@ signup : {
 signupText : {
   color : "#000",
   fontWeight: "bold",
+  fontSize : 18
 },
 
 forgotBtn:{

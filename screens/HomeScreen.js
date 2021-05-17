@@ -1,4 +1,4 @@
-import React, { Component } from        "react";
+import React, { Component } from "react";
 import {
     StyleSheet,
     View,
@@ -12,11 +12,11 @@ import {
 
 } from "react-native";
 import { Fontisto } from '@expo/vector-icons';
-import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import * as Updates from 'expo-updates';
-import {Avatar, ListItem, SearchBar,Icon} from 'react-native-elements';
+import { Avatar, ListItem, SearchBar, Icon } from 'react-native-elements';
 import FeaturedMap from "./FeaturedMap";
 import Firebase from "../components/config";
 import DrinkScreen from "./DrinkScreen";
@@ -28,18 +28,18 @@ export default class HomeScreen extends Component {
         search: '',
         drinkData: '',
         barLists: [],
-        bar:[],
-        role:this.props.navigation.getParam("role")
+        bar: [],
+        role: this.props.navigation.getParam("role")
     };
 
     async componentDidMount() {
         const { navigation } = this.props;
-            this.fetchAllDetails()
-            this.getNearestPlace()
+        this.fetchAllDetails()
+        this.getNearestPlace()
     }
 
 
-    renderItem = ({item}) => (
+    renderItem = ({ item }) => (
 
         <ListItem bottomDivider button onPress={() => {
             this.goToBarDetails(item.name)
@@ -49,7 +49,7 @@ export default class HomeScreen extends Component {
                 <ListItem.Title>{item.name}</ListItem.Title>
                 <ListItem.Subtitle>{item.address}</ListItem.Subtitle>
             </ListItem.Content>
-            <ListItem.Chevron/>
+            <ListItem.Chevron />
         </ListItem>
 
     )
@@ -60,11 +60,12 @@ export default class HomeScreen extends Component {
                 <View style={styles.Home}>
                     <View style={styles.fixToText}>
                         <TouchableHighlight
-                                       style={[styles.buttonContainer, styles.btnLeft, styles.clickButton]}
+                            style={[styles.buttonContainer, styles.btnLeft, styles.clickButton]}
                             onPress={() => this.fetchRestaurant()}
                         >
                             <React.Fragment>
-                                <Ionicons name="restaurant" size={24} color="black"/>
+                                <Image style={styles.wine} source={require("../assets/icons/homescreen/wine.png")} />
+                                {/* <Ionicons name="restaurant" size={24} color="black"/> */}
                                 <Text style={styles.clickText}>Wine</Text>
                             </React.Fragment>
 
@@ -75,7 +76,7 @@ export default class HomeScreen extends Component {
                             onPress={() => this.fetchDrink()}
                         >
                             <React.Fragment>
-                                <FontAwesome5 name="cocktail" size={24} color="black"/>
+                                <Image style={styles.cocktail} source={require("../assets/icons/homescreen/cocktail.png")} />
                                 <Text style={[styles.clickText]}>Cocktails</Text>
                             </React.Fragment>
                         </TouchableHighlight>
@@ -85,54 +86,53 @@ export default class HomeScreen extends Component {
                             style={[styles.buttonContainer, styles.clickButton]}
                             onPress={() => this.fetchFood()}
                         ><React.Fragment>
-                            <Ionicons name="fast-food" size={24} color="black"/>
-                            <Text style={[styles.clickText, styles.marginIcon]}>Food</Text>
-                        </React.Fragment>
+                                <Image style={styles.food} source={require("../assets/icons/homescreen/food.png")} />
+                                <Text style={[styles.clickText, styles.marginIcon]}>Food</Text>
+                            </React.Fragment>
                         </TouchableHighlight>
                         <TouchableHighlight
                             style={[styles.buttonContainer, styles.clickButton]}
                             onPress={() => this.fetchBeer()}
                         >
                             <React.Fragment>
-                                <FontAwesome5 name="beer" size={24} color="black"/>
+                    <Image style={styles.beer} source={require("../assets/icons/homescreen/beer.png")} />
                                 <Text style={[styles.clickText, styles.marginIcon]}>Beer</Text>
                             </React.Fragment>
                         </TouchableHighlight>
                     </View>
                 </View>
                 <View style={styles.mapView}>
-                    <Text style={styles.mapText}>Featured Places</Text>
-                    <FeaturedMap children={this.state.barLists}/>
+                    <FeaturedMap children={this.state.barLists} />
                 </View>
-                {this.state.bar===null || this.state.bar===[]?(
-                <View>
-                    {
-                        this.state.bar &&
-                        <FlatList
-                            data={this.state.bar}
-                            keyExtractor={(a, b) => b.toString()}
-                            renderItem={(item) => this.renderItem(item)}
-                        />
+                {this.state.bar === null || this.state.bar === [] ? (
+                    <View style={{ height: "50%" }}>
+                        {
+                            this.state.bar &&
+                            <FlatList
+                                data={this.state.bar}
+                                keyExtractor={(a, b) => b.toString()}
+                                renderItem={(item) => this.renderItem(item)}
+                            />
 
-                    }
-                    <TouchableHighlight
-                        style={styles.viewAll}
-                        onPress={() => this.props.navigation.navigate("AllPlaces",{
-                            role:this.state.role
-                        })}
-                    >
-                            <Text style={styles.clickText}>View All</Text>
-                    </TouchableHighlight>
-                </View>
-                    ):
-                    <View><Text style={styles.noplaces}>No nearest places or Bar found for your location</Text>
+                        }
                         <TouchableHighlight
                             style={styles.viewAll}
-                            onPress={() => this.props.navigation.navigate("AllPlaces",{
-                                role:this.state.role
+                            onPress={() => this.props.navigation.navigate("AllPlaces", {
+                                role: this.state.role
                             })}
                         >
                             <Text style={styles.clickText}>View All</Text>
+                        </TouchableHighlight>
+                    </View>
+                ) :
+                    <View><Text style={styles.noplaces}>No nearest places or Bar found for your location</Text>
+                        <TouchableHighlight
+                            style={styles.viewAll}
+                            onPress={() => this.props.navigation.navigate("AllPlaces", {
+                                role: this.state.role
+                            })}
+                        >
+                            <Text style={styles.viewAllText}>View All</Text>
                         </TouchableHighlight>
                     </View>
                 }
@@ -164,111 +164,111 @@ export default class HomeScreen extends Component {
     }
 
     fetchRestaurant() {
-        let resData =[]
+        let resData = []
         Firebase.database().ref("/places").orderByChild('category').equalTo('Restaurant')
             .once("value").then(snapshot => {
-            snapshot.forEach((child) => {
-                resData.push({
-                    title: child.val().name,
-                    address: child.val().address,
-                    key: child.key,
-                    website: child.val().website,
-                    longitude: child.val().longitude,
-                    latitude: child.val().latitude,
-                    phoneNumber: child.val().phoneNumber,
-                    foodMenu: child.val().foodMenu,
-                    drinkMenu: child.val().drinkMenu,
-                    happyHour: child.val().happyHour,
-                    category:child.val().category
+                snapshot.forEach((child) => {
+                    resData.push({
+                        title: child.val().name,
+                        address: child.val().address,
+                        key: child.key,
+                        website: child.val().website,
+                        longitude: child.val().longitude,
+                        latitude: child.val().latitude,
+                        phoneNumber: child.val().phoneNumber,
+                        foodMenu: child.val().foodMenu,
+                        drinkMenu: child.val().drinkMenu,
+                        happyHour: child.val().happyHour,
+                        category: child.val().category
+                    })
+                })
+                this.props.navigation.navigate("CategoryList", {
+                    data: resData
                 })
             })
-            this.props.navigation.navigate("CategoryList",{
-                data:resData
-            })
-        })
     }
     fetchDrink() {
-        let drinkData =[]
+        let drinkData = []
         Firebase.database().ref("/places").orderByChild('category').equalTo('Cocktails')
             .once("value").then(snapshot => {
-            snapshot.forEach((child) => {
-                drinkData.push({
-                    title: child.val().name,
-                    address: child.val().address,
-                    key: child.key,
-                    website: child.val().website,
-                    longitude: child.val().longitude,
-                    latitude: child.val().latitude,
-                    phoneNumber: child.val().phoneNumber,
-                    foodMenu: child.val().foodMenu,
-                    drinkMenu: child.val().drinkMenu,
-                    happyHour: child.val().happyHour,
-                    category:child.val().category
+                snapshot.forEach((child) => {
+                    drinkData.push({
+                        title: child.val().name,
+                        address: child.val().address,
+                        key: child.key,
+                        website: child.val().website,
+                        longitude: child.val().longitude,
+                        latitude: child.val().latitude,
+                        phoneNumber: child.val().phoneNumber,
+                        foodMenu: child.val().foodMenu,
+                        drinkMenu: child.val().drinkMenu,
+                        happyHour: child.val().happyHour,
+                        category: child.val().category
+                    })
+                })
+                this.props.navigation.navigate("CategoryList", {
+                    data: drinkData
                 })
             })
-            this.props.navigation.navigate("CategoryList",{
-                data:drinkData
-            })
-        })
     }
 
     fetchFood() {
-        let foodData =[]
+        let foodData = []
         Firebase.database().ref("/places").orderByChild('category').equalTo('Food')
             .once("value").then(snapshot => {
-            snapshot.forEach((child) => {
-                foodData.push({
-                    title: child.val().name,
-                    address: child.val().address,
-                    key: child.key,
-                    category:child.val().category,
-                    website: child.val().website,
-                    longitude: child.val().longitude,
-                    latitude: child.val().latitude,
-                    phoneNumber: child.val().phoneNumber,
-                    foodMenu: child.val().foodMenu,
-                    drinkMenu: child.val().drinkMenu,
-                    happyHour: child.val().happyHour
+                snapshot.forEach((child) => {
+                    foodData.push({
+                        title: child.val().name,
+                        address: child.val().address,
+                        key: child.key,
+                        category: child.val().category,
+                        website: child.val().website,
+                        longitude: child.val().longitude,
+                        latitude: child.val().latitude,
+                        phoneNumber: child.val().phoneNumber,
+                        foodMenu: child.val().foodMenu,
+                        drinkMenu: child.val().drinkMenu,
+                        happyHour: child.val().happyHour
+                    })
                 })
-            })
-            this.props.navigation.navigate("CategoryList",{
-                data:foodData
-            })
+                this.props.navigation.navigate("CategoryList", {
+                    data: foodData
+                })
 
 
-        })
+            })
     }
 
     fetchBeer() {
-       let beerData=[]
+        let beerData = []
         Firebase.database().ref("/places").orderByChild('category').equalTo('Beer')
             .once("value").then(snapshot => {
-            snapshot.forEach((child) => {
-                beerData.push({
-                    title: child.val().name,
-                    address: child.val().address,
-                    key: child.key,
-                    website: child.val().website,
-                    longitude: child.val().longitude,
-                    latitude: child.val().latitude,
-                    phoneNumber: child.val().phoneNumber,
-                    foodMenu: child.val().foodMenu,
-                    drinkMenu: child.val().drinkMenu,
-                    happyHour: child.val().happyHour,
-                    category:child.val().category
+                snapshot.forEach((child) => {
+                    beerData.push({
+                        title: child.val().name,
+                        address: child.val().address,
+                        key: child.key,
+                        website: child.val().website,
+                        longitude: child.val().longitude,
+                        latitude: child.val().latitude,
+                        phoneNumber: child.val().phoneNumber,
+                        foodMenu: child.val().foodMenu,
+                        drinkMenu: child.val().drinkMenu,
+                        happyHour: child.val().happyHour,
+                        category: child.val().category
+                    })
                 })
-            })
-            this.props.navigation.navigate("CategoryList",{
-                data:beerData
-            })
+                this.props.navigation.navigate("CategoryList", {
+                    data: beerData
+                })
 
-        })
+            })
     }
 
 
     goToBarDetails(name) {
         let listDetails = this.state.bar;
-        for (let i  in listDetails) {
+        for (let i in listDetails) {
             let title = listDetails[i].name
             if (title === name) {
                 this.props.navigation.navigate("BarDetailsScreen", {
@@ -290,40 +290,40 @@ export default class HomeScreen extends Component {
 
 
     fetchAllDetails() {
-        let bar=[]
+        let bar = []
         Firebase.database().ref("/places")
-            .once("value").then(snapshot=>{
-            snapshot.forEach((child)=>{
+            .once("value").then(snapshot => {
+                snapshot.forEach((child) => {
                     bar.push({
                         name: child.val().name,
                         address: child.val().address,
                         key: child.key,
-                        website:child.val().website,
-                        longitude:child.val().longitude,
-                        latitude:child.val().latitude,
-                        phoneNumber:child.val().phoneNumber,
-                        foodMenu :child.val().foodMenu,
-                        drinkMenu:child.val().drinkMenu,
+                        website: child.val().website,
+                        longitude: child.val().longitude,
+                        latitude: child.val().latitude,
+                        phoneNumber: child.val().phoneNumber,
+                        foodMenu: child.val().foodMenu,
+                        drinkMenu: child.val().drinkMenu,
                         happyHour: child.val().happyHour
                     })
-                this.getNearestPlace(bar)
+                    this.getNearestPlace(bar)
+                })
             })
-        })
     }
 
     getNearestPlace(barList) {
         navigator.geolocation = require('@react-native-community/geolocation');
         navigator.geolocation.getCurrentPosition(
             position => {
-                let bar=[]
-                for(let i in barList ){
-                    let dis= geolib.getDistance(position.coords, {
+                let bar = []
+                for (let i in barList) {
+                    let dis = geolib.getDistance(position.coords, {
                         latitude: barList[i].latitude,
                         longitude: barList[i].longitude,
                     })
-                    let disKM= dis/1000;
+                    let disKM = dis / 1000;
 
-                    if(disKM<=50){
+                    if (disKM <= 50) {
                         bar.push({
                             name: barList[i].title,
                             // avatar_url:list[i].avatar_url,
@@ -339,7 +339,7 @@ export default class HomeScreen extends Component {
                     }
                 }
                 this.setState({
-                    bar:bar
+                    bar: bar
                 });
             },
             error => {
@@ -352,35 +352,36 @@ export default class HomeScreen extends Component {
 }
 
 const styles = StyleSheet.create({
-    Swiper:{
-        height:500,
-        width:500
+    Swiper: {
+        height: 500,
+        width: 500
     },
     fixTotext: {
         justifyContent: "space-between",
         flexDirection: "row",
     },
-  container: {
-    height:hp('100%')
-  },
-    bestText:{
-      marginTop:"5%",
-      color:'black',
-      fontSize:40,
-      fontWeight :'bold',
-      marginLeft:'5%'
+    container: {
+        height: hp('100%'),
+        backgroundColor: "white",
     },
-    randomText:{
-      marginLeft: '5%',
-      marginRight: '10%'
+    bestText: {
+        marginTop: "5%",
+        color: 'black',
+        fontSize: 40,
+        fontWeight: 'bold',
+        marginLeft: '5%'
     },
-    readMore:{
-      color:'red',
-      fontWeight:'500',
-      marginLeft:'10%'
+    randomText: {
+        marginLeft: '5%',
+        marginRight: '10%'
+    },
+    readMore: {
+        color: 'red',
+        fontWeight: '500',
+        marginLeft: '10%'
 
     },
-    fixImg:{
+    fixImg: {
         flexDirection: "row",
         justifyContent: "space-between",
         height: "100%",
@@ -389,21 +390,21 @@ const styles = StyleSheet.create({
         marginLeft: 15
 
     },
-    btn:{
-      borderRadius:5,
-      marginTop: 10,
-      marginLeft:30,
-      backgroundColor: "red",
-      height: 30,
-      width: "75%",
-      alignContent:"center"
+    btn: {
+        borderRadius: 5,
+        marginTop: 10,
+        marginLeft: 30,
+        backgroundColor: "red",
+        height: 30,
+        width: "75%",
+        alignContent: "center"
     },
-    btnText:{
-      fontSize:20,
-      fontWeight:'bold',
-      color:"#fff"
+    btnText: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: "#fff"
     },
-    locationTxt:{
+    locationTxt: {
 
     },
     mapcontainer: {
@@ -414,7 +415,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     map: {
-        display:'none',
+        display: 'none',
         ...StyleSheet.absoluteFillObject,
     },
     card: {
@@ -429,12 +430,12 @@ const styles = StyleSheet.create({
     Home: {
         justifyContent: "center",
         alignContent: "center",
-        marginTop: "5%"
+        marginTop: "5%",
+
     },
     separator: {
         marginVertical: "3%",
         borderBottomColor: "#737373",
-
     },
     paragraph: {
         margin: 1.5,
@@ -442,7 +443,7 @@ const styles = StyleSheet.create({
         fontWeight: "700",
         paddingLeft: 12,
         color: "#008b8b",
-        marginTop:"5%"
+        marginTop: "5%"
     },
     welcomeUser: {
         textAlign: "center",
@@ -452,22 +453,29 @@ const styles = StyleSheet.create({
         color: "#09C5F7"
     },
     buttonContainer: {
-        height: "70%",
+        height: "90%",
         justifyContent: "center",
         alignItems: "center",
-        marginBottom: "5%",
+        marginBottom: "2%",
         width: wp('43%'),
-        borderRadius: 15,
+        borderRadius: 13,
         marginRight: 15,
-        marginLeft: "2%"
+        width: 182,
+        height: 73,
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center",
+
     },
     clickButton: {
-        backgroundColor: "#09C5F7"
+        backgroundColor: "#F7F082"
     },
     clickText: {
-        color: "white",
-        fontSize: 20,
-        fontWeight: "800"
+        color: "#000",
+        fontSize: 18,
+        fontWeight: "bold",
+        marginLeft: 30,
     },
     fixToText: {
         flexDirection: "row",
@@ -489,46 +497,73 @@ const styles = StyleSheet.create({
         textAlign: "center",
         backgroundColor: "#000000a0"
     },
-    foodImage:{
-        height:165,
-        width:220
+    foodImage: {
+        height: 165,
+        width: 220
     },
-    mapView:{
-        marginRight:'15%'
+    mapView: {
+        marginRight: '15%'
     },
-    mapText:{
-        fontWeight:'bold',
-        fontSize:25,
-        color:'red',
-        marginLeft:'35%'
+    mapText: {
+        fontWeight: 'bold',
+        fontSize: 21,
+        color: 'black',
+        marginLeft: "5%",
     },
-    fav:{
-        marginRight:"20%",
+    fav: {
+        marginRight: "20%",
     },
-    fixMargin:{
+    fixMargin: {
         marginBottom: "12%"
     },
-    cardStyle:{
-        borderRadius:25
+    cardStyle: {
+        borderRadius: 25
     },
-    noplaces:{
-        marginTop:'3%',
-        color:'red',
-        fontSize:22,
-        fontWeight:'500'
+    noplaces: {
+        marginTop: '3%',
+        color: 'black',
+        fontSize: 16,
+        fontWeight: 'bold',
+        textAlign: "center",
     },
-    viewAll:{
-        color:'#fff',
-        backgroundColor: "#00b5ec",
-        height:hp('7%'),
-        width:'25%',
-        borderRadius:20,
-        display: 'flex',
-        justifyContent:'center',
-        alignItems:'center',
-        marginLeft:'35%',
-        marginTop:'5%'
-    }
+    viewAll: {
+        color: '#fff',
+        backgroundColor: "#000",
+        height: 45,
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: 20,
+        width: 350,
+        borderRadius: 30,
+        paddingVertical: 25,
+        marginLeft: "auto",
+        marginRight: "auto",
+        marginTop: 50,
+    },
+    viewAllText: {
+        color: "#fff",
+        fontSize: 18,
+        fontWeight: "bold",
+        textTransform: "uppercase",
+    },
+    wine:{
+        width : 40,
+        resizeMode : "contain"
+    },
+    cocktail:{
+        width : 30,
+        resizeMode : "contain"
+    },
+    food:{
+        width : 40,
+        resizeMode : "contain"
+    },
+     beer:{
+        width : 40,
+        resizeMode : "contain"
+    },
+    
 
 
 })

@@ -34,6 +34,9 @@ export default class ForgotPasswordScreen extends Component {
         return (
 
                 <View style={styles.container}>
+
+      <Text style={styles.heading}>FORGOT PASSWORD</Text>
+
                     <View style={styles.inputContainer}>
                         <Image
                             style={styles.inputIcon}
@@ -55,7 +58,9 @@ export default class ForgotPasswordScreen extends Component {
                     >
                         <Text style={styles.loginText}>Reset</Text>
                     </TouchableHighlight>
+
                 </View>
+
         );
     }
 }
@@ -63,46 +68,63 @@ export default class ForgotPasswordScreen extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
+        justifyContent: "flex-start",
+        alignContent: "center",
+        backgroundColor : "#F7F082",
+        fontSize : 18,
     },
-    inputContainer: {
-        borderBottomColor: "#fff8dc",
-        backgroundColor: "#FFFFFF",
+
+    heading :{
+        color:"#000",
+        fontWeight : "bold",
+        marginVertical :40,
+        fontSize : 24,
+        marginTop : "50%",
+      },
+
+      inputContainer: {
+        backgroundColor: "white",
         borderRadius: 30,
-        borderBottomWidth: 1,
-        width: 250,
+        width : 350,
         height: 45,
         marginBottom: 20,
         flexDirection: "row",
-        alignItems: "center"
-    },
-    inputs: {
+        alignItems: "center",
+        borderWidth:2,
+        paddingVertical:25,
+      },
+      inputs: {
         height: 45,
         marginLeft: 16,
         borderBottomColor: "#FFFFFF",
-        flex: 1
-    },
-    inputIcon: {
+        flex: 1,
+        fontWeight:"500",
+        fontSize : 18
+      },
+      inputIcon: {
         width: 30,
         height: 30,
         marginLeft: 15,
-        justifyContent: "center"
-    },
-    buttonContainer: {
+        justifyContent: "center",
+      },
+      buttonContainer: {
         height: 45,
         flexDirection: "row",
         justifyContent: "center",
         alignItems: "center",
-        marginBottom: 20,
-        width: 250,
-        borderRadius: 30
-    },
-    loginButton: {
-        backgroundColor: "#00b5ec"
-    },
+        marginTop: 20,
+        width: 350,
+        borderRadius: 30,
+        paddingVertical:25,
+
+      },
+      loginButton: {
+        backgroundColor: "#000",
+      },
     loginText: {
-        color: "white"
+        color: "white",
+        fontSize:18,
     },
     fixTotext: {
         justifyContent: "space-between",
@@ -127,5 +149,14 @@ const styles = StyleSheet.create({
     },
     forgotText: {
         fontWeight: "800"
+    },
+    description : {
+        fontWeight : "bold",
+        color : "black",
+        width : 300,
+        textAlign : "center",
+        fontSize : 16,
+        marginTop : 30,
+        lineHeight : 27 
     }
 });

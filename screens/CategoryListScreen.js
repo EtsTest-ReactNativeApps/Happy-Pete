@@ -52,7 +52,7 @@ export default class CategoryList extends Component{
             this.goToBarDetails(item.title)
         }}>
             {/*<Avatar source={{uri: item.avatar_url}} />*/}
-            <ListItem.Content>
+            <ListItem.Content >
                 <ListItem.Title>{item.title}</ListItem.Title>
                 <ListItem.Subtitle>{item.address}</ListItem.Subtitle>
             </ListItem.Content>
@@ -74,3 +74,9 @@ export default class CategoryList extends Component{
         )
     }
 }
+
+const styles = StyleSheet.create({
+    ListItem:{
+        backgroundColor : "purple",
+    }
+});
