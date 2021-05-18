@@ -1,10 +1,10 @@
-import React, { Component } from        "react";
-import {getDistance} from 'geolib';
+import React, { Component } from "react";
+import { getDistance } from 'geolib';
 import {
     StyleSheet,
     View,
     ScrollView,
-    Linking, Text
+    Linking, Text, Image
 } from "react-native";
 import * as geolib from 'geolib';
 import MapViewDirections from 'react-native-maps-directions';
@@ -13,106 +13,119 @@ import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from 
 import openMap from 'react-native-open-maps';
 import { createOpenLink } from 'react-native-open-maps';
 
-import MapView, {Marker, PROVIDER_GOOGLE} from "react-native-maps";
+import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import Firebase from "../components/config";
-const GOOGLE_MAPS_APIKEY ='AIzaSyCDn-KsRdw9W6AKogCtyF7CsCw5Ptg6efA'
-export default class BarDetailsScreen extends Component{
+import color from "color";
+const GOOGLE_MAPS_APIKEY = 'AIzaSyCDn-KsRdw9W6AKogCtyF7CsCw5Ptg6efA'
+export default class BarDetailsScreen extends Component {
     constructor(props) {
         super(props);
-        this.state={
-            distance:null,
-            longitude:null,
-            latitude:null,
-            address:null,
-            phoneNumber:null,
-            destinationOrigin:[{
+        this.state = {
+            distance: null,
+            longitude: null,
+            latitude: null,
+            address: null,
+            phoneNumber: null,
+            destinationOrigin: [{
                 latitude: this.props.navigation.getParam("latitude"),
                 longitude: this.props.navigation.getParam("longitude")
             }
             ],
-            origin:[{
-                latitude:null,
-                longitude:null
+            origin: [{
+                latitude: null,
+                longitude: null
             }]
         }
 
     }
     componentDidMount() {
-        const {navigation} = this.props
-        let longitude=navigation.getParam('longitude');
+        const { navigation } = this.props
+        let longitude = navigation.getParam('longitude');
         let latitude = navigation.getParam('latitude')
         this.setState({
-            latitude:latitude,
-            longitude:longitude,
+            latitude: latitude,
+            longitude: longitude,
         })
-        this.findDistance(longitude,latitude)
+        this.findDistance(longitude, latitude)
     }
 
     render() {
-        const {navigation} = this.props
+        const { navigation } = this.props
         let name = navigation.getParam("name")
-        let avatar_url=navigation.getParam('avatar_url');
+        let avatar_url = navigation.getParam('avatar_url');
         let subtitle = navigation.getParam('subtitle');
-        let website=navigation.getParam('website');
-        let longitude=navigation.getParam('longitude');
+        let website = navigation.getParam('website');
+        let longitude = navigation.getParam('longitude');
         let latitude = navigation.getParam('latitude')
-        let phoneNumber=navigation.getParam('phoneNumber')
-        let address=navigation.getParam('address')
-        let drinkMenu=navigation.getParam('drinkMenu')
-        let foodMenu =navigation.getParam('foodMenu')
-        let hours=navigation.getParam('happyHour')
-        return(
+        let phoneNumber = navigation.getParam('phoneNumber')
+        let address = navigation.getParam('address')
+        let drinkMenu = navigation.getParam('drinkMenu')
+        let foodMenu = navigation.getParam('foodMenu')
+        let hours = navigation.getParam('happyHour')
+        return (
             <ScrollView>
 
-                <Card>
-                    <CardImage
-                        source={{uri: avatar_url}}
-                        title={name}
+            <View style={styles.container}>
+                                {/* section 1 header image */}
+                                <View style={styles.imageContainer}>
+                    <Image
+                        style={styles.featureImage}
+                        source={require("../images/hotel.jpg")}
                     />
-                    <CardTitle
-                        subtitle={drinkMenu + foodMenu}
-                    />
-                    <View style={styles.fixMenu}>
-                        <CardContent text ="Happy Hour"/>
-                        <CardContent text={hours} />
-                    </View>
-                    <View style={styles.fixMenu}>
-                        <CardContent text ="Address"/>
-                        <CardContent text={address} />
+                </View>
+
+                {/* section 2 : contact details : hotelname, address, website url, phone, map */}
+                <View style={styles.hotelDetails}>
+
+                    {/* section 2.1 name, rating  address, web url */}
+                    <View style={styles.hotelInfoAndWebsite}>
+
+                        <View style={styles.nameAndRating}>
+                            <Text style={styles.hotelName}>The Lure</Text>
+                            <View style={styles.Rating}>
+                                <Image style={styles.RatingStar} source={require("../assets/icons/hotel_details/starRating.png")} />
+                                <Text style={styles.RatingValue}>4.3</Text>
+                            </View>
+                        </View>
+
+                        <Text style={styles.hotelAddress}>180 Central Ave St. Petersburg FL 33701 United States</Text>
+                        <Text style={styles.hotelWebsiteUrl}>www.thelure.com</Text>
+
                     </View>
 
-                    <View style={styles.fixMenu}>
-                    <CardContent text="Drink menu"
-                        style={styles.drinks}
-                    />
-                    <CardContent text={drinkMenu}
-                    />
+                    {/* section 2.2 call and map buttons */}
+                    <View style={styles.contactButtons}>
+                        <View style={styles.callButton}>
+                            <Image style={styles.callIcon} source={require("../assets/icons/hotel_details/callIcon.png")} />
+                        </View>
+                        <Text style={styles.mapButton}>
+                            <Image style={styles.mapIcon} source={require("../assets/icons/hotel_details/mapIcon.png")} />
+                        </Text>
                     </View>
-                    <View style={styles.fixMenu}>
-                        <CardContent text="Food Menu"/>
-                        <CardContent text={foodMenu}/>
+                </View>
+
+                {/* menu details */}
+
+                <View style={styles.menuDetails}>
+                    <View style={styles.menuTable}>
+                        <Text style={styles.menuHeading}>Happy Hour</Text>
+                        <Text style={styles.menuData}>Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam</Text>                   
                     </View>
 
-                    <CardAction
-                        separator={true}
-                        inColumn={false}>
-                        <CardButton
-                            onPress={() => {Linking.openURL(website)}}
-                            title="Website"
-                            color="#FEB557"
-                        />
-                        <CardButton
-                            onPress={() => {Linking.openURL('tel:'+phoneNumber)}}
-                            title="Call"
-                            color="#FEB557"
-                        />
-                        <CardButton
-                            onPress={() => {this.openDirection()}}
-                            title="Get Directions"
-                            color="#FEB557"
-                        />
-                    </CardAction>
-                </Card>
+                    <View style={styles.menuTable}>
+                        <Text style={styles.menuHeading}>Drink Menu</Text>
+                        <Text style={styles.menuData}>Purus sit amet luctus venenatis, lectus magna fringilla urna, porttitor</Text>                   
+                    </View>
+
+                    <View style={styles.menuTable}>
+                        <Text style={styles.menuHeading}>Food Menu</Text>
+                        <Text style={styles.menuData}>Contact them for more information</Text>                   
+                    </View>
+                </View>
+
+
+                {/* google map */}
+
                 <View style={styles.mapContainer}>
                     <MapView
                         showsUserLocation={true}
@@ -120,53 +133,56 @@ export default class BarDetailsScreen extends Component{
                         provider={PROVIDER_GOOGLE} // remove if not using Google Maps
                         style={styles.map}
                         region={{
-                            latitude:Number(latitude),
-                            longitude:Number(longitude),
-                            longitudeDelta:0.0121,
-                            latitudeDelta:0.100
+                            latitude: Number(latitude),
+                            longitude: Number(longitude),
+                            longitudeDelta: 0.0121,
+                            latitudeDelta: 0.100
 
                         }}
                     >{
-                        this.state.latitude &&
-                        <Marker
-                            coordinate={{latitude: parseFloat(latitude), longitude :parseFloat(longitude)}}
-                            title={name}
-                        />
-                    }{this.state.destinationOrigin && this.state.origin &&
-                        <MapViewDirections
-                            origin={this.state.origin[0]}
-                            destination={this.state.destinationOrigin[0]}
-                            apikey={GOOGLE_MAPS_APIKEY}
-                            strokeWidth={3}
-                            strokeColor="hotpink"
-                        />}
+                            this.state.latitude &&
+                            <Marker
+                                coordinate={{ latitude: parseFloat(latitude), longitude: parseFloat(longitude) }}
+                                title={name}
+                            />
+                        }{this.state.destinationOrigin && this.state.origin &&
+                            <MapViewDirections
+                                origin={this.state.origin[0]}
+                                destination={this.state.destinationOrigin[0]}
+                                apikey={GOOGLE_MAPS_APIKEY}
+                                strokeWidth={3}
+                                strokeColor="hotpink"
+                            />}
                     </MapView>
 
                 </View>
                 <View>
-                    <Text>You are {this.state.distance} km away from {name} </Text></View>
+                    <Text>You are {this.state.distance} km away from {name} </Text>
+                </View>
+            </View>
+
             </ScrollView>
 
         )
     }
 
     openDirection() {
-        openMap({ latitude:this.state.latitude, longitude: this.state.longitude });
+        openMap({ latitude: this.state.latitude, longitude: this.state.longitude });
     }
 
     findDistance(longitude, latitude) {
         navigator.geolocation = require('@react-native-community/geolocation');
         navigator.geolocation.getCurrentPosition(
             (position) => {
-                   let dis= geolib.getDistance(position.coords, {
-                        latitude: latitude,
-                        longitude: longitude,
-                    })
+                let dis = geolib.getDistance(position.coords, {
+                    latitude: latitude,
+                    longitude: longitude,
+                })
                 this.setState({
-                    distance:dis/1000,
-                    origin:[{
-                        latitude:position.coords.latitude,
-                        longitude:position.coords.longitude
+                    distance: dis / 1000,
+                    origin: [{
+                        latitude: position.coords.latitude,
+                        longitude: position.coords.longitude
                     }]
                 })
             },
@@ -178,10 +194,154 @@ export default class BarDetailsScreen extends Component{
 }
 
 const styles = StyleSheet.create({
+    menuDetails : {
+        marginBottom : 20,
+    },
+    menuTable:{
+        display : "flex",
+        flexDirection :"row", 
+        marginVertical : 10,
+        marginHorizontal : 20,
+    },
+    menuHeading:{
+        flex:1,
+        fontSize : 16,
+        color : "#000",
+        fontWeight : "bold"
+    },
+    menuData:{
+        flex:2,
+        fontSize : 16,
+        color : "#000",
+    },
+    
+
+    imageContainer: {
+        width: "100%",
+        height: 250,
+    },
+    featureImage: {
+        width: "100%",
+        height: "100%",
+        borderBottomLeftRadius: 20,
+        borderBottomRightRadius: 20,
+    },
+    hotelDetails: {
+        display: "flex",
+        marginVertical: 20,
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between",
+        marginHorizontal: 20,
+        // width : "100%",
+    },
+    hotelInfoAndWebsite: {
+
+    },
+    nameAndRating: {
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+
+    },
+    hotelName: {
+        fontSize: 27,
+        fontWeight: "bold",
+        color: "black",
+    },
+    Rating: {
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "center",
+        marginLeft: 15,
+    },
+    RatingStar: {
+        width: 18,
+        height: 20,
+        resizeMode: "contain",
+    },
+    RatingValue: {
+        color: "black",
+        fontWeight: "bold",
+        marginLeft: 5
+    },
+    hotelAddress: {
+        fontSize: 15,
+        width: 200,
+        lineHeight: 23,
+        marginVertical: 10,
+        color: "#3A3A3A",
+    },
+    hotelWebsiteUrl: {
+        fontSize: 16,
+        color: "#00429A",
+        textDecorationLine: "underline",
+    },
+    contactButtons: {
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "flex-start",
+        justifyContent: "space-between",
+    },
+
+    callButton: {
+        backgroundColor: 'white',
+        padding: 9,
+        borderRadius: 50,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 6,
+        },
+        shadowOpacity: 0.37,
+        shadowRadius: 7.49,
+
+        elevation: 12,
+        height: 50,
+        width: 50,
+        marginRight: 20,
+    },
+    callIcon: {
+        resizeMode: "contain",
+        width: "100%",
+        height: " 100%",
+    },
+
+
+
+    mapButton: {
+        backgroundColor: 'white',
+        borderRadius: 50,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 6,
+        },
+        shadowOpacity: 0.37,
+        shadowRadius: 7.49,
+
+        elevation: 12,
+        height: 50,
+        width: 50,
+    },
+    mapIcon: {
+        width: 50,
+        height: 30,
+        resizeMode: "contain",
+    },
+    urlIcon: {
+
+
+    },
+
+
+
+
     mapcontainer: {
         ...StyleSheet.absoluteFillObject,
         height: 400,
-        width: 400,
+        width: 1000,
         justifyContent: 'flex-end',
         alignItems: 'center',
     },
@@ -189,24 +349,21 @@ const styles = StyleSheet.create({
         display: 'none',
         ...StyleSheet.absoluteFillObject,
     },
-    mapContainer:{
+    mapContainer: {
 
-        justifyContent:"flex-end",
+        justifyContent: "flex-end",
         alignItems: 'center',
-        borderRadius:15,
-        borderColor:'orange',
-        borderWidth:2,
-        overflow:'hidden',
+        borderRadius: 0,
+        borderColor: 'white',
+        width: "100%",
         height: 200,
-        width: "99%",
-
     },
-    drinks:{
-        color:'red'
+    drinks: {
+        color: 'red'
     },
-    fixMenu:{
-        justifyContent:'center',
-        flexDirection:'row'
+    fixMenu: {
+        justifyContent: 'center',
+        flexDirection: 'row'
     }
 })
 
