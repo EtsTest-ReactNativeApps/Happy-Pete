@@ -4,7 +4,7 @@ import {
     StyleSheet,
     View,
     ScrollView,
-    Linking, Text, Image
+    Linking, Text, Image, TouchableHighlight
 } from "react-native";
 import * as geolib from 'geolib';
 import MapViewDirections from 'react-native-maps-directions';
@@ -49,6 +49,10 @@ export default class BarDetailsScreen extends Component {
         this.findDistance(longitude, latitude)
     }
 
+    openDirection() {
+        openMap({ latitude:this.state.latitude, longitude: this.state.longitude });
+    }
+
     render() {
         const { navigation } = this.props
         let name = navigation.getParam("name")
@@ -62,6 +66,9 @@ export default class BarDetailsScreen extends Component {
         let drinkMenu = navigation.getParam('drinkMenu')
         let foodMenu = navigation.getParam('foodMenu')
         let hours = navigation.getParam('happyHour')
+        if(avatar_url===null|| avatar_url===undefined){
+            avatar_url=''
+        }
         return (
             <ScrollView>
 
@@ -70,7 +77,7 @@ export default class BarDetailsScreen extends Component {
                                 <View style={styles.imageContainer}>
                     <Image
                         style={styles.featureImage}
-                        source={require("../images/hotel.jpg")}
+                        source={{uri: avatar_url}}
                     />
                 </View>
 
@@ -81,26 +88,31 @@ export default class BarDetailsScreen extends Component {
                     <View style={styles.hotelInfoAndWebsite}>
 
                         <View style={styles.nameAndRating}>
-                            <Text style={styles.hotelName}>The Lure</Text>
+                            <Text style={styles.hotelName}>{name}</Text>
                             <View style={styles.Rating}>
                                 <Image style={styles.RatingStar} source={require("../assets/icons/hotel_details/starRating.png")} />
                                 <Text style={styles.RatingValue}>4.3</Text>
                             </View>
                         </View>
 
-                        <Text style={styles.hotelAddress}>180 Central Ave St. Petersburg FL 33701 United States</Text>
-                        <Text style={styles.hotelWebsiteUrl}>www.thelure.com</Text>
+                        <Text style={styles.hotelAddress}>{address}</Text>
+                        <Text style={styles.hotelWebsiteUrl}>{website}</Text>
 
                     </View>
 
                     {/* section 2.2 call and map buttons */}
                     <View style={styles.contactButtons}>
+                        <TouchableHighlight
+                            onPress={() => {Linking.openURL('tel:'+phoneNumber)}}>
                         <View style={styles.callButton}>
                             <Image style={styles.callIcon} source={require("../assets/icons/hotel_details/callIcon.png")} />
                         </View>
+                        </TouchableHighlight>
+                        <TouchableHighlight onPress={() => {this.openDirection()}}>
                         <Text style={styles.mapButton}>
                             <Image style={styles.mapIcon} source={require("../assets/icons/hotel_details/mapIcon.png")} />
                         </Text>
+                        </TouchableHighlight>
                     </View>
                 </View>
 
@@ -109,17 +121,17 @@ export default class BarDetailsScreen extends Component {
                 <View style={styles.menuDetails}>
                     <View style={styles.menuTable}>
                         <Text style={styles.menuHeading}>Happy Hour</Text>
-                        <Text style={styles.menuData}>Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam</Text>                   
+                        <Text style={styles.menuData}>{hours}</Text>
                     </View>
 
                     <View style={styles.menuTable}>
                         <Text style={styles.menuHeading}>Drink Menu</Text>
-                        <Text style={styles.menuData}>Purus sit amet luctus venenatis, lectus magna fringilla urna, porttitor</Text>                   
+                        <Text style={styles.menuData}>{drinkMenu}</Text>
                     </View>
 
                     <View style={styles.menuTable}>
                         <Text style={styles.menuHeading}>Food Menu</Text>
-                        <Text style={styles.menuData}>Contact them for more information</Text>                   
+                        <Text style={styles.menuData}>{foodMenu}</Text>
                     </View>
                 </View>
 
@@ -199,7 +211,7 @@ const styles = StyleSheet.create({
     },
     menuTable:{
         display : "flex",
-        flexDirection :"row", 
+        flexDirection :"row",
         marginVertical : 10,
         marginHorizontal : 20,
     },
@@ -214,7 +226,7 @@ const styles = StyleSheet.create({
         fontSize : 16,
         color : "#000",
     },
-    
+
 
     imageContainer: {
         width: "100%",

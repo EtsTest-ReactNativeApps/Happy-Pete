@@ -9,273 +9,97 @@ import {
     Image,
     TouchableHighlight,
     ImageBackground, FlatList, Dimensions, Alert,
-
 } from "react-native";
-import { Fontisto } from '@expo/vector-icons';
+
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import { Avatar, ListItem, SearchBar, Icon } from 'react-native-elements';
-import Firebase from "../components/config";
+
+
 
 
 export default class AllPlaces extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            barLists: [],
+            barLists: this.props.navigation.getParam("barList"),
             role: this.props.navigation.getParam("role")
         };
+        console.log(this.props.navigation.getParam("barList"))
     }
 
 
-    async componentDidMount() {
-        const { navigation } = this.props;
-        this.fetchAllDetails()
-    }
-
-    renderItem = ({ item }) => (
-
-        <ListItem bottomDivider button onPress={() => {
-            {
-                if (this.state.role === "Admin") {
-                    this.props.navigation.navigate("EditPlaces")
-                } else {
-                    this.goToBarDetails(item.name)
-                }
-            }
-        }}>
-            {/*<Avatar source={{uri: item.avatar_url}} />*/}
-            <ListItem.Content>
-                <ListItem.Title>{item.name}</ListItem.Title>
-                <ListItem.Subtitle>{item.address}</ListItem.Subtitle>
-            </ListItem.Content>
-            <ListItem.Chevron />
-        </ListItem>
-
-    )
 
     render() {
         return (
-            <View style={styles.container}>
-                {/* <View>
-                            {
-                                this.state.barLists &&
+            <ScrollView contentContainerStyle={<styles className="container"></styles>}>
+                    { this.state.barLists &&
                                 <FlatList
                                     data={this.state.barLists}
                                     keyExtractor={(a, b) => b.toString()}
                                     renderItem={(item) => this.renderItem(item)}
+
                                 />
                             }
-                        </View> */}
-
-
-                {/* 
-                    LIST ITEM BEGINS                    
-                */}
-                <View style={styles.listItem}>
-
-                    {/* image */}
-                    <View style={styles.listImageContainer}>
-                        <Image
-                            style={styles.listImage}
-                            source={require("../images/hotel.jpg")} />
-                    </View>
-
-                    {/* hotelDetails */}
-                    <View style={styles.hotelInfoAndWebsite}>
-
-                        <View style={styles.nameAndRating}>
-                            <Text style={styles.hotelName}>The Lure</Text>
-                            <View style={styles.Rating}>
-                                <Image style={styles.RatingStar} source={require("../assets/icons/hotel_details/starRating.png")} />
-                                <Text style={styles.RatingValue}>4.3</Text>
-                            </View>
-                        </View>
-
-                        <Text style={styles.hotelAddress}>180 Central Ave St. Petersburg FL 33701 United States</Text>
-                    </View>
-
-                    {/* learn */}
-                    <View style={styles.learnMore}>
-                        <Image style={styles.learnMoreIcon} source={require("../assets/icons/all_places/next.png")} />
-                    </View>
-                </View>
-
-                {/* 
-                    LIST ITEM ENDS                    
-                */}
-
-                {/* 
-                    DUPLICATE ITEMS STARTS                    
-                */}
-<View style={styles.listItem}>
-
-{/* image */}
-<View style={styles.listImageContainer}>
-<Image
-style={styles.listImage}
-source={require("../images/hotel.jpg")} />
-</View>
-
-{/* hotelDetails */}
-<View style={styles.hotelInfoAndWebsite}>
-
-<View style={styles.nameAndRating}>
-<Text style={styles.hotelName}>The Lure</Text>
-<View style={styles.Rating}>
-<Image style={styles.RatingStar} source={require("../assets/icons/hotel_details/starRating.png")} />
-<Text style={styles.RatingValue}>4.3</Text>
-</View>
-</View>
-
-<Text style={styles.hotelAddress}>180 Central Ave St. Petersburg FL 33701 United States</Text>
-</View>
-
-{/* learn */}
-<View style={styles.learnMore}>
-<Image style={styles.learnMoreIcon} source={require("../assets/icons/all_places/next.png")} />
-</View>
-</View>
-<View style={styles.listItem}>
-
-{/* image */}
-<View style={styles.listImageContainer}>
-<Image
-style={styles.listImage}
-source={require("../images/hotel.jpg")} />
-</View>
-
-{/* hotelDetails */}
-<View style={styles.hotelInfoAndWebsite}>
-
-<View style={styles.nameAndRating}>
-<Text style={styles.hotelName}>The Lure</Text>
-<View style={styles.Rating}>
-<Image style={styles.RatingStar} source={require("../assets/icons/hotel_details/starRating.png")} />
-<Text style={styles.RatingValue}>4.3</Text>
-</View>
-</View>
-
-<Text style={styles.hotelAddress}>180 Central Ave St. Petersburg FL 33701 United States</Text>
-</View>
-
-{/* learn */}
-<View style={styles.learnMore}>
-<Image style={styles.learnMoreIcon} source={require("../assets/icons/all_places/next.png")} />
-</View>
-</View>
-<View style={styles.listItem}>
-
-{/* image */}
-<View style={styles.listImageContainer}>
-<Image
-style={styles.listImage}
-source={require("../images/hotel.jpg")} />
-</View>
-
-{/* hotelDetails */}
-<View style={styles.hotelInfoAndWebsite}>
-
-<View style={styles.nameAndRating}>
-<Text style={styles.hotelName}>The Lure</Text>
-<View style={styles.Rating}>
-<Image style={styles.RatingStar} source={require("../assets/icons/hotel_details/starRating.png")} />
-<Text style={styles.RatingValue}>4.3</Text>
-</View>
-</View>
-
-<Text style={styles.hotelAddress}>180 Central Ave St. Petersburg FL 33701 United States</Text>
-</View>
-
-{/* learn */}
-<View style={styles.learnMore}>
-<Image style={styles.learnMoreIcon} source={require("../assets/icons/all_places/next.png")} />
-</View>
-</View>
-<View style={styles.listItem}>
-
-{/* image */}
-<View style={styles.listImageContainer}>
-<Image
-style={styles.listImage}
-source={require("../images/hotel.jpg")} />
-</View>
-
-{/* hotelDetails */}
-<View style={styles.hotelInfoAndWebsite}>
-
-<View style={styles.nameAndRating}>
-<Text style={styles.hotelName}>The Lure</Text>
-<View style={styles.Rating}>
-<Image style={styles.RatingStar} source={require("../assets/icons/hotel_details/starRating.png")} />
-<Text style={styles.RatingValue}>4.3</Text>
-</View>
-</View>
-
-<Text style={styles.hotelAddress}>180 Central Ave St. Petersburg FL 33701 United States</Text>
-</View>
-
-{/* learn */}
-<View style={styles.learnMore}>
-<Image style={styles.learnMoreIcon} source={require("../assets/icons/all_places/next.png")} />
-</View>
-</View>
-
-
-                {/* 
-                    DUPLICATE ITEMS ENDS                    
-                */}
-
-
-            </View>
+            </ScrollView>
 
         )
     }
-    goToBarDetails(name) {
-        let listDetails = this.state.barLists;
-        for (let i in listDetails) {
-            let title = listDetails[i].name
-            if (title === name) {
-                this.props.navigation.navigate("BarDetailsScreen", {
-                    name: listDetails[i].name,
-                    // avatar_url:list[i].avatar_url,
-                    website: listDetails[i].website,
-                    longitude: listDetails[i].longitude,
-                    latitude: listDetails[i].latitude,
-                    phoneNumber: listDetails[i].phoneNumber,
-                    address: listDetails[i].address,
-                    drinkMenu: listDetails[i].drinkMenu,
-                    foodMenu: listDetails[i].foodMenu,
-                    happyHour: listDetails[i].happyHour
-                })
+     renderItem = ({ item }) => (
 
-            }
-        }
+
+        <View style={styles.listItem}>
+
+            {/* image */}
+            <View style={styles.listImageContainer}>
+                <Image
+                    style={styles.listImage}
+                    source={require("../images/hotel.jpg")} />
+            </View>
+
+            {/* hotelDetails */}
+            <View style={styles.hotelInfoAndWebsite}>
+
+                <View style={styles.nameAndRating}>
+                    <Text style={styles.hotelName}>{item.name}</Text>
+                    <View style={styles.Rating}>
+                        <Image style={styles.RatingStar} source={require("../assets/icons/hotel_details/starRating.png")} />
+                        {/*<Text style={styles.RatingValue}>4.3</Text>*/}
+                    </View>
+                </View>
+
+                <Text style={styles.hotelAddress}>{item.address}</Text>
+            </View>
+
+            {/* learn */}
+
+            <View style={styles.learnMore}>
+                <TouchableHighlight onPress={()=>this.goToBarDetails(item)}>
+                    <Image style={styles.learnMoreIcon} source={require("../assets/icons/all_places/next.png")} />
+                </TouchableHighlight>
+            </View>
+
+        </View>
+
+    )
+    goToBarDetails(item) {
+
+        let listDetails = item;
+        this.props.navigation.navigate("BarDetailsScreen", {
+            name: listDetails.name,
+            // avatar_url:list[i].avatar_url,
+            website: listDetails.website,
+            longitude: listDetails.longitude,
+            latitude: listDetails.latitude,
+            phoneNumber: listDetails.phoneNumber,
+            address: listDetails.address,
+            drinkMenu: listDetails.drinkMenu,
+            foodMenu: listDetails.foodMenu,
+            happyHour: listDetails.happyHour
+        })
     }
-    fetchAllDetails() {
-        let bar = []
-        Firebase.database().ref("/places")
-            .once("value").then(snapshot => {
-                snapshot.forEach((child) => {
-                    bar.push({
-                        name: child.val().name,
-                        address: child.val().address,
-                        key: child.key,
-                        website: child.val().website,
-                        longitude: child.val().longitude,
-                        latitude: child.val().latitude,
-                        phoneNumber: child.val().phoneNumber,
-                        foodMenu: child.val().foodMenu,
-                        drinkMenu: child.val().drinkMenu,
-                        happyHour: child.val().happyHour
-                    })
-                    this.setState({
-                        barLists: bar
-                    })
-                })
-            })
-    }
+
 
 }
+
 
 const styles = StyleSheet.create({
     container: {
@@ -368,9 +192,7 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
         flexDirection: "row",
     },
-    container: {
-        backgroundColor: "white",
-    },
+
     bestText: {
         marginTop: "5%",
         color: 'black',

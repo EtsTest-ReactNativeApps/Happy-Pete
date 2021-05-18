@@ -29,6 +29,7 @@ export default class HomeScreen extends Component {
         drinkData: '',
         barLists: [],
         bar: [],
+        AllBarList:[],
         role: this.props.navigation.getParam("role")
     };
 
@@ -117,9 +118,7 @@ export default class HomeScreen extends Component {
                         }
                         <TouchableHighlight
                             style={styles.viewAll}
-                            onPress={() => this.props.navigation.navigate("AllPlaces", {
-                                role: this.state.role
-                            })}
+                            onPress={() => this.gotoAllPlace()}
                         >
                             <Text style={styles.clickText}>View All</Text>
                         </TouchableHighlight>
@@ -128,9 +127,7 @@ export default class HomeScreen extends Component {
                     <View><Text style={styles.noplaces}>No nearest places or Bar found for your location</Text>
                         <TouchableHighlight
                             style={styles.viewAll}
-                            onPress={() => this.props.navigation.navigate("AllPlaces", {
-                                role: this.state.role
-                            })}
+                            onPress={() => {this.gotoAllPlace()}}
                         >
                             <Text style={styles.viewAllText}>View All</Text>
                         </TouchableHighlight>
@@ -349,6 +346,34 @@ export default class HomeScreen extends Component {
         );
 
     }
+
+    gotoAllPlace() {
+        let bar = []
+        Firebase.database().ref("/places")
+            .once("value").then(snapshot => {
+            snapshot.forEach((child) => {
+                bar.push({
+                    name: child.val().name,
+                    address: child.val().address,
+                    key: child.key,
+                    website: child.val().website,
+                    longitude: child.val().longitude,
+                    latitude: child.val().latitude,
+                    phoneNumber: child.val().phoneNumber,
+                    foodMenu: child.val().foodMenu,
+                    drinkMenu: child.val().drinkMenu,
+                    happyHour: child.val().happyHour
+                })
+                this.props.navigation.navigate("AllPlaces",{
+                    barList:bar
+                })
+                this.setState({
+                    AllBarList: bar
+                })
+            })
+
+        })
+    }
 }
 
 const styles = StyleSheet.create({
@@ -453,19 +478,18 @@ const styles = StyleSheet.create({
         color: "#09C5F7"
     },
     buttonContainer: {
-        height: "90%",
+
         justifyContent: "center",
         alignItems: "center",
         marginBottom: "2%",
         width: wp('43%'),
         borderRadius: 13,
         marginRight: 15,
-        width: 182,
+        /*width: 182,*/
         height: 73,
         display: "flex",
         flexDirection: "row",
-        justifyContent: "center",
-        alignItems: "center",
+
         shadowColor: "#000",
         shadowOffset:{
         width: 0,
@@ -511,7 +535,7 @@ const styles = StyleSheet.create({
     },
     mapView: {
         marginRight: '15%'
-   
+
     },
     mapText: {
         fontWeight: 'bold',
@@ -548,7 +572,7 @@ const styles = StyleSheet.create({
         paddingVertical: 25,
         marginLeft: "auto",
         marginRight: "auto",
-        marginTop: 50,
+        /*marginTop: 50,*/
     },
     viewAllText: {
         color: "#fff",
@@ -572,7 +596,7 @@ const styles = StyleSheet.create({
         width : 40,
         resizeMode : "contain"
     },
-    
+
 
 
 })

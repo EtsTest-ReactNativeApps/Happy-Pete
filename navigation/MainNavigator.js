@@ -58,7 +58,7 @@ class NavigationDrawerStructure extends Component {
 }
 
 const FirstActivity_StackNavigator = createStackNavigator({
-  Welcome: {
+  /*Welcome: {
     screen: Welcome,
     navigationOptions: ({ navigation }) => ({
       headerRight: <Text style={styles.headerRight}>Happy St. Pete</Text>,
@@ -68,7 +68,7 @@ const FirstActivity_StackNavigator = createStackNavigator({
       },
       headerTintColor: "#fff",
     }),
-  },
+  },*/
   Home: {
     screen: HomeScreen,
     navigationOptions: ({ navigation }) => ({

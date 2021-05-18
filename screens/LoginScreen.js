@@ -48,11 +48,11 @@ export default class LoginScreen extends Component{
                     this.props.navigation.navigate("Admin",{
                       role:role
                     })
-                  } else {
+                  }/* else {
                     this.props.navigation.navigate("Home",{
                       role:role
                     })
-                  }
+                  }*/
                 })
           }
           else{
@@ -71,7 +71,7 @@ export default class LoginScreen extends Component{
     <View style={styles.container}>
       <Text style={styles.heading}>LOGIN</Text>
             <View>
-              
+
               {/* input email */}
               <View style={styles.inputContainer}>
                 <Image
@@ -129,7 +129,7 @@ export default class LoginScreen extends Component{
                     this.props.navigation.navigate("Register")
                   }>New here? Sign Up</Text>
               </View>
-              
+
 
 
         </View>

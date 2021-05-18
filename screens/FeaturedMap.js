@@ -7,7 +7,7 @@ import {
     Alert,
     TouchableOpacity,
     TextInput, FlatList,
-    TouchableHighlight, 
+    TouchableHighlight,
     Image
 } from "react-native";
 import Geolocation from 'react-native-geolocation-service';
@@ -49,6 +49,7 @@ export default class HomeScreen extends Component {
                         latitudeDelta: 0.100,
                         longitudeDelta: 0.0121,
                     }}
+
                 >
                     <Marker
                         coordinate={{ latitude: this.state.latitude, longitude: this.state.longitude }}
@@ -122,7 +123,7 @@ export default class HomeScreen extends Component {
                 showLocationDialog: true,
                 enableHighAccuracy: true,
                 timeout: 20000,
-                maximumAge: 0
+                maximumAge:10
             }
         );
     }
