@@ -262,6 +262,6 @@ const styles = StyleSheet.create({
    marginRight:30,
    fontWeight:'bold',
    fontSize:25,
-   color:'red'
+   color:'#000'
  }
 })

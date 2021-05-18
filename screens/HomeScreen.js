@@ -466,6 +466,14 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "center",
         alignItems: "center",
+        shadowColor: "#000",
+        shadowOffset:{
+        width: 0,
+        height: 8,
+        },
+        shadowOpacity: 0.44,
+        shadowRadius: 10.32,
+        elevation: 16,
 
     },
     clickButton: {
@@ -503,6 +511,7 @@ const styles = StyleSheet.create({
     },
     mapView: {
         marginRight: '15%'
+   
     },
     mapText: {
         fontWeight: 'bold',
