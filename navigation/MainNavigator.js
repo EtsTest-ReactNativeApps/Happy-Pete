@@ -34,6 +34,7 @@ import CreateBlog from "../screens/CreateBlog";
 import ForgotPasswordScreen from "../screens/ForgotPasswordScreen";
 import AllPlaces from "../screens/AllPlaces";
 import Welcome from "../screens/LandingScreen";
+import HappyBlogScreen from "../screens/HappyBlogScreen";
 class NavigationDrawerStructure extends Component {
 
   toggleDrawer = () => {
@@ -228,6 +229,18 @@ const FirstActivity_StackNavigator = createStackNavigator({
   },
   AllPlaces: {
     screen: AllPlaces,
+    navigationOptions: ({ navigation }) => ({
+      headerRight: <Text style={styles.headerRight}>Happy St. Pete</Text>,
+      headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
+      headerStyle: {
+        backgroundColor: "#fff",
+      },
+      headerTintColor: "#fff",
+
+    }),
+  },
+  HappyBlog: {
+    screen: HappyBlogScreen,
     navigationOptions: ({ navigation }) => ({
       headerRight: <Text style={styles.headerRight}>Happy St. Pete</Text>,
       headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
