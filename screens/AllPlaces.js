@@ -1,4 +1,4 @@
-import React, { Component } from        "react";
+import React, { Component } from "react";
 import {
     StyleSheet,
     View,
@@ -12,8 +12,8 @@ import {
 
 } from "react-native";
 import { Fontisto } from '@expo/vector-icons';
-import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
-import {Avatar, ListItem, SearchBar,Icon} from 'react-native-elements';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { Avatar, ListItem, SearchBar, Icon } from 'react-native-elements';
 import Firebase from "../components/config";
 
 
@@ -22,7 +22,7 @@ export default class AllPlaces extends Component {
         super(props);
         this.state = {
             barLists: [],
-            role:this.props.navigation.getParam("role")
+            role: this.props.navigation.getParam("role")
         };
     }
 
@@ -32,21 +32,23 @@ export default class AllPlaces extends Component {
         this.fetchAllDetails()
     }
 
-    renderItem = ({item}) => (
+    renderItem = ({ item }) => (
 
         <ListItem bottomDivider button onPress={() => {
-            {if(this.state.role==="Admin"){
-                this.props.navigation.navigate("EditPlaces")
-            }else{
-                this.goToBarDetails(item.name)
-            }}
+            {
+                if (this.state.role === "Admin") {
+                    this.props.navigation.navigate("EditPlaces")
+                } else {
+                    this.goToBarDetails(item.name)
+                }
+            }
         }}>
             {/*<Avatar source={{uri: item.avatar_url}} />*/}
             <ListItem.Content>
                 <ListItem.Title>{item.name}</ListItem.Title>
                 <ListItem.Subtitle>{item.address}</ListItem.Subtitle>
             </ListItem.Content>
-            <ListItem.Chevron/>
+            <ListItem.Chevron />
         </ListItem>
 
     )
@@ -54,24 +56,183 @@ export default class AllPlaces extends Component {
     render() {
         return (
             <View style={styles.container}>
-                        <View>
+                {/* <View>
                             {
                                 this.state.barLists &&
                                 <FlatList
-
                                     data={this.state.barLists}
                                     keyExtractor={(a, b) => b.toString()}
                                     renderItem={(item) => this.renderItem(item)}
                                 />
                             }
+                        </View> */}
+
+
+                {/* 
+                    LIST ITEM BEGINS                    
+                */}
+                <View style={styles.listItem}>
+
+                    {/* image */}
+                    <View style={styles.listImageContainer}>
+                        <Image
+                            style={styles.listImage}
+                            source={require("../images/hotel.jpg")} />
+                    </View>
+
+                    {/* hotelDetails */}
+                    <View style={styles.hotelInfoAndWebsite}>
+
+                        <View style={styles.nameAndRating}>
+                            <Text style={styles.hotelName}>The Lure</Text>
+                            <View style={styles.Rating}>
+                                <Image style={styles.RatingStar} source={require("../assets/icons/hotel_details/starRating.png")} />
+                                <Text style={styles.RatingValue}>4.3</Text>
+                            </View>
                         </View>
+
+                        <Text style={styles.hotelAddress}>180 Central Ave St. Petersburg FL 33701 United States</Text>
+                    </View>
+
+                    {/* learn */}
+                    <View style={styles.learnMore}>
+                        <Image style={styles.learnMoreIcon} source={require("../assets/icons/all_places/next.png")} />
+                    </View>
+                </View>
+
+                {/* 
+                    LIST ITEM ENDS                    
+                */}
+
+                {/* 
+                    DUPLICATE ITEMS STARTS                    
+                */}
+<View style={styles.listItem}>
+
+{/* image */}
+<View style={styles.listImageContainer}>
+<Image
+style={styles.listImage}
+source={require("../images/hotel.jpg")} />
+</View>
+
+{/* hotelDetails */}
+<View style={styles.hotelInfoAndWebsite}>
+
+<View style={styles.nameAndRating}>
+<Text style={styles.hotelName}>The Lure</Text>
+<View style={styles.Rating}>
+<Image style={styles.RatingStar} source={require("../assets/icons/hotel_details/starRating.png")} />
+<Text style={styles.RatingValue}>4.3</Text>
+</View>
+</View>
+
+<Text style={styles.hotelAddress}>180 Central Ave St. Petersburg FL 33701 United States</Text>
+</View>
+
+{/* learn */}
+<View style={styles.learnMore}>
+<Image style={styles.learnMoreIcon} source={require("../assets/icons/all_places/next.png")} />
+</View>
+</View>
+<View style={styles.listItem}>
+
+{/* image */}
+<View style={styles.listImageContainer}>
+<Image
+style={styles.listImage}
+source={require("../images/hotel.jpg")} />
+</View>
+
+{/* hotelDetails */}
+<View style={styles.hotelInfoAndWebsite}>
+
+<View style={styles.nameAndRating}>
+<Text style={styles.hotelName}>The Lure</Text>
+<View style={styles.Rating}>
+<Image style={styles.RatingStar} source={require("../assets/icons/hotel_details/starRating.png")} />
+<Text style={styles.RatingValue}>4.3</Text>
+</View>
+</View>
+
+<Text style={styles.hotelAddress}>180 Central Ave St. Petersburg FL 33701 United States</Text>
+</View>
+
+{/* learn */}
+<View style={styles.learnMore}>
+<Image style={styles.learnMoreIcon} source={require("../assets/icons/all_places/next.png")} />
+</View>
+</View>
+<View style={styles.listItem}>
+
+{/* image */}
+<View style={styles.listImageContainer}>
+<Image
+style={styles.listImage}
+source={require("../images/hotel.jpg")} />
+</View>
+
+{/* hotelDetails */}
+<View style={styles.hotelInfoAndWebsite}>
+
+<View style={styles.nameAndRating}>
+<Text style={styles.hotelName}>The Lure</Text>
+<View style={styles.Rating}>
+<Image style={styles.RatingStar} source={require("../assets/icons/hotel_details/starRating.png")} />
+<Text style={styles.RatingValue}>4.3</Text>
+</View>
+</View>
+
+<Text style={styles.hotelAddress}>180 Central Ave St. Petersburg FL 33701 United States</Text>
+</View>
+
+{/* learn */}
+<View style={styles.learnMore}>
+<Image style={styles.learnMoreIcon} source={require("../assets/icons/all_places/next.png")} />
+</View>
+</View>
+<View style={styles.listItem}>
+
+{/* image */}
+<View style={styles.listImageContainer}>
+<Image
+style={styles.listImage}
+source={require("../images/hotel.jpg")} />
+</View>
+
+{/* hotelDetails */}
+<View style={styles.hotelInfoAndWebsite}>
+
+<View style={styles.nameAndRating}>
+<Text style={styles.hotelName}>The Lure</Text>
+<View style={styles.Rating}>
+<Image style={styles.RatingStar} source={require("../assets/icons/hotel_details/starRating.png")} />
+<Text style={styles.RatingValue}>4.3</Text>
+</View>
+</View>
+
+<Text style={styles.hotelAddress}>180 Central Ave St. Petersburg FL 33701 United States</Text>
+</View>
+
+{/* learn */}
+<View style={styles.learnMore}>
+<Image style={styles.learnMoreIcon} source={require("../assets/icons/all_places/next.png")} />
+</View>
+</View>
+
+
+                {/* 
+                    DUPLICATE ITEMS ENDS                    
+                */}
+
+
             </View>
 
         )
     }
     goToBarDetails(name) {
         let listDetails = this.state.barLists;
-        for (let i  in listDetails) {
+        for (let i in listDetails) {
             let title = listDetails[i].name
             if (title === name) {
                 this.props.navigation.navigate("BarDetailsScreen", {
@@ -91,57 +252,143 @@ export default class AllPlaces extends Component {
         }
     }
     fetchAllDetails() {
-        let bar=[]
+        let bar = []
         Firebase.database().ref("/places")
-            .once("value").then(snapshot=>{
-            snapshot.forEach((child)=>{
-                bar.push({
-                    name: child.val().name,
-                    address: child.val().address,
-                    key: child.key,
-                    website:child.val().website,
-                    longitude:child.val().longitude,
-                    latitude:child.val().latitude,
-                    phoneNumber:child.val().phoneNumber,
-                    foodMenu :child.val().foodMenu,
-                    drinkMenu:child.val().drinkMenu,
-                    happyHour: child.val().happyHour
-                })
-                this.setState({
-                    barLists:bar
+            .once("value").then(snapshot => {
+                snapshot.forEach((child) => {
+                    bar.push({
+                        name: child.val().name,
+                        address: child.val().address,
+                        key: child.key,
+                        website: child.val().website,
+                        longitude: child.val().longitude,
+                        latitude: child.val().latitude,
+                        phoneNumber: child.val().phoneNumber,
+                        foodMenu: child.val().foodMenu,
+                        drinkMenu: child.val().drinkMenu,
+                        happyHour: child.val().happyHour
+                    })
+                    this.setState({
+                        barLists: bar
+                    })
                 })
             })
-        })
     }
 
 }
 
 const styles = StyleSheet.create({
+    container: {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        flexDirection: "column",
+        backgroundColor: "white",
+    },
+    listItem: {
+        display: "flex",
+        backgroundColor: "#fff",
+        alignItems: "center",
+        justifyContent: "space-between",
+        flexDirection: "row",
+        padding: 10,
+        borderBottomWidth: 1,
+        borderColor: "#bababa",
+
+        shadowColor: "#000",
+        shadowOffset: {
+           width: 0,
+           height: 2,
+       },
+       shadowOpacity: 0.25,
+       shadowRadius: 3.84,
+       elevation: 5,
+    },
+    listImageContainer: {
+        borderRadius: 50,
+        flexBasis: 90,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    listImage: {
+        width: 60,
+        height: 60,
+        resizeMode: "cover",
+        borderRadius: 50,
+    },
+    hotelInfoAndWebsite: {
+        flex: 1,
+    },
+    nameAndRating: {
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+
+    },
+    hotelName: {
+        fontSize: 18,
+        fontWeight: "bold",
+        color: "black",
+    },
+    Rating: {
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "center",
+        marginLeft: 15,
+    },
+    RatingStar: {
+        width: 15,
+        height: 20,
+        resizeMode: "contain",
+    },
+    RatingValue: {
+        color: "black",
+        fontWeight: "bold",
+        marginLeft: 5
+    },
+    hotelAddress: {
+        fontSize: 14,
+        width: "85%",
+        lineHeight: 20,
+        marginVertical: 5,
+        color: "#3A3A3A",
+    },
+    learnMore: {
+        width: 40,
+    },
+    learnMoreIcon: {
+        width: 25,
+        height: 25,
+
+    },
+
     fixTotext: {
         justifyContent: "space-between",
         flexDirection: "row",
     },
     container: {
-
+        backgroundColor: "white",
     },
-    bestText:{
-        marginTop:"5%",
-        color:'black',
-        fontSize:40,
-        fontWeight :'bold',
-        marginLeft:'5%'
+    bestText: {
+        marginTop: "5%",
+        color: 'black',
+        fontSize: 40,
+        fontWeight: 'bold',
+        marginLeft: '5%'
     },
-    randomText:{
+    randomText: {
         marginLeft: '5%',
         marginRight: '10%'
     },
-    readMore:{
-        color:'red',
-        fontWeight:'500',
-        marginLeft:'10%'
+    readMore: {
+        color: 'red',
+        fontWeight: '500',
+        marginLeft: '10%'
 
     },
-    fixImg:{
+    fixImg: {
         flexDirection: "row",
         justifyContent: "space-between",
         height: "100%",
@@ -150,21 +397,21 @@ const styles = StyleSheet.create({
         marginLeft: 15
 
     },
-    btn:{
-        borderRadius:5,
+    btn: {
+        borderRadius: 5,
         marginTop: 10,
-        marginLeft:30,
+        marginLeft: 30,
         backgroundColor: "red",
         height: 30,
         width: "75%",
-        alignContent:"center"
+        alignContent: "center"
     },
-    btnText:{
-        fontSize:20,
-        fontWeight:'bold',
-        color:"#fff"
+    btnText: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: "#fff"
     },
-    locationTxt:{
+    locationTxt: {
 
     },
     mapcontainer: {
@@ -175,7 +422,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     map: {
-        display:'none',
+        display: 'none',
         ...StyleSheet.absoluteFillObject,
     },
     card: {
@@ -203,7 +450,7 @@ const styles = StyleSheet.create({
         fontWeight: "700",
         paddingLeft: 12,
         color: "#008b8b",
-        marginTop:"5%"
+        marginTop: "5%"
     },
     welcomeUser: {
         textAlign: "center",
@@ -250,33 +497,33 @@ const styles = StyleSheet.create({
         textAlign: "center",
         backgroundColor: "#000000a0"
     },
-    foodImage:{
-        height:165,
-        width:220
+    foodImage: {
+        height: 165,
+        width: 220
     },
-    mapView:{
-        marginRight:'15%'
+    mapView: {
+        marginRight: '15%'
     },
-    mapText:{
-        fontWeight:'bold',
-        fontSize:25,
-        color:'red',
-        marginLeft:'35%'
+    mapText: {
+        fontWeight: 'bold',
+        fontSize: 25,
+        color: 'red',
+        marginLeft: '35%'
     },
-    fav:{
-        marginRight:"20%",
+    fav: {
+        marginRight: "20%",
     },
-    fixMargin:{
+    fixMargin: {
         marginBottom: "12%"
     },
-    cardStyle:{
-        borderRadius:25
+    cardStyle: {
+        borderRadius: 25
     },
-    noplaces:{
-        marginTop:'3%',
-        color:'red',
-        fontSize:22,
-        fontWeight:'500'
+    noplaces: {
+        marginTop: '3%',
+        color: 'red',
+        fontSize: 22,
+        fontWeight: '500'
     }
 
 
