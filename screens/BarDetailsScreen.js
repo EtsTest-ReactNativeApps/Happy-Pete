@@ -50,7 +50,7 @@ export default class BarDetailsScreen extends Component {
     }
 
     openDirection() {
-        openMap({ latitude:this.state.latitude, longitude: this.state.longitude });
+        openMap({ latitude: this.state.latitude, longitude: this.state.longitude });
     }
 
     render() {
@@ -66,112 +66,112 @@ export default class BarDetailsScreen extends Component {
         let drinkMenu = navigation.getParam('drinkMenu')
         let foodMenu = navigation.getParam('foodMenu')
         let hours = navigation.getParam('happyHour')
-        if(avatar_url===null|| avatar_url===undefined){
-            avatar_url=''
+        if (avatar_url === null || avatar_url === undefined) {
+            avatar_url = ''
         }
         return (
             <ScrollView>
 
-            <View style={styles.container}>
-                                {/* section 1 header image */}
-                                <View style={styles.imageContainer}>
-                    <Image
-                        style={styles.featureImage}
-                        source={{uri: avatar_url}}
-                    />
-                </View>
+                <View style={styles.container}>
+                    {/* section 1 header image */}
+                    <View style={styles.imageContainer}>
+                        <Image
+                            style={styles.featureImage}
+                            source={{ uri: avatar_url }}
+                        />
+                    </View>
 
-                {/* section 2 : contact details : hotelname, address, website url, phone, map */}
-                <View style={styles.hotelDetails}>
+                    {/* section 2 : contact details : hotelname, address, website url, phone, map */}
+                    <View style={styles.hotelDetails}>
 
-                    {/* section 2.1 name, rating  address, web url */}
-                    <View style={styles.hotelInfoAndWebsite}>
+                        {/* section 2.1 name, rating  address, web url */}
+                        <View style={styles.hotelInfoAndWebsite}>
 
-                        <View style={styles.nameAndRating}>
-                            <Text style={styles.hotelName}>{name}</Text>
-                            <View style={styles.Rating}>
-                                <Image style={styles.RatingStar} source={require("../assets/icons/hotel_details/starRating.png")} />
-                                <Text style={styles.RatingValue}>4.3</Text>
+                            <View style={styles.nameAndRating}>
+                                <Text style={styles.hotelName}>{name}</Text>
+                                <View style={styles.Rating}>
+                                    <Image style={styles.RatingStar} source={require("../assets/icons/hotel_details/starRating.png")} />
+                                    <Text style={styles.RatingValue}>4.3</Text>
+                                </View>
                             </View>
+
+                            <Text style={styles.hotelAddress}>{address}</Text>
+                            <Text style={styles.hotelWebsiteUrl}>{website}</Text>
+
                         </View>
 
-                        <Text style={styles.hotelAddress}>{address}</Text>
-                        <Text style={styles.hotelWebsiteUrl}>{website}</Text>
-
-                    </View>
-
-                    {/* section 2.2 call and map buttons */}
-                    <View style={styles.contactButtons}>
-                        <TouchableHighlight
-                            onPress={() => {Linking.openURL('tel:'+phoneNumber)}}>
-                        <View style={styles.callButton}>
-                            <Image style={styles.callIcon} source={require("../assets/icons/hotel_details/callIcon.png")} />
+                        {/* section 2.2 call and map buttons */}
+                        <View style={styles.contactButtons}>
+                            <TouchableHighlight
+                                underlayColor="transparent" onPress={() => { Linking.openURL('tel:' + phoneNumber) }}>
+                                <View style={styles.callButton}>
+                                    <Image style={styles.callIcon} source={require("../assets/icons/hotel_details/callIcon.png")} />
+                                </View>
+                            </TouchableHighlight>
+                            <TouchableHighlight underlayColor="transparent" onPress={() => { this.openDirection() }}>
+                                <Text style={styles.mapButton}>
+                                    <Image style={styles.mapIcon} source={require("../assets/icons/hotel_details/mapIcon.png")} />
+                                </Text>
+                            </TouchableHighlight>
                         </View>
-                        </TouchableHighlight>
-                        <TouchableHighlight onPress={() => {this.openDirection()}}>
-                        <Text style={styles.mapButton}>
-                            <Image style={styles.mapIcon} source={require("../assets/icons/hotel_details/mapIcon.png")} />
-                        </Text>
-                        </TouchableHighlight>
-                    </View>
-                </View>
-
-                {/* menu details */}
-
-                <View style={styles.menuDetails}>
-                    <View style={styles.menuTable}>
-                        <Text style={styles.menuHeading}>Happy Hour</Text>
-                        <Text style={styles.menuData}>{hours}</Text>
                     </View>
 
-                    <View style={styles.menuTable}>
-                        <Text style={styles.menuHeading}>Drink Menu</Text>
-                        <Text style={styles.menuData}>{drinkMenu}</Text>
+                    {/* menu details */}
+
+                    <View style={styles.menuDetails}>
+                        <View style={styles.menuTable}>
+                            <Text style={styles.menuHeading}>Happy Hour</Text>
+                            <Text style={styles.menuData}>{hours}</Text>
+                        </View>
+
+                        <View style={styles.menuTable}>
+                            <Text style={styles.menuHeading}>Drink Menu</Text>
+                            <Text style={styles.menuData}>{drinkMenu}</Text>
+                        </View>
+
+                        <View style={styles.menuTable}>
+                            <Text style={styles.menuHeading}>Food Menu</Text>
+                            <Text style={styles.menuData}>{foodMenu}</Text>
+                        </View>
                     </View>
 
-                    <View style={styles.menuTable}>
-                        <Text style={styles.menuHeading}>Food Menu</Text>
-                        <Text style={styles.menuData}>{foodMenu}</Text>
+
+                    {/* google map */}
+
+                    <View style={styles.mapContainer}>
+                        <MapView
+                            showsUserLocation={true}
+                            showsMyLocationButton={true}
+                            provider={PROVIDER_GOOGLE} // remove if not using Google Maps
+                            style={styles.map}
+                            region={{
+                                latitude: Number(latitude),
+                                longitude: Number(longitude),
+                                longitudeDelta: 0.0121,
+                                latitudeDelta: 0.100
+
+                            }}
+                        >{
+                                this.state.latitude &&
+                                <Marker
+                                    coordinate={{ latitude: parseFloat(latitude), longitude: parseFloat(longitude) }}
+                                    title={name}
+                                />
+                            }{this.state.destinationOrigin && this.state.origin &&
+                                <MapViewDirections
+                                    origin={this.state.origin[0]}
+                                    destination={this.state.destinationOrigin[0]}
+                                    apikey={GOOGLE_MAPS_APIKEY}
+                                    strokeWidth={3}
+                                    strokeColor="hotpink"
+                                />}
+                        </MapView>
+
+                    </View>
+                    <View>
+                        <Text>You are {this.state.distance} km away from {name} </Text>
                     </View>
                 </View>
-
-
-                {/* google map */}
-
-                <View style={styles.mapContainer}>
-                    <MapView
-                        showsUserLocation={true}
-                        showsMyLocationButton={true}
-                        provider={PROVIDER_GOOGLE} // remove if not using Google Maps
-                        style={styles.map}
-                        region={{
-                            latitude: Number(latitude),
-                            longitude: Number(longitude),
-                            longitudeDelta: 0.0121,
-                            latitudeDelta: 0.100
-
-                        }}
-                    >{
-                            this.state.latitude &&
-                            <Marker
-                                coordinate={{ latitude: parseFloat(latitude), longitude: parseFloat(longitude) }}
-                                title={name}
-                            />
-                        }{this.state.destinationOrigin && this.state.origin &&
-                            <MapViewDirections
-                                origin={this.state.origin[0]}
-                                destination={this.state.destinationOrigin[0]}
-                                apikey={GOOGLE_MAPS_APIKEY}
-                                strokeWidth={3}
-                                strokeColor="hotpink"
-                            />}
-                    </MapView>
-
-                </View>
-                <View>
-                    <Text>You are {this.state.distance} km away from {name} </Text>
-                </View>
-            </View>
 
             </ScrollView>
 
@@ -206,25 +206,25 @@ export default class BarDetailsScreen extends Component {
 }
 
 const styles = StyleSheet.create({
-    menuDetails : {
-        marginBottom : 20,
+    menuDetails: {
+        marginBottom: 20,
     },
-    menuTable:{
-        display : "flex",
-        flexDirection :"row",
-        marginVertical : 10,
-        marginHorizontal : 20,
+    menuTable: {
+        display: "flex",
+        flexDirection: "row",
+        marginVertical: 10,
+        marginHorizontal: 20,
     },
-    menuHeading:{
-        flex:1,
-        fontSize : 16,
-        color : "#000",
-        fontWeight : "bold"
+    menuHeading: {
+        flex: 1,
+        fontSize: 16,
+        color: "#000",
+        fontWeight: "bold"
     },
-    menuData:{
-        flex:2,
-        fontSize : 16,
-        color : "#000",
+    menuData: {
+        flex: 2,
+        fontSize: 16,
+        color: "#000",
     },
 
 

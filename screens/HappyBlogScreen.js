@@ -40,7 +40,9 @@ export default class HappyBlogScreen extends Component {
                         <View style={styles.blogContent}>
                             <Text style={styles.blogHeading}>The Best Happy hour Margaritas in St Pete</Text>
                             <Text style={styles.blogDescription} numberOfLines={2} ellipsizeMode='tail'>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper</Text>
-                            <Text style={styles.readMore}>READ MORE</Text>
+                            <TouchableHighlight underlayColor="orange" onPress={()=>this.props.navigation.navigate("Blog")}>
+                                    <Text style={styles.readMore}>READ MORE</Text>
+                            </TouchableHighlight>
                         </View>
                     </View>
 
@@ -53,7 +55,10 @@ export default class HappyBlogScreen extends Component {
                         <View style={styles.blogContent}>
                             <Text style={styles.blogHeading}>The Best Happy hour Beers in St Pete</Text>
                             <Text style={styles.blogDescription} numberOfLines={2} ellipsizeMode='tail'>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper</Text>
-                            <Text style={styles.readMore}>READ MORE</Text>
+                            <TouchableHighlight onPress={()=>this.props.navigation.navigate("Blog")}>
+                                    <Text style={styles.readMore}>READ MORE</Text>
+                           
+                                </TouchableHighlight>
                         </View>
                     </View>
 

@@ -15,7 +15,7 @@ import {
   Button,
 } from "react-native";
 import HomeScreen from "../screens/HomeScreen";
-
+import BlogScreen from "../screens/BlogScreen"
 import SideMenu from "../sidemenu";
 import FeaturedMap from "../screens/FeaturedMap";
 import MapDataUpload from "../screens/MapDataUpload";
@@ -241,6 +241,19 @@ const FirstActivity_StackNavigator = createStackNavigator({
   },
   HappyBlog: {
     screen: HappyBlogScreen,
+    navigationOptions: ({ navigation }) => ({
+      headerRight: <Text style={styles.headerRight}>Happy St. Pete</Text>,
+      headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
+      headerStyle: {
+        backgroundColor: "#fff",
+      },
+      headerTintColor: "#fff",
+
+    }),
+  },
+
+  Blog: {
+    screen: BlogScreen,
     navigationOptions: ({ navigation }) => ({
       headerRight: <Text style={styles.headerRight}>Happy St. Pete</Text>,
       headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,

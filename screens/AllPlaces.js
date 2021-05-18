@@ -72,7 +72,7 @@ export default class AllPlaces extends Component {
             {/* learn */}
 
             <View style={styles.learnMore}>
-                <TouchableHighlight onPress={()=>this.goToBarDetails(item)}>
+                <TouchableHighlight underlayColor="none" onPress={()=>this.goToBarDetails(item)}>
                     <Image style={styles.learnMoreIcon} source={require("../assets/icons/all_places/next.png")} />
                 </TouchableHighlight>
             </View>
