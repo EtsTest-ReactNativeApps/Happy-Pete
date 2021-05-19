@@ -10,10 +10,13 @@ import {
     TouchableHighlight,
     Image
 } from "react-native";
+
+
 import Geolocation from 'react-native-geolocation-service';
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps'
 import { Ionicons } from '@expo/vector-icons';
 import * as geolib from "geolib";
+import RNAndroidLocationEnabler from "react-native-android-location-enabler";
 export default class HomeScreen extends Component {
     constructor(props) {
         super(props);
@@ -27,7 +30,27 @@ export default class HomeScreen extends Component {
 
     }
     componentDidMount() {
-        this.getGeoLocation()
+        RNAndroidLocationEnabler.promptForEnableLocationIfNeeded({
+            interval: 10000,
+            fastInterval: 5000,
+        })
+            .then((data) => {
+                // The user has accepted to enable the location services
+                // data can be :
+                //  - "already-enabled" if the location services has been already enabled
+                //  - "enabled" if user has clicked on OK button in the popup
+                this.getGeoLocation()
+            })
+            .catch((err) => {
+                // The user has not accepted to enable the location services or something went wrong during the process
+                // "err" : { "code" : "ERR00|ERR01|ERR02|ERR03", "message" : "message"}
+                // codes :
+                //  - ERR00 : The user has clicked on Cancel button in the popup
+                //  - ERR01 : If the Settings change are unavailable
+                //  - ERR02 : If the popup has failed to open
+                //  - ERR03 : Internal error
+            });
+
 
     }
 
@@ -40,6 +63,7 @@ export default class HomeScreen extends Component {
                     showsUserLocation={true}
                     showsMyLocationButton={true}
                     followsUserLocation={true}
+
                     userLocationPriority={"high"}
                     provider={PROVIDER_GOOGLE} // remove if not using Google Maps
                     style={styles.map}
@@ -82,6 +106,7 @@ export default class HomeScreen extends Component {
     getGeoLocation() {
         let barList = this.state.data
         navigator.geolocation = require('@react-native-community/geolocation');
+
         navigator.geolocation.getCurrentPosition(
             position => {
                 let bar = []
@@ -121,9 +146,8 @@ export default class HomeScreen extends Component {
             },
             {
                 showLocationDialog: true,
-                enableHighAccuracy: true,
-                timeout: 20000,
-                maximumAge:10
+                enableHighAccuracy: false,
+                timeout: 20000
             }
         );
     }
