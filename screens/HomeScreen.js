@@ -42,16 +42,39 @@ export default class HomeScreen extends Component {
 
     renderItem = ({ item }) => (
 
-        <ListItem bottomDivider button onPress={() => {
-            this.goToBarDetails(item.name)
-        }}>
-            {/*<Avatar source={{uri: item.avatar_url}} />*/}
-            <ListItem.Content>
-                <ListItem.Title>{item.name}</ListItem.Title>
-                <ListItem.Subtitle>{item.address}</ListItem.Subtitle>
-            </ListItem.Content>
-            <ListItem.Chevron />
-        </ListItem>
+        <View style={styles.listItem}>
+
+            {/* image */}
+            <View style={styles.listImageContainer}>
+                <Image
+                    style={styles.listImage}
+                    source={require("../images/hotel.jpg")} />
+            </View>
+
+            {/* hotelDetails */}
+            <View style={styles.hotelInfoAndWebsite}>
+
+                <View style={styles.nameAndRating}>
+                    <Text style={styles.hotelName}>{item.name}</Text>
+                    <View style={styles.Rating}>
+                        <Image style={styles.RatingStar} source={require("../assets/icons/hotel_details/starRating.png")} />
+                        {/*<Text style={styles.RatingValue}>4.3</Text>*/}
+                    </View>
+                </View>
+
+                <Text style={styles.hotelAddress}>{item.address}</Text>
+            </View>
+
+            {/* learn */}
+
+            <View style={styles.learnMore}>
+                <TouchableHighlight underlayColor="none" onPress={()=>this.goToBarDetails(item)}>
+                    <Image style={styles.learnMoreIcon} source={require("../assets/icons/all_places/next.png")} />
+                </TouchableHighlight>
+            </View>
+
+        </View>
+
 
     )
 
@@ -119,7 +142,7 @@ export default class HomeScreen extends Component {
                                 <Text style={styles.clickText}>Beer</Text>
                             </View>
                     </View>
-                </TouchableHighlight>     
+                </TouchableHighlight>
             </View>
 
             {/* end of button section */}
@@ -133,29 +156,29 @@ export default class HomeScreen extends Component {
                 <View style={styles.mapView}>
                     <FeaturedMap children={this.state.barLists} />
                 </View>
-                {this.state.bar === null || this.state.bar === [] ? (
-                    <View style={{ height: "50%" }}>
-                        {
-                            this.state.bar &&
-                            <FlatList
-                                data={this.state.bar}
-                                keyExtractor={(a, b) => b.toString()}
-                                renderItem={(item) => this.renderItem(item)}
-                            />
+                {this.state.bar !== null || this.state.bar !== [] || this.state.bar !== undefined ?
+                    <ScrollView >
+                        <FlatList
+                            data={this.state.bar}
+                            keyExtractor={(a, b) => b.toString()}
+                            renderItem={(item) => this.renderItem(item)}
+                        />
 
-                        }
+
                         <TouchableHighlight
                             style={styles.viewAll}
                             onPress={() => this.gotoAllPlace()}
                         >
-                            <Text style={styles.clickText}>View All</Text>
+                            <Text style={styles.viewAllText}>View All</Text>
                         </TouchableHighlight>
-                    </View>
-                ) :
+                    </ScrollView>
+                    :
                     <View><Text style={styles.noplaces}>No nearest places or Bar found for your location</Text>
                         <TouchableHighlight
                             style={styles.viewAll}
-                            onPress={() => { this.gotoAllPlace() }}
+                            onPress={() => {
+                                this.gotoAllPlace()
+                            }}
                         >
                             <Text style={styles.viewAllText}>View All</Text>
                         </TouchableHighlight>
@@ -291,27 +314,22 @@ export default class HomeScreen extends Component {
     }
 
 
-    goToBarDetails(name) {
-        let listDetails = this.state.bar;
-        for (let i in listDetails) {
-            let title = listDetails[i].name
-            if (title === name) {
-                this.props.navigation.navigate("BarDetailsScreen", {
-                    name: listDetails[i].name,
-                    // avatar_url:list[i].avatar_url,
-                    website: listDetails[i].website,
-                    longitude: listDetails[i].longitude,
-                    latitude: listDetails[i].latitude,
-                    phoneNumber: listDetails[i].phoneNumber,
-                    address: listDetails[i].address,
-                    drinkMenu: listDetails[i].drinkMenu,
-                    foodMenu: listDetails[i].foodMenu,
-                    happyHour: listDetails[i].happyHour
-                })
-            }
-        }
-    }
+    goToBarDetails(item) {
 
+        let listDetails = item;
+        this.props.navigation.navigate("BarDetailsScreen", {
+            name: listDetails.name,
+            // avatar_url:list[i].avatar_url,
+            website: listDetails.website,
+            longitude: listDetails.longitude,
+            latitude: listDetails.latitude,
+            phoneNumber: listDetails.phoneNumber,
+            address: listDetails.address,
+            drinkMenu: listDetails.drinkMenu,
+            foodMenu: listDetails.foodMenu,
+            happyHour: listDetails.happyHour
+        })
+    }
 
     fetchAllDetails() {
         let bar = []
@@ -347,7 +365,7 @@ export default class HomeScreen extends Component {
                     })
                     let disKM = dis / 1000;
 
-                    if (disKM <= 50) {
+                    if (disKM >= 50) {
                         bar.push({
                             name: barList[i].title,
                             // avatar_url:list[i].avatar_url,
@@ -365,6 +383,7 @@ export default class HomeScreen extends Component {
                 this.setState({
                     bar: bar
                 });
+
             },
             error => {
                 Alert.alert(error.message.toString());
@@ -516,10 +535,85 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         textTransform: "uppercase",
     },
-    buttonImage:{
-        width:30,
-        resizeMode:"contain",
-    }
+
+    listItem: {
+        display: "flex",
+        backgroundColor: "#fff",
+        alignItems: "center",
+        justifyContent: "space-between",
+        flexDirection: "row",
+        padding: 10,
+        borderBottomWidth: 1,
+        borderColor: "#bababa",
+
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
+    },
+    listImageContainer: {
+        borderRadius: 50,
+        flexBasis: 90,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    listImage: {
+        width: 60,
+        height: 60,
+        resizeMode: "cover",
+        borderRadius: 50,
+    },
+    hotelInfoAndWebsite: {
+        flex: 1,
+    },
+    nameAndRating: {
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+
+    },
+    hotelName: {
+        fontSize: 18,
+        fontWeight: "bold",
+        color: "black",
+    },
+    Rating: {
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "center",
+        marginLeft: 15,
+    },
+    RatingStar: {
+        width: 15,
+        height: 20,
+        resizeMode: "contain",
+    },
+    RatingValue: {
+        color: "black",
+        fontWeight: "bold",
+        marginLeft: 5
+    },
+    hotelAddress: {
+        fontSize: 14,
+        width: "85%",
+        lineHeight: 20,
+        marginVertical: 5,
+        color: "#3A3A3A",
+    },
+    learnMore: {
+        width: 40,
+    },
+    learnMoreIcon: {
+        width: 25,
+        height: 25,
+
+    },
 
 
 
