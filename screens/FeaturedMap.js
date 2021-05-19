@@ -13,15 +13,10 @@ import {
 
 
 import Geolocation from 'react-native-geolocation-service';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps'
 import { Ionicons } from '@expo/vector-icons';
 import * as geolib from "geolib";
-<<<<<<< HEAD
-import { watchPositionAsync } from "expo-location";
-=======
 import RNAndroidLocationEnabler from "react-native-android-location-enabler";
->>>>>>> 2470becb4a230cf1eb2cc70f5544027dbc076436
 export default class HomeScreen extends Component {
     constructor(props) {
         super(props);
@@ -97,35 +92,12 @@ export default class HomeScreen extends Component {
                     })}
 
                 </MapView>
+                <View style={styles.locationIcon}>
+                    <TouchableHighlight onPress={() => { this.getGeoLocation() }}>
+                        <Image style={styles.location} source={require("../assets/icons/location.png")} />
 
-                <View style={styles.buttonContainer}>
-                    <View style={styles.locationIcon}>
-                        <TouchableHighlight underlayColor="" onPress={() => { this.getGeoLocation() }}>
-                            <Image style={styles.location} source={require("../assets/icons/location.png")} />
-
-                            {/* <Ionicons name="locate" size={24} color="blue" /> */}
-                        </TouchableHighlight>
-                    </View>
-
-                    <View style={styles.zoomInOutContainer}>
-
-                        <View>
-                            <TouchableHighlight onPress={() => { this.getGeoLocation() }} underlayColor="" >
-                                <View style={styles.zoomInButton}>
-                                    <Image style={styles.zoomInIcon} source={require("../assets/icons/homescreen/minus.png")} />
-                                </View>
-                            </TouchableHighlight>
-                        </View>
-
-                        <View>
-                            <TouchableHighlight onPress={() => { this.getGeoLocation() }} underlayColor="">
-                                <View style={styles.zoomOutButton}>
-                                    <Image style={styles.zoomOutIcon} source={require("../assets/icons/homescreen/add.png")} />
-                                </View>
-                            </TouchableHighlight>
-                        </View>
-
-                    </View>
+                        {/* <Ionicons name="locate" size={24} color="blue" /> */}
+                    </TouchableHighlight>
                 </View>
             </View>
         )
@@ -174,92 +146,31 @@ export default class HomeScreen extends Component {
             },
             {
                 showLocationDialog: true,
-<<<<<<< HEAD
-                enableHighAccuracy: true,
-                timeout: 20000,
-                maximumAge: 10
-=======
                 enableHighAccuracy: false,
                 timeout: 20000
->>>>>>> 2470becb4a230cf1eb2cc70f5544027dbc076436
             }
         );
     }
 
 }
 const styles = StyleSheet.create({
-    buttonContainer:{
-        display:"flex",
-        alignItems:"center",
-        justifyContent:"center",
-        position:"absolute",
-        bottom:0,
-        right:0,
-        marginHorizontal:10,
-    },
-    zoomInOutContainer: {
-        display: "flex",
-        alignItems: "flex-end",
-        justifyContent: "flex-end",
-        width: "100%",
-        marginVertical: 20,
 
-    },
-    zoomInButton: {
-        backgroundColor: "white",
-        padding: 10,
-        marginRight: 5,
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 6,
-        },
-        shadowOpacity: 0.37,
-        shadowRadius: 7.49,
-
-        elevation: 12,
-    },
-    zoomInIcon: {
-        height: 15,
-        width: 15,
-        resizeMode: "contain",
-    },
-    zoomOutButton: {
-        backgroundColor: "white",
-        padding: 10,
-        marginRight: 5,
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 6,
-        },
-        shadowOpacity: 0.37,
-        shadowRadius: 7.49,
-
-        elevation: 12,
-
-    },
-    zoomOutIcon: {
-        height: 15,
-        width: 15,
-        resizeMode: "contain",
-    },
 
     locationIcon: {
-        // marginTop: '60%',
-        // marginLeft: '77%',
+        marginTop: '70%',
+        marginLeft: '80%',
         backgroundColor: 'white',
         padding: 9,
         borderRadius: 50,
         shadowColor: "#000",
         shadowOffset: {
             width: 0,
-            height: 0,
+            height: 6,
         },
         shadowOpacity: 0.37,
         shadowRadius: 7.49,
 
-        elevation: 6,
+        elevation: 12,
     },
     location: {
         width: 30,
