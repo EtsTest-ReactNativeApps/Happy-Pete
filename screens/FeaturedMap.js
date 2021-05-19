@@ -92,12 +92,34 @@ export default class HomeScreen extends Component {
                     })}
 
                 </MapView>
-                <View style={styles.locationIcon}>
-                    <TouchableHighlight onPress={() => { this.getGeoLocation() }}>
-                        <Image style={styles.location} source={require("../assets/icons/location.png")} />
+                <View style={styles.buttonContainer}>
+                    <View style={styles.locationIcon}>
+                        <TouchableHighlight underlayColor="" onPress={() => { this.getGeoLocation() }}>
+                            <Image style={styles.location} source={require("../assets/icons/location.png")} />
 
-                        {/* <Ionicons name="locate" size={24} color="blue" /> */}
-                    </TouchableHighlight>
+                            {/* <Ionicons name="locate" size={24} color="blue" /> */}
+                        </TouchableHighlight>
+                    </View>
+
+                    <View style={styles.zoomInOutContainer}>
+
+                        <View>
+                            <TouchableHighlight onPress={() => { this.getGeoLocation() }} underlayColor="" >
+                                <View style={styles.zoomInButton}>
+                                    <Image style={styles.zoomInIcon} source={require("../assets/icons/homescreen/minus.png")} />
+                                </View>
+                            </TouchableHighlight>
+                        </View>
+
+                        <View>
+                            <TouchableHighlight onPress={() => { this.getGeoLocation() }} underlayColor="">
+                                <View style={styles.zoomOutButton}>
+                                    <Image style={styles.zoomOutIcon} source={require("../assets/icons/homescreen/add.png")} />
+                                </View>
+                            </TouchableHighlight>
+                        </View>
+
+                    </View>
                 </View>
             </View>
         )
@@ -155,10 +177,65 @@ export default class HomeScreen extends Component {
 }
 const styles = StyleSheet.create({
 
+    buttonContainer:{
+        display:"flex",
+        alignItems:"center",
+        justifyContent:"center",
+        position:"absolute",
+        bottom:0,
+        right:0,
+        marginHorizontal:10,
+    },
+    zoomInOutContainer: {
+        display: "flex",
+        alignItems: "flex-end",
+        justifyContent: "flex-end",
+        width: "100%",
+        marginVertical: 20,
+
+    },
+    zoomInButton: {
+        backgroundColor: "white",
+        padding: 10,
+        marginRight: 5,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 6,
+        },
+        shadowOpacity: 0.37,
+        shadowRadius: 7.49,
+
+        elevation: 12,
+    },
+    zoomInIcon: {
+        height: 15,
+        width: 15,
+        resizeMode: "contain",
+    },
+    zoomOutButton: {
+        backgroundColor: "white",
+        padding: 10,
+        marginRight: 5,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 6,
+        },
+        shadowOpacity: 0.37,
+        shadowRadius: 7.49,
+
+        elevation: 12,
+
+    },
+    zoomOutIcon: {
+        height: 15,
+        width: 15,
+        resizeMode: "contain",
+    },
+
 
     locationIcon: {
-        marginTop: '70%',
-        marginLeft: '80%',
         backgroundColor: 'white',
         padding: 9,
         borderRadius: 50,
@@ -196,10 +273,12 @@ const styles = StyleSheet.create({
         borderColor: 'white',
         borderWidth: 2,
         overflow: 'hidden',
-        height: 350,
+        height: 300,
         width: "110%",
         // width: "117%",
         marginLeft: 15,
+        marginBottom:20,
+
     },
 
 })

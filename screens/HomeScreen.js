@@ -364,10 +364,10 @@ export default class HomeScreen extends Component {
                         longitude: barList[i].longitude,
                     })
                     let disKM = dis / 1000;
-
+                    
                     if (disKM >= 50) {
                         bar.push({
-                            name: barList[i].title,
+                            name: barList[i].name,
                             // avatar_url:list[i].avatar_url,
                             website: barList[i].website,
                             longitude: barList[i].longitude,
@@ -454,8 +454,8 @@ const styles = StyleSheet.create({
         elevation: 6,
     },
     buttonImage:{
-        width:"100%",
-        height:"100%",
+        width:"50%",
+        height:"50%",
         resizeMode:"contain",
     },
     buttonText: {
@@ -482,10 +482,12 @@ const styles = StyleSheet.create({
         width: 400,
         justifyContent: 'flex-end',
         alignItems: 'center',
+        
     },
     map: {
         display: 'none',
         ...StyleSheet.absoluteFillObject,
+        marginBottom:20,
     },
 
     mapView: {
@@ -527,7 +529,7 @@ const styles = StyleSheet.create({
         paddingVertical: 25,
         marginLeft: "auto",
         marginRight: "auto",
-        /*marginTop: 50,*/
+        marginBottom: 50,
     },
     viewAllText: {
         color: "#fff",
@@ -537,23 +539,24 @@ const styles = StyleSheet.create({
     },
 
     listItem: {
+        marginVertical:5,
+        borderRadius:5,
+        marginHorizontal:20,
         display: "flex",
         backgroundColor: "#fff",
         alignItems: "center",
         justifyContent: "space-between",
         flexDirection: "row",
         padding: 10,
-        borderBottomWidth: 1,
-        borderColor: "#bababa",
 
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5,
+        // shadowColor: "#fff",
+        // shadowOffset: {
+        //     width: 0,
+        //     height: 2,
+        // },
+        // shadowOpacity: 0.25,
+        // shadowRadius: 3.84,
+        // elevation: 5,
     },
     listImageContainer: {
         borderRadius: 50,

@@ -1,7 +1,7 @@
 
 import React, {Component, useEffect, useState} from "react";
 import MainNavigator from "./navigation/MainNavigator";
-import {View,Text} from "react-native";
+import {View,Text,StyleSheet} from "react-native";
 import * as Updates from "expo-updates";
 import { NavigationContainer } from '@react-navigation/native';
 import createStackNavigator from "@react-navigation/stack/src/navigators/createStackNavigator";
@@ -48,8 +48,8 @@ export default class App extends Component {
         const { loggedIn, loaded } = this.state;
         if (!loaded) {
             return (
-              <View style={{ flex: 1, justifyContent: 'center' }}>
-                <Text>Loading</Text>
+              <View style={style.loadingContainer}>
+                <Text style={style.loadingText}>Loading</Text>
               </View>
             )
           }
@@ -87,3 +87,7 @@ export default class App extends Component {
     }
 
 }
+
+const style = StyleSheet.create({
+
+})
