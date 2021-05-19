@@ -144,6 +144,13 @@ export default class HomeScreen extends Component {
                             />
 
                         }
+                        {/* <TouchableHighlight
+                            style={styles.viewAll}
+                            onPress={() => this.gotoAllPlace()}
+                        >
+                            <Text style={styles.clickText}>View All</Text>
+                        </TouchableHighlight> */}
+
                         <TouchableHighlight
                             style={styles.viewAll}
                             onPress={() => this.gotoAllPlace()}
@@ -347,7 +354,7 @@ export default class HomeScreen extends Component {
                     })
                     let disKM = dis / 1000;
 
-                    if (disKM <= 50) {
+                    if (disKM >= 50) {
                         bar.push({
                             name: barList[i].title,
                             // avatar_url:list[i].avatar_url,
