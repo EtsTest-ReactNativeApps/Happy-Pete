@@ -29,7 +29,7 @@ export default class HomeScreen extends Component {
         drinkData: '',
         barLists: [],
         bar: [],
-        AllBarList:[],
+        AllBarList: [],
         role: this.props.navigation.getParam("role")
     };
 
@@ -58,50 +58,78 @@ export default class HomeScreen extends Component {
     render() {
         return (
             <ScrollView style={styles.container}>
-                <View style={styles.Home}>
-                    <View style={styles.fixToText}>
-                        <TouchableHighlight
-                            style={[styles.buttonContainer, styles.btnLeft, styles.clickButton]}
-                            onPress={() => this.fetchRestaurant()}
-                        >
-                            <React.Fragment>
-                                <Image style={styles.wine} source={require("../assets/icons/homescreen/wine.png")} />
-                                {/* <Ionicons name="restaurant" size={24} color="black"/> */}
-                                <Text style={styles.clickText}>Wine</Text>
-                            </React.Fragment>
 
-                        </TouchableHighlight>
-                        <TouchableHighlight
-                            underlayColor={"none"}
-                            style={[styles.buttonContainer, styles.clickButton]}
-                            onPress={() => this.fetchDrink()}
-                        >
-                            <React.Fragment>
-                                <Image style={styles.cocktail} source={require("../assets/icons/homescreen/cocktail.png")} />
-                                <Text style={[styles.clickText]}>Cocktails</Text>
-                            </React.Fragment>
-                        </TouchableHighlight>
+                <View style={styles.buttonSection}>
+
+                <TouchableHighlight
+                        underlayColor=""
+                        // style={[styles.buttonContainer, styles.clickButton]}
+                        onPress={() => this.fetchRestaurant()}
+                    >
+                    <View style={styles.buttonContainer} onPress={() => this.fetchRestaurant()} >
+                            <View style={styles.buttonImageContainer}>
+                                <Image style={styles.buttonImage} source={require("../assets/icons/homescreen/wine.png")} />
+                            </View>
+                            <View style={styles.buttonText}>
+                                <Text style={styles.clickText}>Wine</Text>
+                            </View>
                     </View>
-                    <View style={styles.fixToText}>
-                        <TouchableHighlight
-                            style={[styles.buttonContainer, styles.clickButton]}
-                            onPress={() => this.fetchFood()}
-                        ><React.Fragment>
-                                <Image style={styles.food} source={require("../assets/icons/homescreen/food.png")} />
-                                <Text style={[styles.clickText, styles.marginIcon]}>Food</Text>
-                            </React.Fragment>
-                        </TouchableHighlight>
-                        <TouchableHighlight
-                            style={[styles.buttonContainer, styles.clickButton]}
-                            onPress={() => this.fetchBeer()}
-                        >
-                            <React.Fragment>
-                    <Image style={styles.beer} source={require("../assets/icons/homescreen/beer.png")} />
-                                <Text style={[styles.clickText, styles.marginIcon]}>Beer</Text>
-                            </React.Fragment>
-                        </TouchableHighlight>
+                </TouchableHighlight>
+
+                <TouchableHighlight
+                        underlayColor=""
+                        // style={[styles.buttonContainer, styles.clickButton]}
+                        onPress={() => this.fetchDrink()}
+                    >
+                    <View style={styles.buttonContainer} onPress={() => this.fetchRestaurant()} >
+                            <View style={styles.buttonImageContainer}>
+                                <Image style={styles.buttonImage} source={require("../assets/icons/homescreen/cocktail.png")} />
+                            </View>
+                            <View style={styles.buttonText}>
+                                <Text style={styles.clickText}>Cocktail</Text>
+                            </View>
                     </View>
-                </View>
+                </TouchableHighlight>
+
+                <TouchableHighlight
+                        underlayColor=""
+                        // style={[styles.buttonContainer, styles.clickButton]}
+                        onPress={() => this.fetchFood()}
+                    >
+                    <View style={styles.buttonContainer} onPress={() => this.fetchRestaurant()} >
+                            <View style={styles.buttonImageContainer}>
+                                <Image style={styles.buttonImage} source={require("../assets/icons/homescreen/food.png")} />
+                            </View>
+                            <View style={styles.buttonText}>
+                                <Text style={styles.clickText}>Food</Text>
+                            </View>
+                    </View>
+                </TouchableHighlight>
+
+                <TouchableHighlight
+                        underlayColor=""
+                        // style={[styles.buttonContainer, styles.clickButton]}
+                        onPress={() => this.fetchBeer()}
+                    >
+                    <View style={styles.buttonContainer} onPress={() => this.fetchRestaurant()} >
+                            <View style={styles.buttonImageContainer}>
+                                <Image style={styles.buttonImage} source={require("../assets/icons/homescreen/beer.png")} />
+                            </View>
+                            <View style={styles.buttonText}>
+                                <Text style={styles.clickText}>Beer</Text>
+                            </View>
+                    </View>
+                </TouchableHighlight>     
+            </View>
+
+            {/* end of button section */}
+
+            <View style={styles.featuredContainer}>
+                 <Text style={styles.featuredText}>Featured Places</Text>
+            </View>
+
+            {/* end of featured */}
+
                 <View style={styles.mapView}>
                     <FeaturedMap children={this.state.barLists} />
                 </View>
@@ -127,7 +155,7 @@ export default class HomeScreen extends Component {
                     <View><Text style={styles.noplaces}>No nearest places or Bar found for your location</Text>
                         <TouchableHighlight
                             style={styles.viewAll}
-                            onPress={() => {this.gotoAllPlace()}}
+                            onPress={() => { this.gotoAllPlace() }}
                         >
                             <Text style={styles.viewAllText}>View All</Text>
                         </TouchableHighlight>
@@ -280,7 +308,6 @@ export default class HomeScreen extends Component {
                     foodMenu: listDetails[i].foodMenu,
                     happyHour: listDetails[i].happyHour
                 })
-
             }
         }
     }
@@ -351,87 +378,85 @@ export default class HomeScreen extends Component {
         let bar = []
         Firebase.database().ref("/places")
             .once("value").then(snapshot => {
-            snapshot.forEach((child) => {
-                bar.push({
-                    name: child.val().name,
-                    address: child.val().address,
-                    key: child.key,
-                    website: child.val().website,
-                    longitude: child.val().longitude,
-                    latitude: child.val().latitude,
-                    phoneNumber: child.val().phoneNumber,
-                    foodMenu: child.val().foodMenu,
-                    drinkMenu: child.val().drinkMenu,
-                    happyHour: child.val().happyHour
+                snapshot.forEach((child) => {
+                    bar.push({
+                        name: child.val().name,
+                        address: child.val().address,
+                        key: child.key,
+                        website: child.val().website,
+                        longitude: child.val().longitude,
+                        latitude: child.val().latitude,
+                        phoneNumber: child.val().phoneNumber,
+                        foodMenu: child.val().foodMenu,
+                        drinkMenu: child.val().drinkMenu,
+                        happyHour: child.val().happyHour
+                    })
+                    this.props.navigation.navigate("AllPlaces", {
+                        barList: bar
+                    })
+                    this.setState({
+                        AllBarList: bar
+                    })
                 })
-                this.props.navigation.navigate("AllPlaces",{
-                    barList:bar
-                })
-                this.setState({
-                    AllBarList: bar
-                })
-            })
 
-        })
+            })
     }
 }
 
 const styles = StyleSheet.create({
-    Swiper: {
-        height: 500,
-        width: 500
+    buttonSection: {
+        display:"flex",
+        alignItems:"center",
+        justifyContent:"space-evenly",
+        flexDirection:"row",
+        marginVertical : 20,
     },
-    fixTotext: {
-        justifyContent: "space-between",
-        flexDirection: "row",
+    buttonContainer: {
+        display:"flex",
+        alignItems:"center",
+        justifyContent:"center",
     },
-    container: {
-        height: hp('100%'),
-        backgroundColor: "white",
-    },
-    bestText: {
-        marginTop: "5%",
-        color: 'black',
-        fontSize: 40,
-        fontWeight: 'bold',
-        marginLeft: '5%'
-    },
-    randomText: {
-        marginLeft: '5%',
-        marginRight: '10%'
-    },
-    readMore: {
-        color: 'red',
-        fontWeight: '500',
-        marginLeft: '10%'
+    buttonImageContainer: {
+        width : 75,
+        height:75,
+        backgroundColor:"#F7F082",
+        justifyContent:"center",
+        display:"flex",
+        alignItems:"center",
+        borderRadius:50,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 3,
+        },
+        shadowOpacity: 0.27,
+        shadowRadius: 4.65,
 
+        elevation: 6,
     },
-    fixImg: {
-        flexDirection: "row",
-        justifyContent: "space-between",
-        height: "100%",
-        width: 300,
-        textAlign: "center",
-        marginLeft: 15
+    buttonImage:{
+        width:"100%",
+        height:"100%",
+        resizeMode:"contain",
+    },
+    buttonText: {
+        marginTop : 10,
+    },
+    clickText: {
+        fontSize:16,
+        fontWeight:"bold"
+    },
+    featuredContainer:{
+        marginTop : 30,
+        marginBottom:20,
+    },
+    featuredText:{
+        fontSize:21,
+        marginLeft:20,
+        color:"#000",
+        fontWeight:"bold"
+    },
 
-    },
-    btn: {
-        borderRadius: 5,
-        marginTop: 10,
-        marginLeft: 30,
-        backgroundColor: "red",
-        height: 30,
-        width: "75%",
-        alignContent: "center"
-    },
-    btnText: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        color: "#fff"
-    },
-    locationTxt: {
-
-    },
     mapcontainer: {
         ...StyleSheet.absoluteFillObject,
         height: 400,
@@ -443,96 +468,7 @@ const styles = StyleSheet.create({
         display: 'none',
         ...StyleSheet.absoluteFillObject,
     },
-    card: {
-        justifyContent: "center",
-        alignItems: "center",
-        width: 300,
-        height: 300,
-    },
-    cardsText: {
-        fontSize: 22,
-    },
-    Home: {
-        justifyContent: "center",
-        alignContent: "center",
-        marginTop: "5%",
 
-    },
-    separator: {
-        marginVertical: "3%",
-        borderBottomColor: "#737373",
-    },
-    paragraph: {
-        margin: 1.5,
-        textAlign: "center",
-        fontWeight: "700",
-        paddingLeft: 12,
-        color: "#008b8b",
-        marginTop: "5%"
-    },
-    welcomeUser: {
-        textAlign: "center",
-        fontSize: 18,
-        paddingTop: 30,
-        fontWeight: "600",
-        color: "#09C5F7"
-    },
-    buttonContainer: {
-
-        justifyContent: "center",
-        alignItems: "center",
-        marginBottom: "2%",
-        width: wp('43%'),
-        borderRadius: 13,
-        marginRight: 15,
-        /*width: 182,*/
-        height: 73,
-        display: "flex",
-        flexDirection: "row",
-
-        shadowColor: "#000",
-        shadowOffset:{
-        width: 0,
-        height: 8,
-        },
-        shadowOpacity: 0.44,
-        shadowRadius: 10.32,
-        elevation: 16,
-
-    },
-    clickButton: {
-        backgroundColor: "#F7F082"
-    },
-    clickText: {
-        color: "#000",
-        fontSize: 18,
-        fontWeight: "bold",
-        marginLeft: 30,
-    },
-    fixToText: {
-        flexDirection: "row",
-        justifyContent: "space-between",
-        height: 100,
-        width: 300,
-        textAlign: "center",
-        marginLeft: 15
-    },
-    image: {
-        flex: 1,
-        resizeMode: "cover",
-        justifyContent: "center"
-    },
-    text: {
-        color: "white",
-        fontSize: 42,
-        fontWeight: "bold",
-        textAlign: "center",
-        backgroundColor: "#000000a0"
-    },
-    foodImage: {
-        height: 165,
-        width: 220
-    },
     mapView: {
         marginRight: '15%'
 
@@ -580,22 +516,10 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         textTransform: "uppercase",
     },
-    wine:{
-        width : 40,
-        resizeMode : "contain"
-    },
-    cocktail:{
-        width : 30,
-        resizeMode : "contain"
-    },
-    food:{
-        width : 40,
-        resizeMode : "contain"
-    },
-     beer:{
-        width : 40,
-        resizeMode : "contain"
-    },
+    buttonImage:{
+        width:30,
+        resizeMode:"contain",
+    }
 
 
 
