@@ -68,7 +68,7 @@ export default class HomeScreen extends Component {
             {/* learn */}
 
             <View style={styles.learnMore}>
-                <TouchableHighlight underlayColor="none" onPress={()=>this.goToBarDetails(item)}>
+                <TouchableHighlight underlayColor="none" onPress={() => this.goToBarDetails(item)}>
                     <Image style={styles.learnMoreIcon} source={require("../assets/icons/all_places/next.png")} />
                 </TouchableHighlight>
             </View>
@@ -158,6 +158,10 @@ export default class HomeScreen extends Component {
                 </View>
                 {this.state.bar !== null || this.state.bar !== [] || this.state.bar !== undefined ?
                     <ScrollView >
+
+                        <View style={styles.featuredContainer}>
+                            <Text style={styles.featuredText}>Best places near you</Text>
+                        </View>
                         <FlatList
                             data={this.state.bar}
                             keyExtractor={(a, b) => b.toString()}
@@ -215,102 +219,102 @@ export default class HomeScreen extends Component {
         let resData = []
         Firebase.database().ref("/places").orderByChild('category').equalTo('Restaurant')
             .once("value").then(snapshot => {
-            snapshot.forEach((child) => {
-                resData.push({
-                    title: child.val().name,
-                    address: child.val().address,
-                    key: child.key,
-                    website: child.val().website,
-                    longitude: child.val().longitude,
-                    latitude: child.val().latitude,
-                    phoneNumber: child.val().phoneNumber,
-                    foodMenu: child.val().foodMenu,
-                    drinkMenu: child.val().drinkMenu,
-                    happyHour: child.val().happyHour,
-                    category: child.val().category
+                snapshot.forEach((child) => {
+                    resData.push({
+                        title: child.val().name,
+                        address: child.val().address,
+                        key: child.key,
+                        website: child.val().website,
+                        longitude: child.val().longitude,
+                        latitude: child.val().latitude,
+                        phoneNumber: child.val().phoneNumber,
+                        foodMenu: child.val().foodMenu,
+                        drinkMenu: child.val().drinkMenu,
+                        happyHour: child.val().happyHour,
+                        category: child.val().category
+                    })
+                })
+                this.props.navigation.navigate("CategoryList", {
+                    data: resData
                 })
             })
-            this.props.navigation.navigate("CategoryList", {
-                data: resData
-            })
-        })
     }
     fetchDrink() {
         let drinkData = []
         Firebase.database().ref("/places").orderByChild('category').equalTo('Cocktails')
             .once("value").then(snapshot => {
-            snapshot.forEach((child) => {
-                drinkData.push({
-                    title: child.val().name,
-                    address: child.val().address,
-                    key: child.key,
-                    website: child.val().website,
-                    longitude: child.val().longitude,
-                    latitude: child.val().latitude,
-                    phoneNumber: child.val().phoneNumber,
-                    foodMenu: child.val().foodMenu,
-                    drinkMenu: child.val().drinkMenu,
-                    happyHour: child.val().happyHour,
-                    category: child.val().category
+                snapshot.forEach((child) => {
+                    drinkData.push({
+                        title: child.val().name,
+                        address: child.val().address,
+                        key: child.key,
+                        website: child.val().website,
+                        longitude: child.val().longitude,
+                        latitude: child.val().latitude,
+                        phoneNumber: child.val().phoneNumber,
+                        foodMenu: child.val().foodMenu,
+                        drinkMenu: child.val().drinkMenu,
+                        happyHour: child.val().happyHour,
+                        category: child.val().category
+                    })
+                })
+                this.props.navigation.navigate("CategoryList", {
+                    data: drinkData
                 })
             })
-            this.props.navigation.navigate("CategoryList", {
-                data: drinkData
-            })
-        })
     }
 
     fetchFood() {
         let foodData = []
         Firebase.database().ref("/places").orderByChild('category').equalTo('Food')
             .once("value").then(snapshot => {
-            snapshot.forEach((child) => {
-                foodData.push({
-                    title: child.val().name,
-                    address: child.val().address,
-                    key: child.key,
-                    category: child.val().category,
-                    website: child.val().website,
-                    longitude: child.val().longitude,
-                    latitude: child.val().latitude,
-                    phoneNumber: child.val().phoneNumber,
-                    foodMenu: child.val().foodMenu,
-                    drinkMenu: child.val().drinkMenu,
-                    happyHour: child.val().happyHour
+                snapshot.forEach((child) => {
+                    foodData.push({
+                        title: child.val().name,
+                        address: child.val().address,
+                        key: child.key,
+                        category: child.val().category,
+                        website: child.val().website,
+                        longitude: child.val().longitude,
+                        latitude: child.val().latitude,
+                        phoneNumber: child.val().phoneNumber,
+                        foodMenu: child.val().foodMenu,
+                        drinkMenu: child.val().drinkMenu,
+                        happyHour: child.val().happyHour
+                    })
                 })
-            })
-            this.props.navigation.navigate("CategoryList", {
-                data: foodData
-            })
+                this.props.navigation.navigate("CategoryList", {
+                    data: foodData
+                })
 
 
-        })
+            })
     }
 
     fetchBeer() {
         let beerData = []
         Firebase.database().ref("/places").orderByChild('category').equalTo('Beer')
             .once("value").then(snapshot => {
-            snapshot.forEach((child) => {
-                beerData.push({
-                    title: child.val().name,
-                    address: child.val().address,
-                    key: child.key,
-                    website: child.val().website,
-                    longitude: child.val().longitude,
-                    latitude: child.val().latitude,
-                    phoneNumber: child.val().phoneNumber,
-                    foodMenu: child.val().foodMenu,
-                    drinkMenu: child.val().drinkMenu,
-                    happyHour: child.val().happyHour,
-                    category: child.val().category
+                snapshot.forEach((child) => {
+                    beerData.push({
+                        title: child.val().name,
+                        address: child.val().address,
+                        key: child.key,
+                        website: child.val().website,
+                        longitude: child.val().longitude,
+                        latitude: child.val().latitude,
+                        phoneNumber: child.val().phoneNumber,
+                        foodMenu: child.val().foodMenu,
+                        drinkMenu: child.val().drinkMenu,
+                        happyHour: child.val().happyHour,
+                        category: child.val().category
+                    })
                 })
-            })
-            this.props.navigation.navigate("CategoryList", {
-                data: beerData
-            })
+                this.props.navigation.navigate("CategoryList", {
+                    data: beerData
+                })
 
-        })
+            })
     }
 
 
@@ -335,22 +339,22 @@ export default class HomeScreen extends Component {
         let bar = []
         Firebase.database().ref("/places")
             .once("value").then(snapshot => {
-            snapshot.forEach((child) => {
-                bar.push({
-                    name: child.val().name,
-                    address: child.val().address,
-                    key: child.key,
-                    website: child.val().website,
-                    longitude: child.val().longitude,
-                    latitude: child.val().latitude,
-                    phoneNumber: child.val().phoneNumber,
-                    foodMenu: child.val().foodMenu,
-                    drinkMenu: child.val().drinkMenu,
-                    happyHour: child.val().happyHour
+                snapshot.forEach((child) => {
+                    bar.push({
+                        name: child.val().name,
+                        address: child.val().address,
+                        key: child.key,
+                        website: child.val().website,
+                        longitude: child.val().longitude,
+                        latitude: child.val().latitude,
+                        phoneNumber: child.val().phoneNumber,
+                        foodMenu: child.val().foodMenu,
+                        drinkMenu: child.val().drinkMenu,
+                        happyHour: child.val().happyHour
+                    })
+                    this.getNearestPlace(bar)
                 })
-                this.getNearestPlace(bar)
             })
-        })
     }
 
     getNearestPlace(barList) {
@@ -364,8 +368,8 @@ export default class HomeScreen extends Component {
                         longitude: barList[i].longitude,
                     })
                     let disKM = dis / 1000;
-                    
-                    if (disKM >= 50) {
+
+                    if (disKM <= 50) {
                         bar.push({
                             name: barList[i].name,
                             // avatar_url:list[i].avatar_url,
@@ -397,52 +401,52 @@ export default class HomeScreen extends Component {
         let bar = []
         Firebase.database().ref("/places")
             .once("value").then(snapshot => {
-            snapshot.forEach((child) => {
-                bar.push({
-                    name: child.val().name,
-                    address: child.val().address,
-                    key: child.key,
-                    website: child.val().website,
-                    longitude: child.val().longitude,
-                    latitude: child.val().latitude,
-                    phoneNumber: child.val().phoneNumber,
-                    foodMenu: child.val().foodMenu,
-                    drinkMenu: child.val().drinkMenu,
-                    happyHour: child.val().happyHour
+                snapshot.forEach((child) => {
+                    bar.push({
+                        name: child.val().name,
+                        address: child.val().address,
+                        key: child.key,
+                        website: child.val().website,
+                        longitude: child.val().longitude,
+                        latitude: child.val().latitude,
+                        phoneNumber: child.val().phoneNumber,
+                        foodMenu: child.val().foodMenu,
+                        drinkMenu: child.val().drinkMenu,
+                        happyHour: child.val().happyHour
+                    })
+                    this.props.navigation.navigate("AllPlaces", {
+                        barList: bar
+                    })
+                    this.setState({
+                        AllBarList: bar
+                    })
                 })
-                this.props.navigation.navigate("AllPlaces", {
-                    barList: bar
-                })
-                this.setState({
-                    AllBarList: bar
-                })
-            })
 
-        })
+            })
     }
 }
 
 const styles = StyleSheet.create({
     buttonSection: {
-        display:"flex",
-        alignItems:"center",
-        justifyContent:"space-evenly",
-        flexDirection:"row",
-        marginVertical : 20,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-evenly",
+        flexDirection: "row",
+        marginVertical: 20,
     },
     buttonContainer: {
-        display:"flex",
-        alignItems:"center",
-        justifyContent:"center",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
     },
     buttonImageContainer: {
-        width : 75,
-        height:75,
-        backgroundColor:"#F7F082",
-        justifyContent:"center",
-        display:"flex",
-        alignItems:"center",
-        borderRadius:50,
+        width: 75,
+        height: 75,
+        backgroundColor: "#F7F082",
+        justifyContent: "center",
+        display: "flex",
+        alignItems: "center",
+        borderRadius: 50,
         shadowColor: "#000",
         shadowOffset: {
             width: 0,
@@ -453,27 +457,27 @@ const styles = StyleSheet.create({
 
         elevation: 6,
     },
-    buttonImage:{
-        width:"50%",
-        height:"50%",
-        resizeMode:"contain",
+    buttonImage: {
+        width: "50%",
+        height: "50%",
+        resizeMode: "contain",
     },
     buttonText: {
-        marginTop : 10,
+        marginTop: 10,
     },
     clickText: {
-        fontSize:16,
-        fontWeight:"bold"
+        fontSize: 16,
+        fontWeight: "bold"
     },
-    featuredContainer:{
-        marginTop : 30,
-        marginBottom:20,
+    featuredContainer: {
+        marginTop: 30,
+        marginBottom: 20,
     },
-    featuredText:{
-        fontSize:21,
-        marginLeft:20,
-        color:"#000",
-        fontWeight:"bold"
+    featuredText: {
+        fontSize: 21,
+        marginLeft: 20,
+        color: "#000",
+        fontWeight: "bold"
     },
 
     mapcontainer: {
@@ -482,12 +486,12 @@ const styles = StyleSheet.create({
         width: 400,
         justifyContent: 'flex-end',
         alignItems: 'center',
-        
+
     },
     map: {
         display: 'none',
         ...StyleSheet.absoluteFillObject,
-        marginBottom:20,
+        marginBottom: 20,
     },
 
     mapView: {
@@ -539,9 +543,9 @@ const styles = StyleSheet.create({
     },
 
     listItem: {
-        marginVertical:5,
-        borderRadius:5,
-        marginHorizontal:20,
+        marginVertical: 5,
+        borderRadius: 5,
+        marginHorizontal: 20,
         display: "flex",
         backgroundColor: "#fff",
         alignItems: "center",
