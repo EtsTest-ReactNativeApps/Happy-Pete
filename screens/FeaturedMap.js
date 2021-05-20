@@ -276,7 +276,7 @@ const styles = StyleSheet.create({
         overflow: 'hidden',
         height: 300,
         marginBottom:20,
-        width: wp(100),
+        width: wp(90),
     },
 
 })
