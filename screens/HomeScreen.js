@@ -169,7 +169,7 @@ export default class HomeScreen extends Component {
                         />
 
 
-                        <TouchableHighlight
+                    <TouchableHighlight
                             style={styles.viewAll}
                             onPress={() => this.gotoAllPlace()}
                         >
@@ -482,22 +482,20 @@ const styles = StyleSheet.create({
 
     mapcontainer: {
         ...StyleSheet.absoluteFillObject,
-        height: 400,
-        width: 400,
-        justifyContent: 'flex-end',
-        alignItems: 'center',
 
     },
     map: {
         display: 'none',
         ...StyleSheet.absoluteFillObject,
-        marginBottom: 20,
     },
 
     mapView: {
-        marginRight: '15%'
-
+        paddingHorizontal:50,
+        display:"flex",
+        alignItems:"center",
+        justifyContent:"center",
     },
+    
     mapText: {
         fontWeight: 'bold',
         fontSize: 21,
@@ -522,18 +520,17 @@ const styles = StyleSheet.create({
     },
     viewAll: {
         color: '#fff',
-        backgroundColor: "#000",
-        height: 45,
-        flexDirection: "row",
+        display:"flex",
         justifyContent: "center",
         alignItems: "center",
-        marginTop: 20,
-        width: 350,
+        flex:1,
+        backgroundColor: "#000",
+        height: 45,
+        // width: wp(90),
         borderRadius: 30,
         paddingVertical: 25,
-        marginLeft: "auto",
-        marginRight: "auto",
         marginBottom: 50,
+        marginHorizontal:15,
     },
     viewAllText: {
         color: "#fff",
