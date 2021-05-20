@@ -240,11 +240,11 @@ const styles = StyleSheet.create({
     },
     hotelDetails: {
         display: "flex",
-        marginVertical: 20,
+        marginVertical: "5%",
         flexDirection: "row",
         alignItems: "center",
-        justifyContent: "space-between",
-        marginHorizontal: 20,
+        justifyContent: "space-around",
+        marginHorizontal: "5%",
         // width : "100%",
     },
     hotelInfoAndWebsite: {
@@ -312,7 +312,7 @@ const styles = StyleSheet.create({
         elevation: 12,
         height: 50,
         width: 50,
-        marginRight: 20,
+        marginRight: "5%",
     },
     callIcon: {
         resizeMode: "contain",
