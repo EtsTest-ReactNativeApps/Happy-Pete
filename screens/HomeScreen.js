@@ -30,7 +30,8 @@ export default class HomeScreen extends Component {
         barLists: [],
         bar: [],
         AllBarList: [],
-        role: this.props.navigation.getParam("role")
+        role: this.props.navigation.getParam("role"),
+        isNearestPlace:false
     };
 
     async componentDidMount() {
@@ -156,18 +157,17 @@ export default class HomeScreen extends Component {
                 <View style={styles.mapView}>
                     <FeaturedMap children={this.state.barLists} />
                 </View>
-                {this.state.bar !== null || this.state.bar !== [] || this.state.bar !== undefined ?
+                {this.state.isNearestPlace === true  ?
                     <ScrollView >
-
                         <View style={styles.featuredContainer}>
                             <Text style={styles.featuredText}>Best places near you</Text>
                         </View>
+
                         <FlatList
                             data={this.state.bar}
                             keyExtractor={(a, b) => b.toString()}
                             renderItem={(item) => this.renderItem(item)}
                         />
-
 
                     <TouchableHighlight
                             style={styles.viewAll}
@@ -369,7 +369,7 @@ export default class HomeScreen extends Component {
                     })
                     let disKM = dis / 1000;
 
-                    if (disKM <= 50) {
+                    if (disKM < 50) {
                         bar.push({
                             name: barList[i].name,
                             // avatar_url:list[i].avatar_url,
@@ -381,6 +381,9 @@ export default class HomeScreen extends Component {
                             drinkMenu: barList[i].drinkMenu,
                             foodMenu: barList[i].foodMenu,
                             happyHour: barList[i].happyHour
+                        })
+                        this.setState({
+                            isNearestPlace:true
                         })
                     }
                 }
@@ -495,7 +498,7 @@ const styles = StyleSheet.create({
         alignItems:"center",
         justifyContent:"center",
     },
-    
+
     mapText: {
         fontWeight: 'bold',
         fontSize: 21,

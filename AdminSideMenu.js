@@ -24,14 +24,13 @@ class AdminSideMenu extends Component {
         const{navigation}=this.props
         FirebaseConfig.auth().onAuthStateChanged((user)=>{
             if(user){
+
                 this.setState({
                     loggedin:true,
                     logout:'Logout'
                 })
             }
         })
-
-
     }
 
 
@@ -105,7 +104,9 @@ class AdminSideMenu extends Component {
 
     onLogout=()=> {
 
-            this.props.navigation.navigate("Welcome")
+            FirebaseConfig.auth().signOut().then(r => alert("Log out successfully."),
+            this.props.navigation.navigate("Landing")
+            )
 
     }
 }

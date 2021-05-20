@@ -8,7 +8,7 @@ import {
     TouchableOpacity,
     TextInput, FlatList,
     TouchableHighlight,
-    Image
+    Image, Dimensions
 } from "react-native";
 
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
@@ -19,12 +19,15 @@ import { Ionicons } from '@expo/vector-icons';
 import * as geolib from "geolib";
 import RNAndroidLocationEnabler from "react-native-android-location-enabler";
 export default class HomeScreen extends Component {
+
     constructor(props) {
         super(props);
         this.state = {
             bar: [],
             latitude: 0,
             longitude: 0,
+            latitudeDelta:0.100,
+            longitudeDelta:0.0121,
             coordinates: [],
             data: this.props.children
         };
@@ -71,8 +74,8 @@ export default class HomeScreen extends Component {
                     region={{
                         latitude: this.state.latitude,
                         longitude: this.state.longitude,
-                        latitudeDelta: 0.100,
-                        longitudeDelta: 0.0121,
+                        latitudeDelta: this.state.latitudeDelta,
+                        longitudeDelta: this.state.longitudeDelta,
                     }}
 
                 >
@@ -105,7 +108,7 @@ export default class HomeScreen extends Component {
                     <View style={styles.zoomInOutContainer}>
 
                         <View>
-                            <TouchableHighlight onPress={() => { this.getGeoLocation() }} underlayColor="" >
+                            <TouchableHighlight onPress={() => { this.zoomIn() }} underlayColor="" >
                                 <View style={styles.zoomInButton}>
                                     <Image style={styles.zoomInIcon} source={require("../assets/icons/homescreen/minus.png")} />
                                 </View>
@@ -113,7 +116,7 @@ export default class HomeScreen extends Component {
                         </View>
 
                         <View>
-                            <TouchableHighlight onPress={() => { this.getGeoLocation() }} underlayColor="">
+                            <TouchableHighlight onPress={() => { this.zoomOut() }} underlayColor="">
                                 <View style={styles.zoomOutButton}>
                                     <Image style={styles.zoomOutIcon} source={require("../assets/icons/homescreen/add.png")} />
                                 </View>
@@ -157,11 +160,14 @@ export default class HomeScreen extends Component {
                 this.setState({
                     latitude: position.coords.latitude,
                     longitude: position.coords.longitude,
+
                     coordinates: this.state.coordinates.concat({
                         latitude: position.coords.latitude,
                         longitude: position.coords.longitude
                     }),
-                    bar: bar
+                    bar: bar,
+                    latitudeDelta:0.100,
+                    longitudeDelta:0.0121
                 });
             },
             error => {
@@ -175,6 +181,29 @@ export default class HomeScreen extends Component {
         );
     }
 
+    zoomOut=()=> {
+        const window = Dimensions.get('window');
+        const { width, height }  = window
+        let latitudeDelta= this.state.latitudeDelta;
+        let longitudeDelta =this.state.longitudeDelta
+        this.setState({
+            latitudeDelta:longitudeDelta-(width/height),
+            longitudeDelta:latitudeDelta-(width/height)
+        })
+        console.log(this.state.longitudeDelta)
+    }
+    zoomIn=()=> {
+        const window = Dimensions.get('window');
+        const { width, height }  = window
+        let latitudeDelta= this.state.latitudeDelta;
+        let longitudeDelta =this.state.longitudeDelta
+        this.setState({
+            latitudeDelta:longitudeDelta+(width/height),
+            longitudeDelta:latitudeDelta+(width/height)
+        })
+
+        console.log(this.state.longitudeDelta)
+    }
 }
 const styles = StyleSheet.create({
 
