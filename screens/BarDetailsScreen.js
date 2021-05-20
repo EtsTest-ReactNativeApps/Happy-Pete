@@ -206,27 +206,6 @@ export default class BarDetailsScreen extends Component {
 }
 
 const styles = StyleSheet.create({
-    menuDetails: {
-        marginBottom: 20,
-    },
-    menuTable: {
-        display: "flex",
-        flexDirection: "row",
-        marginVertical: 10,
-        marginHorizontal: 20,
-    },
-    menuHeading: {
-        flex: 1,
-        fontSize: 16,
-        color: "#000",
-        fontWeight: "bold"
-    },
-    menuData: {
-        flex: 2,
-        fontSize: 16,
-        color: "#000",
-    },
-
 
     imageContainer: {
         width: "100%",
@@ -243,9 +222,9 @@ const styles = StyleSheet.create({
         marginVertical: "5%",
         flexDirection: "row",
         alignItems: "center",
-        justifyContent: "space-around",
+        justifyContent: "space-between",
         marginHorizontal: "5%",
-        // width : "100%",
+        flexWrap :"wrap",
     },
     hotelInfoAndWebsite: {
 
@@ -294,7 +273,8 @@ const styles = StyleSheet.create({
         display: "flex",
         flexDirection: "row",
         alignItems: "flex-start",
-        justifyContent: "space-between",
+        justifyContent: "center",
+        marginVertical:20,
     },
 
     callButton: {
@@ -319,6 +299,28 @@ const styles = StyleSheet.create({
         width: "100%",
         height: " 100%",
     },
+
+    menuDetails: {
+        marginBottom: 20,
+    },
+    menuTable: {
+        display: "flex",
+        flexDirection: "row",
+        marginVertical: 10,
+        marginHorizontal: 20,
+    },
+    menuHeading: {
+        flex: 1,
+        fontSize: 16,
+        color: "#000",
+        fontWeight: "bold"
+    },
+    menuData: {
+        flex: 2,
+        fontSize: 16,
+        color: "#000",
+    },
+
 
 
 

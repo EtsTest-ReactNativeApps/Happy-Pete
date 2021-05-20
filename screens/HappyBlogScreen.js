@@ -40,8 +40,8 @@ export default class HappyBlogScreen extends Component {
                         <View style={styles.blogContent}>
                             <Text style={styles.blogHeading}>The Best Happy hour Margaritas in St Pete</Text>
                             <Text style={styles.blogDescription} numberOfLines={2} ellipsizeMode='tail'>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper</Text>
-                            <TouchableHighlight underlayColor="orange" onPress={()=>this.props.navigation.navigate("Blog")}>
-                                    <Text style={styles.readMore}>READ MORE</Text>
+                            <TouchableHighlight underlayColor="" onPress={() => this.props.navigation.navigate("Blog")}>
+                                <Text style={styles.readMore}>READ MORE</Text>
                             </TouchableHighlight>
                         </View>
                     </View>
@@ -55,26 +55,29 @@ export default class HappyBlogScreen extends Component {
                         <View style={styles.blogContent}>
                             <Text style={styles.blogHeading}>The Best Happy hour Beers in St Pete</Text>
                             <Text style={styles.blogDescription} numberOfLines={2} ellipsizeMode='tail'>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper</Text>
-                            <TouchableHighlight onPress={()=>this.props.navigation.navigate("Blog")}>
-                                    <Text style={styles.readMore}>READ MORE</Text>
-                           
-                                </TouchableHighlight>
+                            <TouchableHighlight onPress={() => this.props.navigation.navigate("Blog")} underlayColor="">
+                                <Text style={styles.readMore}>READ MORE</Text>
+
+                            </TouchableHighlight>
                         </View>
                     </View>
 
                     <View style={styles.blogContainer}>
                         <View style={styles.blogImageContainer}>
                             <Image
-                        source={require("../images/palmTreeBG-768x85.jpg")}
-                        style={styles.blogImage} />
+                                source={require("../images/palmTreeBG-768x85.jpg")}
+                                style={styles.blogImage} />
                         </View>
                         <View style={styles.blogContent}>
                             <Text style={styles.blogHeading}>The Best Happy hour Beers in St Pete</Text>
                             <Text style={styles.blogDescription} numberOfLines={2} ellipsizeMode='tail'>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper</Text>
-                            <Text style={styles.readMore}>READ MORE</Text>
+                            <TouchableHighlight onPress={() => this.props.navigation.navigate("Blog")} underlayColor="">
+                                <Text style={styles.readMore}>READ MORE</Text>
+
+                            </TouchableHighlight>                        
                         </View>
                     </View>
-     
+
                 </View>
             </ScrollView>
         )
@@ -93,7 +96,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         marginTop: 30,
-        marginBottom:15,
+        marginBottom: 15,
     },
     blogContainer: {
         display: "flex",
@@ -103,7 +106,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#fff",
         borderRadius: 10,
         marginTop: 15,
-        marginBottom:15, 
+        marginBottom: 15,
 
         shadowColor: "#000",
         shadowOffset: {

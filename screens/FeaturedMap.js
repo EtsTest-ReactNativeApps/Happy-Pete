@@ -11,6 +11,7 @@ import {
     Image
 } from "react-native";
 
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 import Geolocation from 'react-native-geolocation-service';
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps'
@@ -183,8 +184,7 @@ const styles = StyleSheet.create({
         justifyContent:"center",
         position:"absolute",
         bottom:0,
-        right:0,
-        marginHorizontal:10,
+        right:20,
     },
     zoomInOutContainer: {
         display: "flex",
@@ -192,7 +192,6 @@ const styles = StyleSheet.create({
         justifyContent: "flex-end",
         width: "100%",
         marginVertical: 20,
-
     },
     zoomInButton: {
         backgroundColor: "white",
@@ -257,16 +256,18 @@ const styles = StyleSheet.create({
     mapcontainer: {
         ...StyleSheet.absoluteFillObject,
         height: 400,
-        width: 400,
-        justifyContent: 'flex-end',
+        // width: wp(80),
+        display:"flex",
+        justifyContent: 'center',
         alignItems: 'center',
+        marginHorizontal:30,
     },
     map: {
         display: 'none',
         ...StyleSheet.absoluteFillObject,
     },
     mapContainer: {
-
+        display:"flex",
         justifyContent: "center",
         alignItems: 'center',
         borderRadius: 15,
@@ -274,11 +275,8 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         overflow: 'hidden',
         height: 300,
-        width: "110%",
-        // width: "117%",
-        marginLeft: 15,
         marginBottom:20,
-
+        width: wp(100),
     },
 
 })
