@@ -198,7 +198,7 @@ export default class HomeScreen extends Component {
         let latitudeDelta= this.state.latitudeDelta;
         let longitudeDelta =this.state.longitudeDelta
         this.setState({
-            latitudeDelta:longitudeDelta+(width/height),
+            latitudeDelta:Math.abs(longitudeDelta+(width/height)),
             longitudeDelta:latitudeDelta+(width/height)
         })
 

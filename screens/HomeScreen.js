@@ -221,7 +221,7 @@ export default class HomeScreen extends Component {
             .once("value").then(snapshot => {
                 snapshot.forEach((child) => {
                     resData.push({
-                        title: child.val().name,
+                        name: child.val().name,
                         address: child.val().address,
                         key: child.key,
                         website: child.val().website,
@@ -245,7 +245,7 @@ export default class HomeScreen extends Component {
             .once("value").then(snapshot => {
                 snapshot.forEach((child) => {
                     drinkData.push({
-                        title: child.val().name,
+                        name: child.val().name,
                         address: child.val().address,
                         key: child.key,
                         website: child.val().website,
@@ -270,7 +270,7 @@ export default class HomeScreen extends Component {
             .once("value").then(snapshot => {
                 snapshot.forEach((child) => {
                     foodData.push({
-                        title: child.val().name,
+                        name: child.val().name,
                         address: child.val().address,
                         key: child.key,
                         category: child.val().category,
@@ -297,7 +297,7 @@ export default class HomeScreen extends Component {
             .once("value").then(snapshot => {
                 snapshot.forEach((child) => {
                     beerData.push({
-                        title: child.val().name,
+                        name: child.val().name,
                         address: child.val().address,
                         key: child.key,
                         website: child.val().website,
