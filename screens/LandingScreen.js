@@ -9,7 +9,16 @@ export default function Welcome({ navigation }) {
             <Image
                 style={{
                     resizeMode:"contain",
+                    width : 210,
+                    height:210,
+                }}
+                source={require('../images/bartender.png')} />
+
+            <Image
+                style={{
+                    resizeMode:"contain",
                     width : 313,
+                    marginTop: -30,
                 }}
                 source={require('../assets/logo3.png')} />
             </View>
@@ -40,11 +49,12 @@ container:{
     flex:1,
     display:'flex',
     justifyContent:'center',
-    backgroundColor : "#F7F082",
-    alignItems:"center",
-    alignItems: "center",
-    justifyContent: "center",
-    alignContent: "center",
+    backgroundColor : "#6DD5D5",
+    // alignItems:"center",
+    // alignItems: "center",
+    // justifyContent: "center",
+    // // alignContent: "center",
+    width:"auto",
 },
 
     exclusive:{
@@ -52,7 +62,7 @@ container:{
     fontSize:21,
     marginTop : -20,
     marginBottom : 50,
-    color : "#000",
+    color : "#323232",
     textAlign : "center",
     width:300,
     marginLeft:"auto",
@@ -74,23 +84,25 @@ container:{
         marginRight : "auto",
         fontWeight : "bold",
         borderWidth:3,
+        borderColor : "#323232",
       },
       loginButton: {
-        backgroundColor: "#000",
+        backgroundColor: "#323232",
       },
       loginText: {
-        color: "#F7F082",
+        color: "#fff",
         fontWeight : 'bold',
         fontSize : 18,
     },
     registerText:{
-        color :"black",
+        color :"#323232",
         fontWeight : 'bold',
         fontSize : 18,
     },
     buttonTransparent:{
         backgroundColor:"transparent",
         borderWidth : 3,
+        borderColor : "#323232",
     },
 
 })

@@ -62,7 +62,7 @@ export default class RegistrationScreen extends Component{
     render(){
         return (
             <View style={styles.container}>
-                      <Text style={styles.heading}>LOGIN</Text>
+                      <Text style={styles.heading}>Register</Text>
 
                 <View>
                     <View style={styles.inputContainer}>
@@ -150,11 +150,11 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "flex-start",
         alignContent: "flex-start",
-        backgroundColor : "#F7F082",
+        backgroundColor : "#008080",
     },
     
 heading :{
-    color:"#000",
+    color:"#fff",
     fontWeight : "bold",
     marginVertical :40,
     fontSize : 31,
@@ -252,7 +252,7 @@ heading :{
       },
       
       loginTextBlack : {
-        color : "#000",
+        color : "#fff",
         fontWeight: "bold",
         fontSize :18,
         marginTop : 30,

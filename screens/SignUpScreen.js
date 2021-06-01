@@ -77,7 +77,7 @@ container: {
   alignItems: "flex-end",
   justifyContent: "center",
   alignContent: "center",
-  backgroundColor : "#F7F082"
+  backgroundColor : "#008080"
 },
 alignInputbox:{
     flexDirection:"row",

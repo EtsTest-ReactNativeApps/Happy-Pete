@@ -144,12 +144,12 @@ container: {
   alignItems: "center",
   justifyContent: "flex-start",
   alignContent: "center",
-  backgroundColor : "#F7F082",
+  backgroundColor : "#008080",
   fontSize : 18,
 },
 
 heading :{
-  color:"#000",
+  color:"#fff",
   fontWeight : "bold",
   marginVertical :40,
   fontSize : 27,
@@ -246,7 +246,7 @@ forgotPassword : {
 },
 
 forgotPasswordText: {
-  color : "#000",
+  color : "#fff",
   fontWeight: "bold",
   fontSize : 18
 },
@@ -258,12 +258,13 @@ signup : {
 },
 
 signupText : {
-  color : "#000",
+  color : "#fff",
   fontWeight: "bold",
   fontSize : 18
 },
 
 forgotBtn:{
-  backgroundColor:'transparent'
+  backgroundColor:'transparent',
+  borderWidth:3,
 }
 })

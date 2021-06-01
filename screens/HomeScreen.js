@@ -436,6 +436,7 @@ const styles = StyleSheet.create({
         justifyContent: "space-evenly",
         flexDirection: "row",
         marginVertical: 20,
+        marginTop : 30,
     },
     buttonContainer: {
         display: "flex",
@@ -445,7 +446,7 @@ const styles = StyleSheet.create({
     buttonImageContainer: {
         width: 75,
         height: 75,
-        backgroundColor: "#F7F082",
+        backgroundColor: "#008080",
         justifyContent: "center",
         display: "flex",
         alignItems: "center",
@@ -534,6 +535,7 @@ const styles = StyleSheet.create({
         paddingVertical: 25,
         marginBottom: 50,
         marginHorizontal:15,
+        marginTop : 20,
     },
     viewAllText: {
         color: "#fff",

@@ -45,12 +45,12 @@ class NavigationDrawerStructure extends Component {
   render() {
 
     return (
-      <View style={{ flexDirection: "row" }}>
+      <View style={{ flexDirection: "row", marginLeft:5, }}>
         <TouchableOpacity onPress={this.toggleDrawer.bind(this)}>
           {/*Donute Button Image */}
           <Image
             source={require("../images/drawer.png")}
-            style={{ width: 25, height: 25, marginLeft: 6 }}
+            style={{ width: 25, height: 25, marginLeft: 20 }}
           />
         </TouchableOpacity>
       </View>
@@ -73,7 +73,7 @@ const FirstActivity_StackNavigator = createStackNavigator({
   Home: {
     screen: HomeScreen,
     navigationOptions: ({ navigation }) => ({
-      headerRight: <Text style={styles.headerRight}>Happy St. Pete</Text>,
+      headerRight: <View><Image source={require("../images/flagLogo.png")} style={styles.logo} /></View>,
       headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
       headerStyle: {
         backgroundColor: "#fff",
@@ -91,7 +91,6 @@ const FirstActivity_StackNavigator = createStackNavigator({
         backgroundColor: "#fff",
       },
       headerTintColor: "#fff",
-
     }),
   },
   MapDataUpload: {
@@ -289,5 +288,11 @@ const styles = StyleSheet.create({
    fontWeight:'bold',
    fontSize:25,
    color:'#000'
- }
+ },
+ logo:{
+   width:200,
+   resizeMode:"contain",
+   marginRight:30,
+ },
+
 })

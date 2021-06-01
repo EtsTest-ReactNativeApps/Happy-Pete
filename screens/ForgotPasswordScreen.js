@@ -71,12 +71,12 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "flex-start",
         alignContent: "center",
-        backgroundColor : "#F7F082",
+        backgroundColor : "#008080",
         fontSize : 18,
     },
 
     heading :{
-        color:"#000",
+        color:"#fff",
         fontWeight : "bold",
         marginVertical :40,
         fontSize : 24,
@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
     },
     description : {
         fontWeight : "bold",
-        color : "black",
+        color : "#fff",
         width : 300,
         textAlign : "center",
         fontSize : 16,

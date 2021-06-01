@@ -1,14 +1,14 @@
 
 import React, { Component } from "react";
 import Home from "./screens/HomeScreen";
-import { Ionicons } from "@expo/vector-icons";
 
 import {
     ScrollView,
     Text,
     View,
     StyleSheet,
-    TouchableHighlight
+    TouchableHighlight,
+    Image,
 } from "react-native";
 import FirebaseConfig from "./components/config";
 
@@ -38,63 +38,74 @@ class AdminSideMenu extends Component {
         return (
             <View style={styles.container}>
                 <ScrollView>
-                    <TouchableHighlight style={[styles.buttonContainerHome]}>
-                        <Text style={styles.kecText}>
-                            Happy St. Pete
-                        </Text>
-                    </TouchableHighlight>
-                    <View style={styles.fixIcon}>
-                        <Ionicons name="md-home" size={25} />
-                        <TouchableHighlight
-                            underlayColor={"none"}
-                            style={[styles.buttonContainerText]}
-                            onPress={() => this.props.navigation.navigate("Home")}
-                        >
-                            <Text style={styles.clickText}>Home</Text>
-                        </TouchableHighlight>
-                    </View>
-                    <View style={styles.fixIcon}>
-                        <Ionicons name="md-notifications" size={25} />
-                        <TouchableHighlight
-                            underlayColor={"none"}
-                            style={[styles.buttonContainerText]}
-                            onPress={() => this.props.navigation.navigate("AboutApp")}
-                        >
-                            <Text style={styles.clickText}>About App</Text>
-                        </TouchableHighlight>
-                    </View>
-                    <View style={styles.fixIcon}>
-                        <Ionicons name="md-people" size={25} />
-                        <TouchableHighlight
-                            underlayColor={"none"}
-                            style={[styles.buttonContainerText]}
-                            onPress={() => this.props.navigation.navigate("HappyBlog")}
-                        >
-                            <Text style={styles.clickText}>Happy Blog</Text>
-                        </TouchableHighlight>
+
+                    <View style={styles.userInfo}>
+                        <Text style={styles.userInfoName}>Varun Krishnan</Text>
+                        <Text style={styles.userInfoMail}>varunkrishnan0001@gmail.com</Text>
                     </View>
 
-                    <View style={styles.fixIcon}>
-                        <Ionicons name="md-heart" size={25} />
-                        <TouchableHighlight
-                            underlayColor={"none"}
-                            style={[styles.buttonContainerText]}
-                            onPress={() => this.props.navigation.navigate("ContactUs")}
-                        >
-                            <Text style={styles.clickText}>Contact Us</Text>
-                        </TouchableHighlight>
+                    <View style={styles.navItems}>
+                        
+                        <View style={styles.navItem}>
+                            <View style={styles.navItemImageContainer}>
+                                <Image style={styles.navItemImage} source={require("./assets/icons/sidebar/home.png")} />
+                            </View>
+                            <View style={styles.navItemTextContainer}>
+                                <Text style={styles.navItemText}>Home</Text>
+                            </View>
+                        </View>
+
+                        <View style={styles.navItem}>
+                            <View style={styles.navItemImageContainer}>
+                                <Image style={styles.navItemImage} source={require("./assets/icons/sidebar/wine.png")} />
+                            </View>
+                            <View style={styles.navItemTextContainer}>
+                                <Text style={styles.navItemText}>Wine</Text>
+                            </View>
+                        </View>
+
+                        <View style={styles.navItem}>
+                            <View style={styles.navItemImageContainer}>
+                                <Image style={styles.navItemImage} source={require("./assets/icons/sidebar/cocktail.png")} />
+                            </View>
+                            <View style={styles.navItemTextContainer}>
+                                <Text style={styles.navItemText}>Cocktail</Text>
+                            </View>
+                        </View>
+
+                        <View style={styles.navItem}>
+                            <View style={styles.navItemImageContainer}>
+                                <Image style={styles.navItemImage} source={require("./assets/icons/sidebar/food.png")} />
+                            </View>
+                            <View style={styles.navItemTextContainer}>
+                                <Text style={styles.navItemText}>Food</Text>
+                            </View>
+                        </View>
+
+                        <View style={styles.navItem}>
+                            <View style={styles.navItemImageContainer}>
+                                <Image style={styles.navItemImage} source={require("./assets/icons/sidebar/beer.png")} />
+                            </View>
+                            <View style={styles.navItemTextContainer}>
+                                <Text style={styles.navItemText}>Beer</Text>
+                            </View>
+                        </View>
+
+                        <View style={styles.navItem}>
+                            <View style={styles.navItemImageContainer}>
+                                <Image style={styles.navItemImage} source={require("./assets/icons/sidebar/logout.png")} />
+                            </View>
+                            <View style={styles.navItemTextContainer}>
+                                <Text style={styles.navItemText}>Logout</Text>
+                            </View>
+                        </View>
+
+
+
                     </View>
-                    <View style={styles.fixIcon}>
-                        <Ionicons name="md-heart" size={25} />
-                        <TouchableHighlight
-                            underlayColor={"none"}
-                            style={[styles.buttonContainerText]}
-                            onPress={() => this.onLogout()}
-                        >
-                            {this.state.logout &&
-                            <Text style={styles.clickText}>Logout</Text>}
-                        </TouchableHighlight>
-                    </View>
+
+
+                    
                 </ScrollView>
                 <View style={styles.footerContainer}></View>
             </View>
@@ -117,64 +128,48 @@ const styles = StyleSheet.create({
         flex: 1,
         width: "100%"
     },
-    secondaryHeading: {
-        padding: 5,
-        fontWeight: "800",
-        fontSize: 30,
-        backgroundColor: "#fff"
+    userInfo:{
+        backgroundColor:"#DFFFFF",
+        padding : 25,
+        paddingVertical:30,
     },
-    mainHeading: {
-        paddingVertical: 5,
-        paddingHorizontal: 5,
-        backgroundColor: "lightgrey"
+    userInfoName:{
+        color:"#008080",
+        fontWeight:"bold",
+        fontSize : 24,
     },
-    buttonContainer: {
-        height: 45,
-        flexDirection: "row",
-        justifyContent: "center",
-        alignItems: "center",
-        marginBottom: 20,
-        marginLeft: 10,
-        width: 175,
-        borderRadius: 30
+    userInfoMail:{
+        color:"#000",
+        fontSize:14,
+        marginTop:5,
+        // fontWeight:"bold",
     },
-    logoutButton: {
-        backgroundColor: "#00b5ec"
+    navItems:{
     },
-    logoutText: {
-        color: "white"
-    },
-    clickText: {
-        color: "black",
+    navItem:{
+        display:"flex",
+        flexDirection:"row",
+        // backgroundColor:"orange",
+        alignItems:"center",
+        padding : 20,
 
-        fontSize: 18
     },
-    kecText: {
-        color: "white",
-        fontWeight: "800",
-        fontSize: 20
+    navItemImage : {
+        width:30,
+        height:30,
+        resizeMode:"contain",
     },
-    buttonContainerText: {
-        height: 45,
-        flexDirection: "row",
-        width: 150,
-        borderRadius: 20,
-        marginTop: 2,
-        marginLeft: "5%"
-    },
-    buttonContainerHome: {
-        height: 85,
-        flexDirection: "row",
-        width: 250,
-        marginTop: "1%",
-        borderRadius: 20,
-        marginLeft: "5%"
-    },
-    fixIcon: {
-        flexDirection: "row",
-        justifyContent: "space-around"
-    },
-    footerContainer: {}
+    navItemText :{
+        fontSize :18,
+        color:"#333333",
+        fontWeight:"bold",
+        marginLeft:25,
+    }
+
+
+
+
+
 });
 
 export default AdminSideMenu;
