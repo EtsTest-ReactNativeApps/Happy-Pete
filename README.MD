@@ -170,7 +170,9 @@ Distributed under the MIT License. See `LICENSE` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@apcbadal](https://twitter.com/anshumanbadal) - apcbadal@gmail.com
+Name - [Anshuman Badal](https://www.linkedin.com/in/apcbadal)
+
+Email - [apcbadal@gmail.com](mailto:apcbadal@gmail.com)
 
 Project Link: [https://github.com/apcbadal/Happy-Pete](https://github.com/apcbadal/Happy-Pete)
 
