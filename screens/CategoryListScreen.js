@@ -18,16 +18,16 @@ import {ListItem} from "react-native-elements";
 export default class CategoryList extends Component{
     constructor(props) {
         super(props);
+
         this.state={
             list:this.props.navigation.getParam("data")
         }
     }
     goToBarDetails(item) {
-
         let listDetails = item;
         this.props.navigation.navigate("BarDetailsScreen", {
             name: listDetails.name,
-            // avatar_url:list[i].avatar_url,
+            avatar_url:listDetails.avatar_url,
             website: listDetails.website,
             longitude: listDetails.longitude,
             latitude: listDetails.latitude,
@@ -46,10 +46,12 @@ export default class CategoryList extends Component{
 
             {/* image */}
             <View style={styles.listImageContainer}>
+
                 <Image
                     style={styles.listImage}
-                    source={require("../images/hotel.jpg")} />
+                    source={{uri:item.avatar_url}} />
             </View>
+
 
             {/* hotelDetails */}
             <View style={styles.hotelInfoAndWebsite}>

@@ -186,21 +186,26 @@ export default class HomeScreen extends Component {
         const { width, height }  = window
         let latitudeDelta= this.state.latitudeDelta;
         let longitudeDelta =this.state.longitudeDelta
-        this.setState({
-            latitudeDelta:longitudeDelta-(width/height),
-            longitudeDelta:latitudeDelta-(width/height)
-        })
-        console.log(this.state.longitudeDelta)
+        if(longitudeDelta !==0.0121||longitudeDelta>0.0121) {
+            this.setState({
+                latitudeDelta: Math.abs(longitudeDelta - (width / height)),
+                longitudeDelta: latitudeDelta - (width / height)
+            })
+        }
+
     }
     zoomIn=()=> {
         const window = Dimensions.get('window');
         const { width, height }  = window
         let latitudeDelta= this.state.latitudeDelta;
         let longitudeDelta =this.state.longitudeDelta
-        this.setState({
-            latitudeDelta:Math.abs(longitudeDelta+(width/height)),
-            longitudeDelta:latitudeDelta+(width/height)
-        })
+
+            this.setState({
+                latitudeDelta:Math.abs(longitudeDelta+(width/height)),
+                longitudeDelta:latitudeDelta+(width/height)
+            })
+
+
 
         console.log(this.state.longitudeDelta)
     }

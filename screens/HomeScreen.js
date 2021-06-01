@@ -88,9 +88,9 @@ export default class HomeScreen extends Component {
                     <TouchableHighlight
                         underlayColor=""
                         // style={[styles.buttonContainer, styles.clickButton]}
-                        onPress={() => this.fetchRestaurant()}
+                        onPress={() => this.fetchWine()}
                     >
-                        <View style={styles.buttonContainer} onPress={() => this.fetchRestaurant()} >
+                        <View style={styles.buttonContainer} onPress={() => this.fetchWine()} >
                             <View style={styles.buttonImageContainer}>
                                 <Image style={styles.buttonImage} source={require("../assets/icons/homescreen/wine.png")} />
                             </View>
@@ -105,7 +105,7 @@ export default class HomeScreen extends Component {
                         // style={[styles.buttonContainer, styles.clickButton]}
                         onPress={() => this.fetchDrink()}
                     >
-                        <View style={styles.buttonContainer} onPress={() => this.fetchRestaurant()} >
+                        <View style={styles.buttonContainer} onPress={() => this.fetchDrink()} >
                             <View style={styles.buttonImageContainer}>
                                 <Image style={styles.buttonImage} source={require("../assets/icons/homescreen/cocktail.png")} />
                             </View>
@@ -120,7 +120,7 @@ export default class HomeScreen extends Component {
                         // style={[styles.buttonContainer, styles.clickButton]}
                         onPress={() => this.fetchFood()}
                     >
-                        <View style={styles.buttonContainer} onPress={() => this.fetchRestaurant()} >
+                        <View style={styles.buttonContainer} onPress={() => this.fetchFood()} >
                             <View style={styles.buttonImageContainer}>
                                 <Image style={styles.buttonImage} source={require("../assets/icons/homescreen/food.png")} />
                             </View>
@@ -135,7 +135,7 @@ export default class HomeScreen extends Component {
                         // style={[styles.buttonContainer, styles.clickButton]}
                         onPress={() => this.fetchBeer()}
                     >
-                        <View style={styles.buttonContainer} onPress={() => this.fetchRestaurant()} >
+                        <View style={styles.buttonContainer} onPress={() => this.fetchBeer()} >
                             <View style={styles.buttonImageContainer}>
                                 <Image style={styles.buttonImage} source={require("../assets/icons/homescreen/beer.png")} />
                             </View>
@@ -215,12 +215,12 @@ export default class HomeScreen extends Component {
 
     }
 
-    fetchRestaurant() {
-        let resData = []
+    fetchWine() {
+        let wineData = []
         Firebase.database().ref("/places").orderByChild('category').equalTo('Restaurant')
             .once("value").then(snapshot => {
                 snapshot.forEach((child) => {
-                    resData.push({
+                    wineData.push({
                         name: child.val().name,
                         address: child.val().address,
                         key: child.key,
@@ -231,11 +231,13 @@ export default class HomeScreen extends Component {
                         foodMenu: child.val().foodMenu,
                         drinkMenu: child.val().drinkMenu,
                         happyHour: child.val().happyHour,
-                        category: child.val().category
+                        category: child.val().category,
+                        avatar_url:child.val().avatar_url
                     })
+
                 })
                 this.props.navigation.navigate("CategoryList", {
-                    data: resData
+                    data: wineData
                 })
             })
     }
@@ -255,8 +257,10 @@ export default class HomeScreen extends Component {
                         foodMenu: child.val().foodMenu,
                         drinkMenu: child.val().drinkMenu,
                         happyHour: child.val().happyHour,
-                        category: child.val().category
+                        category: child.val().category,
+                        avatar_url:child.val().avatar_url
                     })
+                    console.log(child.val().avatar_url)
                 })
                 this.props.navigation.navigate("CategoryList", {
                     data: drinkData
@@ -280,7 +284,8 @@ export default class HomeScreen extends Component {
                         phoneNumber: child.val().phoneNumber,
                         foodMenu: child.val().foodMenu,
                         drinkMenu: child.val().drinkMenu,
-                        happyHour: child.val().happyHour
+                        happyHour: child.val().happyHour,
+                        avatar_url:child.val().avatar_url
                     })
                 })
                 this.props.navigation.navigate("CategoryList", {
@@ -307,7 +312,8 @@ export default class HomeScreen extends Component {
                         foodMenu: child.val().foodMenu,
                         drinkMenu: child.val().drinkMenu,
                         happyHour: child.val().happyHour,
-                        category: child.val().category
+                        category: child.val().category,
+                        avatar_url:child.val().avatar_url
                     })
                 })
                 this.props.navigation.navigate("CategoryList", {
@@ -323,7 +329,6 @@ export default class HomeScreen extends Component {
         let listDetails = item;
         this.props.navigation.navigate("BarDetailsScreen", {
             name: listDetails.name,
-            // avatar_url:list[i].avatar_url,
             website: listDetails.website,
             longitude: listDetails.longitude,
             latitude: listDetails.latitude,
@@ -331,7 +336,8 @@ export default class HomeScreen extends Component {
             address: listDetails.address,
             drinkMenu: listDetails.drinkMenu,
             foodMenu: listDetails.foodMenu,
-            happyHour: listDetails.happyHour
+            happyHour: listDetails.happyHour,
+            avatar_url:listDetails.avatar_url
         })
     }
 
@@ -350,7 +356,8 @@ export default class HomeScreen extends Component {
                         phoneNumber: child.val().phoneNumber,
                         foodMenu: child.val().foodMenu,
                         drinkMenu: child.val().drinkMenu,
-                        happyHour: child.val().happyHour
+                        happyHour: child.val().happyHour,
+                        avatar_url:child.val().avatar_url
                     })
                     this.getNearestPlace(bar)
                 })
@@ -372,7 +379,7 @@ export default class HomeScreen extends Component {
                     if (disKM < 50) {
                         bar.push({
                             name: barList[i].name,
-                            // avatar_url:list[i].avatar_url,
+                            avatar_url:barList[i].avatar_url,
                             website: barList[i].website,
                             longitude: barList[i].longitude,
                             latitude: barList[i].latitude,
@@ -415,7 +422,8 @@ export default class HomeScreen extends Component {
                         phoneNumber: child.val().phoneNumber,
                         foodMenu: child.val().foodMenu,
                         drinkMenu: child.val().drinkMenu,
-                        happyHour: child.val().happyHour
+                        happyHour: child.val().happyHour,
+                        avatar_url:child.val().avatar_url
                     })
                     this.props.navigation.navigate("AllPlaces", {
                         barList: bar
