@@ -77,7 +77,7 @@ export default class BarDetailsScreen extends Component {
                     <View style={styles.imageContainer}>
                         <Image
                             style={styles.featureImage}
-                            source={{ uri: avatar_url }}
+                            source={{ uri:avatar_url }}
                         />
                     </View>
 
@@ -96,7 +96,9 @@ export default class BarDetailsScreen extends Component {
                             </View>
 
                             <Text style={styles.hotelAddress}>{address}</Text>
+                            <TouchableHighlight onPress={()=>{Linking.openURL(website)}}>
                             <Text style={styles.hotelWebsiteUrl}>{website}</Text>
+                            </TouchableHighlight>
 
                         </View>
 

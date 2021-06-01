@@ -52,7 +52,7 @@ export default class AllPlaces extends Component {
             <View style={styles.listImageContainer}>
                 <Image
                     style={styles.listImage}
-                    source={require("../images/hotel.jpg")} />
+                    source={{uri:item.avatar_url}} />
             </View>
 
             {/* hotelDetails */}
@@ -85,7 +85,6 @@ export default class AllPlaces extends Component {
         let listDetails = item;
         this.props.navigation.navigate("BarDetailsScreen", {
             name: listDetails.name,
-            // avatar_url:list[i].avatar_url,
             website: listDetails.website,
             longitude: listDetails.longitude,
             latitude: listDetails.latitude,
@@ -93,7 +92,8 @@ export default class AllPlaces extends Component {
             address: listDetails.address,
             drinkMenu: listDetails.drinkMenu,
             foodMenu: listDetails.foodMenu,
-            happyHour: listDetails.happyHour
+            happyHour: listDetails.happyHour,
+            avatar_url:listDetails.avatar_url
         })
     }
 
