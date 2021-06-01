@@ -1,5 +1,5 @@
 
-import React, { Component, useEffect, useState } from "react";
+import    React, { Component, useEffect, useState } from "react";
 import MainNavigator from "./navigation/MainNavigator";
 import { View, Text, StyleSheet, ActivityIndicator } from "react-native";
 import * as Updates from "expo-updates";
@@ -9,8 +9,12 @@ import FirebaseConfig from "./components/config";
 import LandingScreen from "./screens/LandingScreen";
 import RegistrationScreen from "./screens/RegistrationScreen";
 import LoginScreen from "./screens/LoginScreen";
-
-
+import ForgotPasswordScreen from "./screens/ForgotPasswordScreen";
+import { Provider } from 'react-redux'
+import thunk from 'redux-thunk'
+import rootReducer from './redux/reducers'
+import { createStore, applyMiddleware } from 'redux'
+const store = createStore(rootReducer, applyMiddleware(thunk))
 const Stack = createStackNavigator();
 export default class App extends Component {
     constructor(props) {
@@ -34,7 +38,7 @@ export default class App extends Component {
     async componentDidMount() {
         console.disableYellowBox = true;
         this.getCurrentUser()
-        this.updateAsync();
+        await this.updateAsync();
         try {
             const update = await Updates.checkForUpdateAsync();
             if (update.isAvailable) {
@@ -66,18 +70,20 @@ export default class App extends Component {
                         <Stack.Screen name="Landing" component={LandingScreen} options={{ headerShown: false }} />
                         <Stack.Screen name="Register" component={RegistrationScreen} />
                         <Stack.Screen name="Login" component={LoginScreen} />
+                        <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
                     </Stack.Navigator>
                 </NavigationContainer>
             )
         }
         return (
+        <Provider store={store}>
             <MainNavigator />
+        </Provider>
         );
     }
 
     getCurrentUser() {
         FirebaseConfig.auth().onAuthStateChanged((user) => {
-
             if (!user) {
                 this.setState({
                     loggedIn: false,

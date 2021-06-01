@@ -4,26 +4,19 @@ import {
     View,
     ScrollView,
     Text,
-    Button,
-    TouchableOpacity,
     Image,
     TouchableHighlight,
-    ImageBackground, FlatList, Dimensions, Alert,
-
+    FlatList, Alert,
 } from "react-native";
-import { Fontisto } from '@expo/vector-icons';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import { FontAwesome5 } from '@expo/vector-icons';
-import { Ionicons } from '@expo/vector-icons';
 import * as Updates from 'expo-updates';
-import { Avatar, ListItem, SearchBar, Icon } from 'react-native-elements';
 import FeaturedMap from "./FeaturedMap";
 import Firebase from "../components/config";
-import DrinkScreen from "./DrinkScreen";
 import * as geolib from "geolib";
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { fetchUser,clearData } from '../redux/actions/index'
 
-
-export default class HomeScreen extends Component {
+class HomeScreen extends Component {
     state = {
         search: '',
         drinkData: '',
@@ -31,13 +24,23 @@ export default class HomeScreen extends Component {
         bar: [],
         AllBarList: [],
         role: this.props.navigation.getParam("role"),
-        isNearestPlace:false
+        isNearestPlace:false,
+
+
     };
 
-    async componentDidMount() {
+    componentDidMount() {
         const { navigation } = this.props;
-        this.fetchAllDetails()
-        this.getNearestPlace()
+      this.focusListener=navigation.addListener("didFocus",()=>{
+          this.fetchAllDetails()
+          this.getNearestPlace()
+          this.props.fetchUser()
+
+      })
+
+    }
+    componentWillUnmount() {
+        this.focusListener.remove();
     }
 
 
@@ -436,6 +439,16 @@ export default class HomeScreen extends Component {
             })
     }
 }
+
+const mapStateToProps=(store)=>{
+    return{
+        currentUser: store.userState.currentUser
+    }
+}
+
+const mapDispatchProps = (dispatch) => bindActionCreators({ fetchUser, clearData }, dispatch);
+
+export default connect(mapStateToProps, mapDispatchProps)(HomeScreen);
 
 const styles = StyleSheet.create({
     buttonSection: {
