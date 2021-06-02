@@ -120,7 +120,7 @@ const FirstActivity_StackNavigator = createStackNavigator({
   BarDetailsScreen: {
     screen: BarDetailsScreen,
     navigationOptions: ({ navigation }) => ({
-      headerRight: <Text style={styles.headerRight}>Happy St. Pete</Text>,
+      headerRight:<View><Image source={require("../images/flagLogo.png")} style={styles.logo} /></View>,
       headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
       headerStyle: {
         backgroundColor: "#fff",
@@ -144,7 +144,7 @@ const FirstActivity_StackNavigator = createStackNavigator({
   Login: {
     screen: LoginScreen,
     navigationOptions: ({ navigation }) => ({
-      headerRight: <Text style={styles.headerRight}>Happy St. Pete</Text>,
+      headerRight:<View><Image source={require("../images/flagLogo.png")} style={styles.logo} /></View>,
       headerLeft:null,
       headerStyle: {
         backgroundColor: "#fff",
@@ -156,7 +156,7 @@ const FirstActivity_StackNavigator = createStackNavigator({
   Register: {
     screen: RegistrationScreen,
     navigationOptions: ({ navigation }) => ({
-      headerRight: <Text style={styles.headerRight}>Happy St. Pete</Text>,
+      headerRight: <View><Image source={require("../images/flagLogo.png")} style={styles.logo} /></View>,
       headerLeft: null,
       headerStyle: {
         backgroundColor: "#fff",
@@ -168,7 +168,7 @@ const FirstActivity_StackNavigator = createStackNavigator({
   CategoryList: {
     screen: CategoryList,
     navigationOptions: ({ navigation }) => ({
-      headerRight: <Text style={styles.headerRight}>Happy St. Pete</Text>,
+      headerRight:<View><Image source={require("../images/flagLogo.png")} style={styles.logo} /></View>,
       headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
       headerStyle: {
         backgroundColor: "#fff",
@@ -193,7 +193,7 @@ const FirstActivity_StackNavigator = createStackNavigator({
   AddAdmin: {
     screen: AddAdminScreen,
     navigationOptions: ({ navigation }) => ({
-      headerRight: <Text style={styles.headerRight}>Happy St. Pete</Text>,
+      headerRight:<View><Image source={require("../images/flagLogo.png")} style={styles.logo} /></View>,
       headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
       headerStyle: {
         backgroundColor: "#fff",
@@ -205,7 +205,7 @@ const FirstActivity_StackNavigator = createStackNavigator({
   CreateBlog: {
     screen: CreateBlog,
     navigationOptions: ({ navigation }) => ({
-      headerRight: <Text style={styles.headerRight}>Happy St. Pete</Text>,
+      headerRight:<View><Image source={require("../images/flagLogo.png")} style={styles.logo} /></View>,
       headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
       headerStyle: {
         backgroundColor: "#fff",
@@ -217,7 +217,7 @@ const FirstActivity_StackNavigator = createStackNavigator({
   ForgotPassword: {
     screen: ForgotPasswordScreen,
     navigationOptions: ({ navigation }) => ({
-      headerRight: <Text style={styles.headerRight}>Happy St. Pete</Text>,
+      headerRight:<View><Image source={require("../images/flagLogo.png")} style={styles.logo} /></View>,
       headerLeft: null,
       headerStyle: {
         backgroundColor: "#fff",
@@ -229,7 +229,7 @@ const FirstActivity_StackNavigator = createStackNavigator({
   AllPlaces: {
     screen: AllPlaces,
     navigationOptions: ({ navigation }) => ({
-      headerRight: <Text style={styles.headerRight}>Happy St. Pete</Text>,
+      headerRight:<View><Image source={require("../images/flagLogo.png")} style={styles.logo} /></View>,
       headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
       headerStyle: {
         backgroundColor: "#fff",
@@ -241,7 +241,7 @@ const FirstActivity_StackNavigator = createStackNavigator({
   HappyBlog: {
     screen: HappyBlogScreen,
     navigationOptions: ({ navigation }) => ({
-      headerRight: <Text style={styles.headerRight}>Happy St. Pete</Text>,
+      headerRight:<View><Image source={require("../images/flagLogo.png")} style={styles.logo} /></View>,
       headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
       headerStyle: {
         backgroundColor: "#fff",
@@ -254,7 +254,7 @@ const FirstActivity_StackNavigator = createStackNavigator({
   Blog: {
     screen: BlogScreen,
     navigationOptions: ({ navigation }) => ({
-      headerRight: <Text style={styles.headerRight}>Happy St. Pete</Text>,
+      headerRight: <View><Image source={require("../images/flagLogo.png")} style={styles.logo} /></View>,
       headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
       headerStyle: {
         backgroundColor: "#fff",

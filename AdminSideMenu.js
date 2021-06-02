@@ -72,7 +72,7 @@ class AdminSideMenu extends Component {
                     }
 
                     <View style={styles.navItems}>
-
+                        <TouchableHighlight underlayColor={'#E0E2E1'} onPress={()=>this.props.navigation.navigate("Home")}>
                         <View style={styles.navItem}>
                             <View style={styles.navItemImageContainer}>
                                 <Image style={styles.navItemImage} source={require("./assets/icons/sidebar/home.png")} />
@@ -81,7 +81,8 @@ class AdminSideMenu extends Component {
                                 <Text style={styles.navItemText}>Home</Text>
                             </View>
                         </View>
-                        <TouchableHighlight onPress={()=>this.fetchWine(wine)}>
+                        </TouchableHighlight>
+                        <TouchableHighlight underlayColor={'#E0E2E1'} onPress={()=>this.fetchWine(wine)}>
                         <View style={styles.navItem}>
                             <View style={styles.navItemImageContainer}>
                                 <Image style={styles.navItemImage} source={require("./assets/icons/sidebar/wine.png")} />
@@ -91,7 +92,7 @@ class AdminSideMenu extends Component {
                             </View>
                         </View>
                         </TouchableHighlight>
-                        <TouchableHighlight onPress={()=>this.fetchWine(cocktail)}>
+                        <TouchableHighlight underlayColor={'#E0E2E1'} onPress={()=>this.fetchWine(cocktail)}>
                         <View style={styles.navItem}>
                             <View style={styles.navItemImageContainer}>
                                 <Image style={styles.navItemImage} source={require("./assets/icons/sidebar/cocktail.png")} />
@@ -101,7 +102,7 @@ class AdminSideMenu extends Component {
                             </View>
                         </View>
                         </TouchableHighlight>
-                        <TouchableHighlight onPress={()=>this.fetchWine(food)}>
+                        <TouchableHighlight underlayColor={'#E0E2E1'} onPress={()=>this.fetchWine(food)}>
                         <View style={styles.navItem}>
                             <View style={styles.navItemImageContainer}>
                                 <Image style={styles.navItemImage} source={require("./assets/icons/sidebar/food.png")} />
@@ -111,7 +112,7 @@ class AdminSideMenu extends Component {
                             </View>
                         </View>
                         </TouchableHighlight>
-                        <TouchableHighlight onPress={()=>this.fetchWine(beer)}>
+                        <TouchableHighlight underlayColor={'#E0E2E1'} onPress={()=>this.fetchWine(beer)}>
                         <View style={styles.navItem}>
                             <View style={styles.navItemImageContainer}>
                                 <Image style={styles.navItemImage} source={require("./assets/icons/sidebar/beer.png")} />
@@ -121,7 +122,7 @@ class AdminSideMenu extends Component {
                             </View>
                         </View>
                         </TouchableHighlight>
-                        <TouchableHighlight onPress={()=>this.onLogout()}>
+                        <TouchableHighlight underlayColor={'#E0E2E1'} onPress={()=>this.onLogout()}>
                         <View style={styles.navItem}>
                             <View style={styles.navItemImageContainer}>
                                 <Image style={styles.navItemImage} source={require("./assets/icons/sidebar/logout.png")} />

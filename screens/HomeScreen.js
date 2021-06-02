@@ -83,6 +83,10 @@ class HomeScreen extends Component {
     )
 
     render() {
+        let wine ="Restaurant"
+        let cocktail="Cocktails"
+        let food ="Food"
+        let beer ="Beer"
         return (
             <ScrollView style={styles.container}>
 
@@ -91,9 +95,9 @@ class HomeScreen extends Component {
                     <TouchableHighlight
                         underlayColor=""
                         // style={[styles.buttonContainer, styles.clickButton]}
-                        onPress={() => this.fetchWine()}
+                        onPress={() => this.fetchPlaceByCategory(wine)}
                     >
-                        <View style={styles.buttonContainer} onPress={() => this.fetchWine()} >
+                        <View style={styles.buttonContainer}  >
                             <View style={styles.buttonImageContainer}>
                                 <Image style={styles.buttonImage} source={require("../assets/icons/homescreen/wine.png")} />
                             </View>
@@ -106,9 +110,9 @@ class HomeScreen extends Component {
                     <TouchableHighlight
                         underlayColor=""
                         // style={[styles.buttonContainer, styles.clickButton]}
-                        onPress={() => this.fetchDrink()}
+                        onPress={() => this.fetchPlaceByCategory(cocktail)}
                     >
-                        <View style={styles.buttonContainer} onPress={() => this.fetchDrink()} >
+                        <View style={styles.buttonContainer}  >
                             <View style={styles.buttonImageContainer}>
                                 <Image style={styles.buttonImage} source={require("../assets/icons/homescreen/cocktail.png")} />
                             </View>
@@ -121,9 +125,9 @@ class HomeScreen extends Component {
                     <TouchableHighlight
                         underlayColor=""
                         // style={[styles.buttonContainer, styles.clickButton]}
-                        onPress={() => this.fetchFood()}
+                        onPress={() => this.fetchPlaceByCategory(food)}
                     >
-                        <View style={styles.buttonContainer} onPress={() => this.fetchFood()} >
+                        <View style={styles.buttonContainer} >
                             <View style={styles.buttonImageContainer}>
                                 <Image style={styles.buttonImage} source={require("../assets/icons/homescreen/food.png")} />
                             </View>
@@ -136,9 +140,9 @@ class HomeScreen extends Component {
                     <TouchableHighlight
                         underlayColor=""
                         // style={[styles.buttonContainer, styles.clickButton]}
-                        onPress={() => this.fetchBeer()}
+                        onPress={() => this.fetchPlaceByCategory(beer)}
                     >
-                        <View style={styles.buttonContainer} onPress={() => this.fetchBeer()} >
+                        <View style={styles.buttonContainer} >
                             <View style={styles.buttonImageContainer}>
                                 <Image style={styles.buttonImage} source={require("../assets/icons/homescreen/beer.png")} />
                             </View>
@@ -218,9 +222,9 @@ class HomeScreen extends Component {
 
     }
 
-    fetchWine() {
+    fetchPlaceByCategory(category) {
         let wineData = []
-        Firebase.database().ref("/places").orderByChild('category').equalTo('Restaurant')
+        Firebase.database().ref("/places").orderByChild('category').equalTo(category)
             .once("value").then(snapshot => {
                 snapshot.forEach((child) => {
                     wineData.push({
@@ -244,91 +248,10 @@ class HomeScreen extends Component {
                 })
             })
     }
-    fetchDrink() {
-        let drinkData = []
-        Firebase.database().ref("/places").orderByChild('category').equalTo('Cocktails')
-            .once("value").then(snapshot => {
-                snapshot.forEach((child) => {
-                    drinkData.push({
-                        name: child.val().name,
-                        address: child.val().address,
-                        key: child.key,
-                        website: child.val().website,
-                        longitude: child.val().longitude,
-                        latitude: child.val().latitude,
-                        phoneNumber: child.val().phoneNumber,
-                        foodMenu: child.val().foodMenu,
-                        drinkMenu: child.val().drinkMenu,
-                        happyHour: child.val().happyHour,
-                        category: child.val().category,
-                        avatar_url:child.val().avatar_url
-                    })
-                    console.log(child.val().avatar_url)
-                })
-                this.props.navigation.navigate("CategoryList", {
-                    data: drinkData
-                })
-            })
-    }
 
-    fetchFood() {
-        let foodData = []
-        Firebase.database().ref("/places").orderByChild('category').equalTo('Food')
-            .once("value").then(snapshot => {
-                snapshot.forEach((child) => {
-                    foodData.push({
-                        name: child.val().name,
-                        address: child.val().address,
-                        key: child.key,
-                        category: child.val().category,
-                        website: child.val().website,
-                        longitude: child.val().longitude,
-                        latitude: child.val().latitude,
-                        phoneNumber: child.val().phoneNumber,
-                        foodMenu: child.val().foodMenu,
-                        drinkMenu: child.val().drinkMenu,
-                        happyHour: child.val().happyHour,
-                        avatar_url:child.val().avatar_url
-                    })
-                })
-                this.props.navigation.navigate("CategoryList", {
-                    data: foodData
-                })
-
-
-            })
-    }
-
-    fetchBeer() {
-        let beerData = []
-        Firebase.database().ref("/places").orderByChild('category').equalTo('Beer')
-            .once("value").then(snapshot => {
-                snapshot.forEach((child) => {
-                    beerData.push({
-                        name: child.val().name,
-                        address: child.val().address,
-                        key: child.key,
-                        website: child.val().website,
-                        longitude: child.val().longitude,
-                        latitude: child.val().latitude,
-                        phoneNumber: child.val().phoneNumber,
-                        foodMenu: child.val().foodMenu,
-                        drinkMenu: child.val().drinkMenu,
-                        happyHour: child.val().happyHour,
-                        category: child.val().category,
-                        avatar_url:child.val().avatar_url
-                    })
-                })
-                this.props.navigation.navigate("CategoryList", {
-                    data: beerData
-                })
-
-            })
-    }
 
 
     goToBarDetails(item) {
-
         let listDetails = item;
         this.props.navigation.navigate("BarDetailsScreen", {
             name: listDetails.name,
