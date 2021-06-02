@@ -56,9 +56,18 @@ export default class App extends Component {
         if (!loaded) {
             return (
                 <View style={styles.loadingContainer}>
-                    <View style={[styles.container, styles.horizontal]}>
+                                        <View style={[styles.container, styles.horizontal]}>
                         <ActivityIndicator size="large" color="#000" />
                     </View>
+                    <Image
+                        style={{
+                            resizeMode:"contain",
+                            width : 250,
+                            marginTop: -50,
+                            marginBottom : -50,
+                        }}
+                        source={require('./assets/logo3.png')} />
+
                     <Text style={styles.loadingText}>Discovering the best places for you </Text>
                 </View>
             )
@@ -128,11 +137,11 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         height: "100%",
-        backgroundColor: "#008080",
+        backgroundColor: "#6DD5D5",
     },
     loadingText: {
         fontSize: 20,
-        color: "black",
+        color: "#000",
         fontWeight: "bold",
         textAlign: "center",
         lineHeight: 50,

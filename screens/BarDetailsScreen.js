@@ -221,14 +221,28 @@ const styles = StyleSheet.create({
     imageContainer: {
         width: "100%",
         height: 250,
+        backgroundColor : "#fff",
+        borderBottomLeftRadius: 20,
+        borderBottomRightRadius: 20,
+
+        
+        shadowColor: "#008080",
+        shadowOffset: {
+            width: 0,
+            height: 5,
+        },
+        shadowOpacity: 0.36,
+        shadowRadius: 6.68,
+
+        elevation: 5,
     },
     featureImage: {
         borderTopLeftRadius:20,
         borderTopRightRadius:20,
         width: "100%",
         height: "100%",
-        borderBottomLeftRadius: 20,
-        borderBottomRightRadius: 20,
+        resizeMode:"cover",
+
     },
     hotelDetails: {
         display: "flex",

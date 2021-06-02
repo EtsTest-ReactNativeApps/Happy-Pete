@@ -9,16 +9,16 @@ export default function Welcome({ navigation }) {
             <Image
                 style={{
                     resizeMode:"contain",
-                    width : 210,
-                    height:210,
+                    width : 180,
+                    height:180,
                 }}
                 source={require('../images/bartender.png')} />
 
             <Image
                 style={{
                     resizeMode:"contain",
-                    width : 313,
-                    marginTop: -30,
+                    width : 250,
+                    marginTop: -50,
                 }}
                 source={require('../assets/logo3.png')} />
             </View>
@@ -46,8 +46,8 @@ export default function Welcome({ navigation }) {
 }
 const styles =StyleSheet.create({
 container:{
-    flex:1,
     display:'flex',
+    height:"100%",
     justifyContent:'center',
     backgroundColor : "#6DD5D5",
     // alignItems:"center",
@@ -59,9 +59,9 @@ container:{
 
     exclusive:{
     fontWeight:'bold',
-    fontSize:21,
-    marginTop : -20,
-    marginBottom : 50,
+    fontSize:20,
+    marginTop : -40,
+    marginBottom : 30,
     color : "#323232",
     textAlign : "center",
     width:300,
@@ -90,7 +90,7 @@ container:{
         backgroundColor: "#323232",
       },
       loginText: {
-        color: "#fff",
+        color: "#6DD5D5",
         fontWeight : 'bold',
         fontSize : 18,
     },
