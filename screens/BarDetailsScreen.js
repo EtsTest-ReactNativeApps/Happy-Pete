@@ -347,8 +347,8 @@ const styles = StyleSheet.create({
 
     mapContainerMain:{
         position:"relative",
-        borderWidth:3,
-        borderColor: "#008080",
+        borderWidth:5,
+        borderColor: "white",
         display:"flex",
         alignItems:"center",
         justifyContent:"center",
@@ -365,8 +365,8 @@ const styles = StyleSheet.create({
         borderRadius: 50,
 
         position:"absolute",
-        bottom:30,
-        right:30,
+        bottom:20,
+        right:35,
 
         shadowColor: "#000",
         shadowOffset: {
@@ -422,7 +422,7 @@ const styles = StyleSheet.create({
         display:"flex",
         alignItems:"center",
         justifyContent:"center",
-        marginTop : 10,
+        marginVertical : 10,
     }
 })
 
