@@ -4,7 +4,7 @@ import {
     StyleSheet,
     View,
     ScrollView,
-    Linking, Text, Image, TouchableHighlight
+    Linking, Text, Image, TouchableHighlight, TouchableNativeFeedback
 } from "react-native";
 import * as geolib from 'geolib';
 import MapViewDirections from 'react-native-maps-directions';
@@ -175,11 +175,11 @@ export default class BarDetailsScreen extends Component {
                         </View>
                     </View>
 
-                    <TouchableHighlight onPress={()=>this.openDirection()}>
+                    <TouchableNativeFeedback onPress={()=>{this.openDirection()}}>
                         <Text style={styles.mapButton}>
                             <Image style={styles.mapIcon} source={require("../assets/icons/hotel_details/mapIcon.png")} />
                         </Text>
-                    </TouchableHighlight>
+                    </TouchableNativeFeedback>
 
                     <View style={styles.distance}>
                         <Text>You are {this.state.distance} km away from {name} </Text>
