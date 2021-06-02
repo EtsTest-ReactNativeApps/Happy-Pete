@@ -1,7 +1,7 @@
 
 import    React, { Component, useEffect, useState } from "react";
 import MainNavigator from "./navigation/MainNavigator";
-import { View, Text, StyleSheet, ActivityIndicator } from "react-native";
+import {View, Text, StyleSheet, ActivityIndicator, Image} from "react-native";
 import * as Updates from "expo-updates";
 import { NavigationContainer } from '@react-navigation/native';
 import createStackNavigator from "@react-navigation/stack/src/navigators/createStackNavigator";
@@ -59,7 +59,7 @@ export default class App extends Component {
                     <View style={[styles.container, styles.horizontal]}>
                         <ActivityIndicator size="large" color="#000" />
                     </View>
-                    <Text style={styles.loadingText}>Discovering the best places for you 🤩</Text>
+                    <Text style={styles.loadingText}>Discovering the best places for you </Text>
                 </View>
             )
         }
@@ -67,10 +67,35 @@ export default class App extends Component {
             return (
                 <NavigationContainer>
                     <Stack.Navigator initialRouteName="Landing">
-                        <Stack.Screen name="Landing" component={LandingScreen} options={{ headerShown: false }} />
-                        <Stack.Screen name="Register" component={RegistrationScreen} />
-                        <Stack.Screen name="Login" component={LoginScreen} />
-                        <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
+                        <Stack.Screen name="Landing" component={LandingScreen}
+                          options={{title:<View><Image source={require("./images/flagLogo.png")} style={styles.logo} /></View>,
+                                    headerTitleStyle:{
+                                        display:'flex',
+                                        marginLeft:'auto',
+                                },
+
+                          }}/>
+                        <Stack.Screen name="Register" component={RegistrationScreen} options={{title:<View><Image source={require("./images/flagLogo.png")} style={styles.logo} /></View>,
+                            headerTitleStyle:{
+                                display:'flex',
+                                marginLeft:'auto'
+                            },
+
+                        }}/>
+                        <Stack.Screen name="Login" component={LoginScreen} options={{title :<View style={styles.logoContainer}><Image source={require("./images/flagLogo.png")} style={styles.logo} /></View>,
+                            headerTitleStyle:{
+                                display:'flex',
+                                marginLeft:'auto'
+                            },
+
+                        }} />
+                        <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} options={{title:<View><Image source={require("./images/flagLogo.png")} style={styles.logo} /></View>,
+                            headerTitleStyle:{
+                                display:'flex',
+                                marginLeft:'auto'
+                            },
+
+                        }} />
                     </Stack.Navigator>
                 </NavigationContainer>
             )
@@ -106,7 +131,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         height: "100%",
-        backgroundColor: "#F7F082",
+        backgroundColor: "#008080",
     },
     loadingText: {
         fontSize: 20,
@@ -124,5 +149,18 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-around",
         padding: 40,
+    },
+    logo:{
+
+        width:200,
+        resizeMode:"contain",
+        marginRight:30,
+    },
+    logoContainer:{
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+        marginLeft:20
     }
 })
