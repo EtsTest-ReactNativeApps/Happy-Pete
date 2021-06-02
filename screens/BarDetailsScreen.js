@@ -49,8 +49,13 @@ export default class BarDetailsScreen extends Component {
         this.findDistance(longitude, latitude)
     }
 
-    openDirection() {
-        openMap({ latitude: this.state.latitude, longitude: this.state.longitude });
+    openDirection=()=> {
+        const googleMapOpenUrl = ({ latitude, longitude }) => {
+            const latLng = `${latitude},${longitude}`;
+            return `google.navigation:q=${latLng}`;
+        }
+        Linking.openURL(googleMapOpenUrl({ latitude: this.state.latitude, longitude:this.state.longitude }));
+
     }
 
     render() {
@@ -186,9 +191,7 @@ export default class BarDetailsScreen extends Component {
         )
     }
 
-    openDirection() {
-        openMap({ latitude: this.state.latitude, longitude: this.state.longitude });
-    }
+
 
     findDistance(longitude, latitude) {
         navigator.geolocation = require('@react-native-community/geolocation');
@@ -353,7 +356,7 @@ const styles = StyleSheet.create({
         alignItems:"center",
         justifyContent:"center",
         width:"auto",
-        width:"90%",
+
         marginHorizontal:"5%",
         borderRadius:5,
     },
@@ -409,7 +412,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width: "100%",
         height: 200,
-        // margin: "5%",        
+        // margin: "5%",
     },
     drinks: {
         color: 'red'

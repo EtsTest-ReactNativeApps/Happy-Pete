@@ -13,6 +13,7 @@ import {bindActionCreators} from "redux";
 import {clearData, fetchUser} from "./redux/actions";
 import {connect} from "react-redux";
 import Firebase from "./components/config";
+import Drawer from "./navigation/MainNavigator";
 
 class AdminSideMenu extends Component {
         state={
@@ -52,7 +53,7 @@ class AdminSideMenu extends Component {
             this.props.navigation.navigate("CategoryList", {
                 data: wineData
             })
-            console.log("Data"+wineData)
+            this.props.navigation.closeDrawer();
         })
     }
 
