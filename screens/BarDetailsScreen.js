@@ -77,7 +77,7 @@ export default class BarDetailsScreen extends Component {
                     <View style={styles.imageContainer}>
                         <Image
                             style={styles.featureImage}
-                            source={{ uri:avatar_url }}
+                            source={{ uri: avatar_url }}
                         />
                     </View>
 
@@ -96,8 +96,8 @@ export default class BarDetailsScreen extends Component {
                             </View>
 
                             <Text style={styles.hotelAddress}>{address}</Text>
-                            <TouchableHighlight onPress={()=>{Linking.openURL(website)}}>
-                            <Text style={styles.hotelWebsiteUrl}>{website}</Text>
+                            <TouchableHighlight underlayColor="transparent" onPress={() => { Linking.openURL(website) }}>
+                                <Text style={styles.hotelWebsiteUrl}>{website}</Text>
                             </TouchableHighlight>
 
                         </View>
@@ -109,11 +109,6 @@ export default class BarDetailsScreen extends Component {
                                 <View style={styles.callButton}>
                                     <Image style={styles.callIcon} source={require("../assets/icons/hotel_details/callIcon.png")} />
                                 </View>
-                            </TouchableHighlight>
-                            <TouchableHighlight underlayColor="transparent" onPress={() => { this.openDirection() }}>
-                                <Text style={styles.mapButton}>
-                                    <Image style={styles.mapIcon} source={require("../assets/icons/hotel_details/mapIcon.png")} />
-                                </Text>
                             </TouchableHighlight>
                         </View>
                     </View>
@@ -140,39 +135,50 @@ export default class BarDetailsScreen extends Component {
 
                     {/* google map */}
 
-                    <View style={styles.mapContainer}>
-                        <MapView
-                            showsUserLocation={true}
-                            showsMyLocationButton={true}
-                            provider={PROVIDER_GOOGLE} // remove if not using Google Maps
-                            style={styles.map}
-                            region={{
-                                latitude: Number(latitude),
-                                longitude: Number(longitude),
-                                longitudeDelta: 0.0121,
-                                latitudeDelta: 0.100
 
-                            }}
-                        >{
-                                this.state.latitude &&
-                                <Marker
-                                    coordinate={{ latitude: parseFloat(latitude), longitude: parseFloat(longitude) }}
-                                    title={name}
-                                />
-                            }{this.state.destinationOrigin && this.state.origin &&
-                                <MapViewDirections
-                                    origin={this.state.origin[0]}
-                                    destination={this.state.destinationOrigin[0]}
-                                    apikey={GOOGLE_MAPS_APIKEY}
-                                    strokeWidth={3}
-                                    strokeColor="hotpink"
-                                />}
-                        </MapView>
+                    <View style={styles.mapContainerMain}>
 
+                        <View style={styles.mapContainer}>
+                            <MapView
+                                showsUserLocation={true}
+                                showsMyLocationButton={true}
+                                provider={PROVIDER_GOOGLE} // remove if not using Google Maps
+                                style={styles.map}
+                                region={{
+                                    latitude: Number(latitude),
+                                    longitude: Number(longitude),
+                                    longitudeDelta: 0.0121,
+                                    latitudeDelta: 0.100
+
+                                }}
+                            >{
+                                    this.state.latitude &&
+                                    <Marker
+                                        coordinate={{ latitude: parseFloat(latitude), longitude: parseFloat(longitude) }}
+                                        title={name}
+                                    />
+                                }{this.state.destinationOrigin && this.state.origin &&
+                                    <MapViewDirections
+                                        origin={this.state.origin[0]}
+                                        destination={this.state.destinationOrigin[0]}
+                                        apikey={GOOGLE_MAPS_APIKEY}
+                                        strokeWidth={3}
+                                        strokeColor="hotpink"
+                                    />}
+                            </MapView>
+                        </View>
                     </View>
-                    <View>
+                                
+                    <TouchableHighlight underlayColor="transparent" onPress={() => { this.openDirection() }}>
+                        <Text style={styles.mapButton}>
+                            <Image style={styles.mapIcon} source={require("../assets/icons/hotel_details/mapIcon.png")} />
+                        </Text>
+                    </TouchableHighlight>
+
+                    <View style={styles.distance}>
                         <Text>You are {this.state.distance} km away from {name} </Text>
                     </View>
+
                 </View>
 
             </ScrollView>
@@ -231,7 +237,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "space-between",
         marginHorizontal: "5%",
-        flexWrap :"wrap",
+        flexWrap: "wrap",
     },
     hotelInfoAndWebsite: {
 
@@ -273,15 +279,30 @@ const styles = StyleSheet.create({
     },
     hotelWebsiteUrl: {
         fontSize: 16,
-        color: "#00429A",
-        textDecorationLine: "underline",
+        color: "#fff",
+        backgroundColor: "#008080",
+        textAlign: "center",
+        padding: 10,
+        paddingHorizontal: 10,
+        borderRadius: 20,
+
+        shadowColor: "#008080",
+        shadowOffset: {
+            width: 0,
+            height: 5,
+        },
+        shadowOpacity: 0.36,
+        shadowRadius: 6.68,
+
+        elevation: 5,
+
     },
     contactButtons: {
         display: "flex",
         flexDirection: "row",
         alignItems: "flex-start",
         justifyContent: "center",
-        marginVertical:20,
+        marginVertical: 20,
     },
 
     callButton: {
@@ -329,11 +350,29 @@ const styles = StyleSheet.create({
     },
 
 
+    mapContainerMain:{
+        position:"relative",
+        borderWidth:3,
+        borderColor: "#008080",
+        display:"flex",
+        alignItems:"center",
+        justifyContent:"center",
+        width:"auto",
+        width:"90%",
+        marginHorizontal:"5%",
+        borderRadius:5,
+    },
 
 
     mapButton: {
         backgroundColor: 'white',
+        zIndex: +100,
         borderRadius: 50,
+
+        position:"absolute",
+        bottom:30,
+        right:30,
+
         shadowColor: "#000",
         shadowOffset: {
             width: 0,
@@ -355,15 +394,14 @@ const styles = StyleSheet.create({
 
     },
 
-
-
-
     mapcontainer: {
         ...StyleSheet.absoluteFillObject,
         height: 400,
-        width: 1000,
+        width: "100%",
         justifyContent: 'flex-end',
         alignItems: 'center',
+        zIndex:-1,
+
     },
     map: {
         display: 'none',
@@ -373,10 +411,9 @@ const styles = StyleSheet.create({
 
         justifyContent: "flex-end",
         alignItems: 'center',
-        borderRadius: 0,
-        borderColor: 'white',
         width: "100%",
         height: 200,
+        // margin: "5%",        
     },
     drinks: {
         color: 'red'
@@ -384,6 +421,12 @@ const styles = StyleSheet.create({
     fixMenu: {
         justifyContent: 'center',
         flexDirection: 'row'
+    },
+    distance:{
+        display:"flex",
+        alignItems:"center",
+        justifyContent:"center",
+        marginTop : 10,
     }
 })
 
