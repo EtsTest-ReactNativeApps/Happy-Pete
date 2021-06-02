@@ -168,13 +168,8 @@ export default class BarDetailsScreen extends Component {
                             </MapView>
                         </View>
                     </View>
-<<<<<<< HEAD
-                                
-                    <TouchableHighlight underlayColor="transparent" onPress={() => { this.openDirection() }}>
-=======
 
                     <TouchableNativeFeedback onPress={()=>{this.openDirection()}}>
->>>>>>> cc9741273dd3a00bb0593ce89cec0258f0f1198d
                         <Text style={styles.mapButton}>
                             <Image style={styles.mapIcon} source={require("../assets/icons/hotel_details/mapIcon.png")} />
                         </Text>
@@ -370,7 +365,7 @@ const styles = StyleSheet.create({
         borderRadius: 50,
 
         position:"absolute",
-        bottom:20,
+        bottom:60,
         right:35,
 
         shadowColor: "#000",
