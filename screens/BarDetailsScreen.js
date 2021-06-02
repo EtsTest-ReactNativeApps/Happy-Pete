@@ -49,8 +49,14 @@ export default class BarDetailsScreen extends Component {
         this.findDistance(longitude, latitude)
     }
 
-    openDirection() {
-        openMap({ latitude: this.state.latitude, longitude: this.state.longitude });
+    openDirection=()=> {
+        console.log("Hello")
+        const googleMapOpenUrl = ({ latitude, longitude }) => {
+            const latLng = `${latitude},${longitude}`;
+            return `google.navigation:q=${latLng}`;
+        }
+        Linking.openURL(googleMapOpenUrl({ latitude: this.state.latitude, longitude:this.state.longitude }));
+
     }
 
     render() {
@@ -168,8 +174,8 @@ export default class BarDetailsScreen extends Component {
                             </MapView>
                         </View>
                     </View>
-                                
-                    <TouchableHighlight underlayColor="transparent" onPress={() => { this.openDirection() }}>
+
+                    <TouchableHighlight onPress={()=>this.openDirection()}>
                         <Text style={styles.mapButton}>
                             <Image style={styles.mapIcon} source={require("../assets/icons/hotel_details/mapIcon.png")} />
                         </Text>
@@ -186,14 +192,7 @@ export default class BarDetailsScreen extends Component {
         )
     }
 
-    openDirection() {
-        const googleMapOpenUrl = ({ latitude, longitude }) => {
-            const latLng = `${latitude},${longitude}`;
-            return `google.navigation:q=${latLng}`;
-        }
-        Linking.openURL(googleMapOpenUrl({ latitude: this.state.latitude, longitude:this.state.longitude }));
 
-    }
 
     findDistance(longitude, latitude) {
         navigator.geolocation = require('@react-native-community/geolocation');
@@ -358,7 +357,7 @@ const styles = StyleSheet.create({
         alignItems:"center",
         justifyContent:"center",
         width:"auto",
-        width:"90%",
+
         marginHorizontal:"5%",
         borderRadius:5,
     },
@@ -413,7 +412,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width: "100%",
         height: 200,
-        // margin: "5%",        
+        // margin: "5%",
     },
     drinks: {
         color: 'red'
