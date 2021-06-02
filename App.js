@@ -68,12 +68,9 @@ export default class App extends Component {
                 <NavigationContainer>
                     <Stack.Navigator initialRouteName="Landing">
                         <Stack.Screen name="Landing" component={LandingScreen}
-                          options={{title:<View><Image source={require("./images/flagLogo.png")} style={styles.logo} /></View>,
-                                    headerTitleStyle:{
-                                        display:'flex',
-                                        marginLeft:'auto',
-                                },
+                          options={
 
+                              {headerShown:false
                           }}/>
                         <Stack.Screen name="Register" component={RegistrationScreen} options={{title:<View><Image source={require("./images/flagLogo.png")} style={styles.logo} /></View>,
                             headerTitleStyle:{

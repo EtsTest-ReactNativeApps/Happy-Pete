@@ -1,10 +1,10 @@
 import React, {useEffect,useState} from 'react'
-import {Text, View, Button, Image, StyleSheet, TouchableHighlight, ImageBackground} from 'react-native'
+import {Text, View, Button, Image, StyleSheet, TouchableHighlight, ImageBackground, ScrollView} from 'react-native'
 
 export default function Welcome({ navigation }) {
 
     return (
-        <View style={styles.container}>
+       <ScrollView contentContainerStyle={styles.container}>
             <View style={{display:"flex", alignItems : "center", justifyContent : "center"}}>
             <Image
                 style={{
@@ -22,7 +22,7 @@ export default function Welcome({ navigation }) {
                 }}
                 source={require('../assets/logo3.png')} />
             </View>
-            
+
             <Text style={styles.exclusive}>Register for exclusive, personalized food, drink,beer and restaurant places in St. Petersburg</Text>
 
             <View>
@@ -41,7 +41,7 @@ export default function Welcome({ navigation }) {
                 </TouchableHighlight>
 
             </View>
-        </View>
+        </ScrollView>
     )
 }
 const styles =StyleSheet.create({
@@ -67,7 +67,7 @@ container:{
     width:300,
     marginLeft:"auto",
     marginRight : "auto",
-    lineHeight : 31, 
+    lineHeight : 31,
     },
 
 

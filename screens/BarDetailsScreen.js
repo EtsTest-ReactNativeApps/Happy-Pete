@@ -223,6 +223,8 @@ const styles = StyleSheet.create({
         height: 250,
     },
     featureImage: {
+        borderTopLeftRadius:20,
+        borderTopRightRadius:20,
         width: "100%",
         height: "100%",
         borderBottomLeftRadius: 20,

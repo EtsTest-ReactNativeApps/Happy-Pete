@@ -9,10 +9,11 @@ import {
     ScrollView,
     Image,
     ActivityIndicator,
-    Picker,
+    KeyboardAvoidingView,
     TextInput
 } from "react-native";
 import FirebaseConfig from "../components/config";
+
 
 export default class RegistrationScreen extends Component{
     state = {  email: "", password: "",name:"",phoneNumber:null};
@@ -61,17 +62,18 @@ export default class RegistrationScreen extends Component{
     };
     render(){
         return (
-            <View style={styles.container}>
+            <ScrollView contentContainerStyle={styles.container}>
+                <KeyboardAvoidingView style={{flex:1,marginTop:'20%',alignItems:'center'}}
+                                      behavior="position"
+                >
                       <Text style={styles.heading}>Register</Text>
 
-                <View>
                     <View style={styles.inputContainer}>
                         <Image
                             style={styles.inputIcon}
                             source={require("../assets/name.png")}
                         />
                         <TextInput
-
                             style={styles.inputs}
                             placeholder="Name"
                             keyboardType="default"
@@ -138,8 +140,8 @@ export default class RegistrationScreen extends Component{
                   }>Already a user? Login</Text>
               </View>
 
-                </View>
-            </View>
+                </KeyboardAvoidingView>
+            </ScrollView>
         )
     }
 }
@@ -152,12 +154,13 @@ const styles = StyleSheet.create({
         alignContent: "flex-start",
         backgroundColor : "#008080",
     },
-    
+
 heading :{
     color:"#fff",
     fontWeight : "bold",
     marginVertical :40,
     fontSize : 31,
+    alignSelf:'center'
   },
 
     wrapper: {
@@ -250,7 +253,7 @@ heading :{
         alignItems : "center",
         justifyContent : "center",
       },
-      
+
       loginTextBlack : {
         color : "#fff",
         fontWeight: "bold",
