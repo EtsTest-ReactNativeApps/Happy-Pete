@@ -127,10 +127,10 @@ Install required sofware which is given below -
 ## Usage
 
 Here's the few screenshots of application 
-[![Product Details Screen Shot][mockup-landing-screen]](images/iPhone%20X%20Flying%20Mockup4.png)
-[![Product Landing Screen Shot][mockup-home-screen]](images/A%20Hand%20Holding%20An%20iPhone%2012%20Mini%20Mockup.png)
-[![Product Details Screen Shot][mockup-bardetails-screen]](images/iPhone%20X%20Flying%20Mockup4.png)
-[![Product All Place screen shot][mockup-allplace-screen]](images/iPhone%2012%20Pro%206.1_%20Mockup5.png)
+![Product Details Screen Shot][mockup-landing-screen]
+![Product Landing Screen Shot][mockup-home-screen]
+![Product Details Screen Shot][mockup-bardetails-screen]
+![Product All Place screen shot][mockup-allplace-screen]
 
 
 
@@ -191,7 +191,7 @@ Download Application from [Google Play](https://play.google.com/store/apps/detai
 
 
 
-
+****~~~~~~~~~~~~****
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [contributors-shield]: https://img.shields.io/github/contributors/apcbadal/happy-pete.svg?style=for-the-badge

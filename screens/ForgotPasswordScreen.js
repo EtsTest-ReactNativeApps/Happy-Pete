@@ -15,15 +15,20 @@ import FirebaseConfig from "../components/config";
 
 
 export default class ForgotPasswordScreen extends Component {
-    state = { email: "" };
+    constructor(props) {
+        super(props);
+        this.state = { email: "" };
+    }
 
-    resetPassword = () => {
-        const { email } = this.state;
+
+    resetPassword = (navigation) => {
         FirebaseConfig
             .auth()
-            .sendPasswordResetEmail(email)
+            .sendPasswordResetEmail(this.state.email)
             .then(function(user) {
                 Alert.alert("Please check your email to reset the password!");
+
+                navigation.goBack()
             })
             .catch(function(e) {
                 console.log(e);
@@ -31,6 +36,7 @@ export default class ForgotPasswordScreen extends Component {
     };
 
     render() {
+        const {navigation} = this.props
         return (
 
                 <View style={styles.container}>
@@ -54,7 +60,7 @@ export default class ForgotPasswordScreen extends Component {
 
                     <TouchableHighlight
                         style={[styles.buttonContainer, styles.loginButton]}
-                        onPress={() => this.resetPassword()}
+                        onPress={() => this.resetPassword(navigation)}
                     >
                         <Text style={styles.loginText}>Reset</Text>
                     </TouchableHighlight>
@@ -157,6 +163,6 @@ const styles = StyleSheet.create({
         textAlign : "center",
         fontSize : 16,
         marginTop : 30,
-        lineHeight : 27 
+        lineHeight : 27
     }
 });

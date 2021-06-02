@@ -181,7 +181,12 @@ export default class BarDetailsScreen extends Component {
     }
 
     openDirection() {
-        openMap({ latitude: this.state.latitude, longitude: this.state.longitude });
+        const googleMapOpenUrl = ({ latitude, longitude }) => {
+            const latLng = `${latitude},${longitude}`;
+            return `google.navigation:q=${latLng}`;
+        }
+        Linking.openURL(googleMapOpenUrl({ latitude: this.state.latitude, longitude:this.state.longitude }));
+
     }
 
     findDistance(longitude, latitude) {
@@ -336,7 +341,6 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.37,
         shadowRadius: 7.49,
-
         elevation: 12,
         height: 50,
         width: 50,
