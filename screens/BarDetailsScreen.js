@@ -293,23 +293,7 @@ const styles = StyleSheet.create({
     },
     hotelWebsiteUrl: {
         fontSize: 16,
-        color: "#fff",
-        backgroundColor: "#008080",
-        textAlign: "center",
-        padding: 10,
-        paddingHorizontal: 10,
-        borderRadius: 20,
-
-        shadowColor: "#008080",
-        shadowOffset: {
-            width: 0,
-            height: 5,
-        },
-        shadowOpacity: 0.36,
-        shadowRadius: 6.68,
-
-        elevation: 5,
-
+        color: "#00429A",
     },
     contactButtons: {
         display: "flex",

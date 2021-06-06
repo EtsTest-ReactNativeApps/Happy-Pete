@@ -6,7 +6,7 @@ import {
     Text,
     Image,
     TouchableHighlight,
-    FlatList, Alert,
+    FlatList, Alert,TextInput,
 } from "react-native";
 import * as Updates from 'expo-updates';
 import FeaturedMap from "./FeaturedMap";
@@ -155,11 +155,28 @@ class HomeScreen extends Component {
 
                 {/* end of button section */}
 
+
+                {/* featured  section */}
                 <View style={styles.featuredContainer}>
                     <Text style={styles.featuredText}>Featured Places</Text>
                 </View>
 
-                {/* end of featured */}
+                {/* search section */}
+
+                <View style={styles.searchContainer}>
+                    <View style={styles.inputContainer}>
+                            <Image
+                                style={styles.inputIcon}
+                                source={require("../assets/search.png")}
+                            />
+                            <TextInput
+                                style={styles.inputs}
+                                placeholder="Search for bars, restaurants"
+                                keyboardType="default"
+                                underlineColorAndroid="transparent"
+                                onChangeText={(name) => this.setState({ name })}                            />
+                    </View>
+                </View>
 
                 <View style={styles.mapView}>
                     <FeaturedMap children={this.state.barLists} />
@@ -567,6 +584,44 @@ const styles = StyleSheet.create({
         height: 25,
 
     },
+    searchContainer:{
+        display:"flex",
+        alignItems:"center",
+        justifyContent:"center",
+    },
+    inputContainer: {
+        backgroundColor: "white",
+        borderRadius: 30,
+        width : 360,
+        height: 45,
+        marginBottom: 20,
+        flexDirection: "row",
+        alignItems: "center",
+        // borderWidth:2,
+        paddingVertical:25,
+                shadowColor: "#fff",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
+      },
+      inputs: {
+        height: 45,
+        marginLeft: 16,
+        borderBottomColor: "#FFFFFF",
+        flex: 1,
+        fontWeight:"500",
+        fontSize : 18
+      },
+      inputIcon: {
+        width: 20,
+        height: 20,
+        marginLeft: 15,
+        justifyContent: "center",
+      },
 
 
 
