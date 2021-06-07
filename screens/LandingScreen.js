@@ -23,7 +23,8 @@ export default function Welcome({ navigation }) {
                 source={require('../assets/logo3.png')} />
             </View>
 
-            <Text style={styles.exclusive}>Register for exclusive, personalized food, drink,beer and restaurant places in St. Petersburg</Text>
+            <Text style={styles.exclusive}>Register for exclusive, personalized food, drink,beer and restaurant places in </Text>
+            <Text style={styles.exclusive}>St. Petersburg</Text>
 
             <View>
                 <TouchableHighlight

@@ -293,7 +293,8 @@ const styles = StyleSheet.create({
     },
     hotelWebsiteUrl: {
         fontSize: 16,
-        color: "#00429A",
+        color: "blue",
+
     },
     contactButtons: {
         display: "flex",
