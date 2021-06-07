@@ -1,22 +1,18 @@
 import React, { Component } from "react";
-import { getDistance } from 'geolib';
 import {
     StyleSheet,
     View,
     ScrollView,
-    Linking, Text, Image, TouchableHighlight, TouchableNativeFeedback
+    Linking, Text, Image, TouchableHighlight, TouchableNativeFeedback, TouchableOpacity
 } from "react-native";
 import * as geolib from 'geolib';
 import MapViewDirections from 'react-native-maps-directions';
-
-import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from 'react-native-cards';
-import openMap from 'react-native-open-maps';
-import { createOpenLink } from 'react-native-open-maps';
-
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
-import Firebase from "../components/config";
-import color from "color";
+import Collapsible from "react-native-collapsible";
+import Accordion from 'react-native-collapsible/Accordion';
+
 const GOOGLE_MAPS_APIKEY = 'AIzaSyCDn-KsRdw9W6AKogCtyF7CsCw5Ptg6efA'
+
 export default class BarDetailsScreen extends Component {
     constructor(props) {
         super(props);
@@ -26,6 +22,8 @@ export default class BarDetailsScreen extends Component {
             latitude: null,
             address: null,
             phoneNumber: null,
+            collapsed:true,
+
             destinationOrigin: [{
                 latitude: this.props.navigation.getParam("latitude"),
                 longitude: this.props.navigation.getParam("longitude")
@@ -40,13 +38,12 @@ export default class BarDetailsScreen extends Component {
     }
     componentDidMount() {
         const { navigation } = this.props
-        let longitude = navigation.getParam('longitude');
-        let latitude = navigation.getParam('latitude')
+        let data = navigation.getParam('data');
         this.setState({
-            latitude: latitude,
-            longitude: longitude,
+            latitude: data.latitude,
+            longitude: data.longitude,
         })
-        this.findDistance(longitude, latitude)
+        this.findDistance(data.longitude, data.latitude)
     }
 
     openDirection=()=> {
@@ -57,23 +54,18 @@ export default class BarDetailsScreen extends Component {
         Linking.openURL(googleMapOpenUrl({ latitude: this.state.latitude, longitude:this.state.longitude }));
 
     }
+     toggleExpanded = () => {
+        // Toggling the state of single Collapsible
+         console.log("Hello")
+        this.setState({
+            collapsed:false
+        })
+    };
 
     render() {
         const { navigation } = this.props
-        let name = navigation.getParam("name")
-        let avatar_url = navigation.getParam('avatar_url');
-        let subtitle = navigation.getParam('subtitle');
-        let website = navigation.getParam('website');
-        let longitude = navigation.getParam('longitude');
-        let latitude = navigation.getParam('latitude')
-        let phoneNumber = navigation.getParam('phoneNumber')
-        let address = navigation.getParam('address')
-        let drinkMenu = navigation.getParam('drinkMenu')
-        let foodMenu = navigation.getParam('foodMenu')
-        let hours = navigation.getParam('happyHour')
-        if (avatar_url === null || avatar_url === undefined) {
-            avatar_url = ''
-        }
+        let data = navigation.getParam("data")
+
         return (
             <ScrollView>
 
@@ -82,7 +74,7 @@ export default class BarDetailsScreen extends Component {
                     <View style={styles.imageContainer}>
                         <Image
                             style={styles.featureImage}
-                            source={{ uri: avatar_url }}
+                            source={{ uri: data.avatar_url }}
                         />
                     </View>
 
@@ -93,16 +85,16 @@ export default class BarDetailsScreen extends Component {
                         <View style={styles.hotelInfoAndWebsite}>
 
                             <View style={styles.nameAndRating}>
-                                <Text style={styles.hotelName}>{name}</Text>
+                                <Text style={styles.hotelName}>{data.name}</Text>
                                 <View style={styles.Rating}>
                                     <Image style={styles.RatingStar} source={require("../assets/icons/hotel_details/starRating.png")} />
                                     <Text style={styles.RatingValue}>4.3</Text>
                                 </View>
                             </View>
 
-                            <Text style={styles.hotelAddress}>{address}</Text>
-                            <TouchableHighlight underlayColor="transparent" onPress={() => { Linking.openURL(website) }}>
-                                <Text style={styles.hotelWebsiteUrl}>{website}</Text>
+                            <Text style={styles.hotelAddress}>{data.address}</Text>
+                            <TouchableHighlight underlayColor="transparent" onPress={() => { Linking.openURL(data.website) }}>
+                                <Text style={styles.hotelWebsiteUrl}>{data.website}</Text>
                             </TouchableHighlight>
 
                         </View>
@@ -110,7 +102,7 @@ export default class BarDetailsScreen extends Component {
                         {/* section 2.2 call and map buttons */}
                         <View style={styles.contactButtons}>
                             <TouchableHighlight
-                                underlayColor="transparent" onPress={() => { Linking.openURL('tel:' + phoneNumber) }}>
+                                underlayColor="transparent" onPress={() => { Linking.openURL('tel:' + data.phoneNumber) }}>
                                 <View style={styles.callButton}>
                                     <Image style={styles.callIcon} source={require("../assets/icons/hotel_details/callIcon.png")} />
                                 </View>
@@ -118,22 +110,39 @@ export default class BarDetailsScreen extends Component {
                         </View>
                     </View>
 
+                    {/*Accordion for Happy Hour*/}
+                    <TouchableOpacity onPress={this.toggleExpanded}>
+                        <View style={styles.header}>
+                            <Text style={styles.headerText}>Happy Hour</Text>
+                            {/*Heading of Single Collapsible*/}
+                        </View>
+                    </TouchableOpacity>
+                    {/*Content of Single Collapsible*/}
+                    <Collapsible collapsed={this.state.collapsed} align="center">
+                        <View style={styles.content}>
+                            <Text style={{ textAlign: 'center' }}>
+                                {data.happyHour}
+                            </Text>
+                        </View>
+                    </Collapsible>
+
+
                     {/* menu details */}
 
                     <View style={styles.menuDetails}>
                         <View style={styles.menuTable}>
                             <Text style={styles.menuHeading}>Happy Hour</Text>
-                            <Text style={styles.menuData}>{hours}</Text>
+                            <Text style={styles.menuData}>{data.hours}</Text>
                         </View>
 
                         <View style={styles.menuTable}>
                             <Text style={styles.menuHeading}>Drink Menu</Text>
-                            <Text style={styles.menuData}>{drinkMenu}</Text>
+                            <Text style={styles.menuData}>{data.drinkMenu}</Text>
                         </View>
 
                         <View style={styles.menuTable}>
                             <Text style={styles.menuHeading}>Food Menu</Text>
-                            <Text style={styles.menuData}>{foodMenu}</Text>
+                            <Text style={styles.menuData}>{data.foodMenu}</Text>
                         </View>
                     </View>
 
@@ -150,8 +159,8 @@ export default class BarDetailsScreen extends Component {
                                 provider={PROVIDER_GOOGLE} // remove if not using Google Maps
                                 style={styles.map}
                                 region={{
-                                    latitude: Number(latitude),
-                                    longitude: Number(longitude),
+                                    latitude: Number(data.latitude),
+                                    longitude: Number(data.longitude),
                                     longitudeDelta: 0.0121,
                                     latitudeDelta: 0.100
 
@@ -159,8 +168,8 @@ export default class BarDetailsScreen extends Component {
                             >{
                                     this.state.latitude &&
                                     <Marker
-                                        coordinate={{ latitude: parseFloat(latitude), longitude: parseFloat(longitude) }}
-                                        title={name}
+                                        coordinate={{ latitude: parseFloat(data.latitude), longitude: parseFloat(data.longitude) }}
+                                        title={data.name}
                                     />
                                 }{this.state.destinationOrigin && this.state.origin &&
                                     <MapViewDirections
@@ -181,7 +190,7 @@ export default class BarDetailsScreen extends Component {
                     </TouchableNativeFeedback>
 
                     <View style={styles.distance}>
-                        <Text>You are {this.state.distance} km away from {name} </Text>
+                        <Text>You are {this.state.distance} km away from {data.name} </Text>
                     </View>
 
                 </View>
@@ -225,7 +234,7 @@ const styles = StyleSheet.create({
         borderBottomLeftRadius: 20,
         borderBottomRightRadius: 20,
 
-        
+
         shadowColor: "#008080",
         shadowOffset: {
             width: 0,
