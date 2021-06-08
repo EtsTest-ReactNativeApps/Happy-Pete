@@ -488,8 +488,6 @@ const styles = StyleSheet.create({
     },
 
 
-
-
     // accordian styling
     accordianContainer: {
         marginHorizontal: 20,
