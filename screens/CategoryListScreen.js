@@ -26,16 +26,7 @@ export default class CategoryList extends Component{
     goToBarDetails(item) {
         let listDetails = item;
         this.props.navigation.navigate("BarDetailsScreen", {
-            name: listDetails.name,
-            avatar_url:listDetails.avatar_url,
-            website: listDetails.website,
-            longitude: listDetails.longitude,
-            latitude: listDetails.latitude,
-            phoneNumber: listDetails.phoneNumber,
-            address: listDetails.address,
-            drinkMenu: listDetails.drinkMenu,
-            foodMenu: listDetails.foodMenu,
-            happyHour: listDetails.happyHour
+            data:listDetails
         })
     }
 
@@ -51,7 +42,6 @@ export default class CategoryList extends Component{
                     style={styles.listImage}
                     source={{uri:item.avatar_url}} />
             </View>
-
 
             {/* hotelDetails */}
             <View style={styles.hotelInfoAndWebsite}>

@@ -3,7 +3,7 @@ import {
     StyleSheet,
     View,
     ScrollView,
-    Linking, Text, Image, TouchableHighlight, TouchableNativeFeedback, TouchableOpacity
+    Linking, Text, Image, TouchableHighlight, TouchableNativeFeedback, TouchableOpacity, FlatList, Alert
 } from "react-native";
 import * as geolib from 'geolib';
 import MapViewDirections from 'react-native-maps-directions';
@@ -25,14 +25,15 @@ export default class BarDetailsScreen extends Component {
             collapsed: true,
             isDrinkcollapsed:true,
             isFoodcollapsed:true,
-            destinationOrigin: [{
-                latitude: this.props.navigation.getParam("latitude"),
-                longitude: this.props.navigation.getParam("longitude")
-            }
-            ],
-            origin: [{
-                latitude: null,
-                longitude: null
+            destinationLatitude:null,
+            destinationLongitude:null,
+            origin:[{
+                latitude:null,
+                longitude :null
+            }],
+            destinationOrigin:[{
+                latitude:null,
+                longitude:null
             }]
         }
 
@@ -43,6 +44,10 @@ export default class BarDetailsScreen extends Component {
         this.setState({
             latitude: data.latitude,
             longitude: data.longitude,
+            destinationOrigin:[{
+                latitude: data.latitude,
+                longitude:data.longitude
+            }]
         })
         this.findDistance(data.longitude, data.latitude)
     }
@@ -66,7 +71,7 @@ export default class BarDetailsScreen extends Component {
                 collapsed:true
             })
         }
-       
+
     };
     foodToggleExpanded=()=>{
         if(this.state.isFoodcollapsed===true){
@@ -79,8 +84,8 @@ export default class BarDetailsScreen extends Component {
                 isFoodcollapsed:true
             })
         }
-        
-    
+
+
     }
     drinkToggleExpanded=()=>{
         if(this.state.isDrinkcollapsed===true){
@@ -93,13 +98,13 @@ export default class BarDetailsScreen extends Component {
                 isDrinkcollapsed:true
             })
         }
-        
+
     }
 
     render() {
         const { navigation } = this.props
         let data = navigation.getParam("data")
-
+        let drinkMenu =data.drinkMenu
         return (
             <ScrollView>
 
@@ -135,7 +140,7 @@ export default class BarDetailsScreen extends Component {
                             <TouchableHighlight underlayColor="transparent" onPress={() => { Linking.openURL(data.website) }}>
                                 <Text style={styles.hotelWebsiteUrl}>{data.website}</Text>
                             </TouchableHighlight>
-                        
+
                         </View>
 
 
@@ -205,36 +210,7 @@ export default class BarDetailsScreen extends Component {
                                         <Text style={styles.heading2}>Cost</Text>
                                     </View>
                                 </View>
-
-                                {/* table content */}
-                                <View style={styles.tableItemContainer}>
-                                    <View style={styles.itemNameContainer}>
-                                        <Text style={styles.itemName}>Beer</Text>
-                                    </View>
-                                    <View style={styles.itemCostContainer}>
-                                        <Text style={styles.itemCost}>$30</Text>
-                                    </View>
-                                </View>
-
-
-                                {/* Delete below*/}
-                                {/* Duplicate content */}
-                                <View style={styles.tableItemContainer}>
-                                    <View style={styles.itemNameContainer}>
-                                        <Text style={styles.itemName}>Beer</Text>
-                                    </View>
-                                    <View style={styles.itemCostContainer}>
-                                        <Text style={styles.itemCost}>$30</Text>
-                                    </View>
-                                </View>
-                                <View style={styles.tableItemContainer}>
-                                    <View style={styles.itemNameContainer}>
-                                        <Text style={styles.itemName}>Beer</Text>
-                                    </View>
-                                    <View style={styles.itemCostContainer}>
-                                        <Text style={styles.itemCost}>$30</Text>
-                                    </View>
-                                </View>
+                                {this.drinkMenuList(drinkMenu)}
                             </View>
                         </Collapsible>
                     </View>
@@ -271,72 +247,11 @@ export default class BarDetailsScreen extends Component {
                                 </View>
 
                                 {/* table content */}
-                                <View style={styles.tableItemContainer}>
-                                    <View style={styles.itemNameContainer}>
-                                        <Text style={styles.itemName}>Beer</Text>
-                                    </View>
-                                    <View style={styles.itemCostContainer}>
-                                        <Text style={styles.itemCost}>$30</Text>
-                                    </View>
-                                </View>
+                                {this.foodMenuList(data.foodMenu)}
 
-
-                                {/* Delete below*/}
-                                {/* Duplicate content */}
-                                <View style={styles.tableItemContainer}>
-                                    <View style={styles.itemNameContainer}>
-                                        <Text style={styles.itemName}>Beer</Text>
-                                    </View>
-                                    <View style={styles.itemCostContainer}>
-                                        <Text style={styles.itemCost}>$30</Text>
-                                    </View>
-                                </View>
-                                <View style={styles.tableItemContainer}>
-                                    <View style={styles.itemNameContainer}>
-                                        <Text style={styles.itemName}>Beer</Text>
-                                    </View>
-                                    <View style={styles.itemCostContainer}>
-                                        <Text style={styles.itemCost}>$30</Text>
-                                    </View>
-                                </View>
-                                <View style={styles.tableItemContainer}>
-                                    <View style={styles.itemNameContainer}>
-                                        <Text style={styles.itemName}>Beer</Text>
-                                    </View>
-                                    <View style={styles.itemCostContainer}>
-                                        <Text style={styles.itemCost}>$30</Text>
-                                    </View>
-                                </View>
                             </View>
                         </Collapsible>
                     </View>
-
-
-
-
-
-                    {/* menu details */}
-
-                    {/* <View style={styles.menuDetails}>
-                        <View style={styles.menuTable}>
-                            <Text style={styles.menuHeading}>Happy Hour</Text>
-                            <Text style={styles.menuData}>{data.hours}</Text>
-                        </View>
-
-                        <View style={styles.menuTable}>
-                            <Text style={styles.menuHeading}>Drink Menu</Text>
-                            <Text style={styles.menuData}>{data.drinkMenu}</Text>
-                        </View>
-
-                        <View style={styles.menuTable}>
-                            <Text style={styles.menuHeading}>Food Menu</Text>
-                            <Text style={styles.menuData}>{data.foodMenu}</Text>
-                        </View>
-                    </View> */}
-
-
-                    {/* google map */}
-
 
                     <View style={styles.mapContainerMain}>
 
@@ -347,8 +262,8 @@ export default class BarDetailsScreen extends Component {
                                 provider={PROVIDER_GOOGLE} // remove if not using Google Maps
                                 style={styles.map}
                                 region={{
-                                    latitude: Number(data.latitude),
-                                    longitude: Number(data.longitude),
+                                    latitude: Number(this.state.latitude),
+                                    longitude: Number(this.state.longitude),
                                     longitudeDelta: 0.0121,
                                     latitudeDelta: 0.100
 
@@ -359,7 +274,7 @@ export default class BarDetailsScreen extends Component {
                                         coordinate={{ latitude: parseFloat(data.latitude), longitude: parseFloat(data.longitude) }}
                                         title={data.name}
                                     />
-                                }{this.state.destinationOrigin && this.state.origin &&
+                                }{this.state.origin &&
                                     <MapViewDirections
                                         origin={this.state.origin[0]}
                                         destination={this.state.destinationOrigin[0]}
@@ -377,7 +292,7 @@ export default class BarDetailsScreen extends Component {
                         </Text>
                     </TouchableNativeFeedback>
 
-                    <TouchableNativeFeedback onPress={() => { this.openDirection() }}>
+                    <TouchableNativeFeedback onPress={() => { this.getCurrentLocation() }}>
                         <View style={styles.recenterContainer}>
                             <Image style={styles.recenterIcon} source={require("../assets/icons/location.png")} />
                             <Text style={styles.recenterText}>Recenter</Text>
@@ -418,6 +333,50 @@ export default class BarDetailsScreen extends Component {
             }
         );
     }
+
+    drinkMenuList = (drinkMenu)=>drinkMenu.map((d)=>
+
+        <View style={styles.tableItemContainer}>
+            <View style={styles.itemNameContainer}>
+                <Text style={styles.itemName}>{d.menu}</Text>
+            </View>
+            <View style={styles.itemCostContainer}>
+                <Text style={styles.itemCost}>{d.price}</Text>
+            </View>
+        </View>
+    )
+
+
+    foodMenuList=(foodMenu)=>foodMenu.map((d)=>
+        <View style={styles.tableItemContainer}>
+            <View style={styles.itemNameContainer}>
+                <Text style={styles.itemName}>{d.menu}</Text>
+            </View>
+            <View style={styles.itemCostContainer}>
+                <Text style={styles.itemCost}>{d.price}</Text>
+            </View>
+        </View>
+    )
+
+    getCurrentLocation() {
+        navigator.geolocation = require('@react-native-community/geolocation');
+        navigator.geolocation.getCurrentPosition(
+            position => {
+                this.setState({
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude,
+                });
+            },
+            error => {
+                Alert.alert(error.message.toString());
+            },
+            {
+                showLocationDialog: true,
+                enableHighAccuracy: false,
+                timeout: 20000
+            }
+        );
+    }
 }
 
 const styles = StyleSheet.create({
@@ -432,8 +391,6 @@ const styles = StyleSheet.create({
         width:100,
         padding:5,
         borderRadius:50,
-        backgroundColor: 'white',
-
         position: "absolute",
         bottom: 60,
         right: 35,

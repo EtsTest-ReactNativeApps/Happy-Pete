@@ -14,6 +14,7 @@ import {
 } from "react-native";
 import FirebaseConfig from "../components/config";
 
+const keyboardVerticalOffset = Platform.OS === 'ios' ? 40 : 0
 
 export default class RegistrationScreen extends Component{
     state = {  email: "", password: "",name:"",phoneNumber:null};
@@ -64,7 +65,7 @@ export default class RegistrationScreen extends Component{
         return (
             <ScrollView contentContainerStyle={styles.container}>
                 <KeyboardAvoidingView style={{flex:1,marginTop:'20%',alignItems:'center'}}
-                                      behavior="position"
+                                      behavior="position"keyboardVerticalOffset={keyboardVerticalOffset}
                 >
                       <Text style={styles.heading}>Register</Text>
 
@@ -82,6 +83,7 @@ export default class RegistrationScreen extends Component{
                             onChangeText={(name) => this.setState({ name })}
                         />
                     </View>
+
                     <View style={styles.inputContainer}>
                         <Image
                             style={styles.inputIcon}
@@ -120,7 +122,7 @@ export default class RegistrationScreen extends Component{
                         <TextInput
                             style={styles.inputs}
                             placeholder="Mobile Number"
-                            keyboardType="numeric"
+                            keyboardType="default"
                             autoCapitalize="none"
                             underlineColorAndroid="transparent"
                             onChangeText={(phoneNumber) => this.setState({ phoneNumber})}

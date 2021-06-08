@@ -271,16 +271,7 @@ class HomeScreen extends Component {
     goToBarDetails(item) {
         let listDetails = item;
         this.props.navigation.navigate("BarDetailsScreen", {
-            name: listDetails.name,
-            website: listDetails.website,
-            longitude: listDetails.longitude,
-            latitude: listDetails.latitude,
-            phoneNumber: listDetails.phoneNumber,
-            address: listDetails.address,
-            drinkMenu: listDetails.drinkMenu,
-            foodMenu: listDetails.foodMenu,
-            happyHour: listDetails.happyHour,
-            avatar_url:listDetails.avatar_url
+            data:listDetails
         })
     }
 
