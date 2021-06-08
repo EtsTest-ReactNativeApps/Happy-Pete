@@ -23,17 +23,17 @@ export default class BarDetailsScreen extends Component {
             address: null,
             phoneNumber: null,
             collapsed: true,
-            isDrinkcollapsed:true,
-            isFoodcollapsed:true,
-            destinationLatitude:null,
-            destinationLongitude:null,
-            origin:[{
-                latitude:null,
-                longitude :null
+            isDrinkcollapsed: true,
+            isFoodcollapsed: true,
+            destinationLatitude: null,
+            destinationLongitude: null,
+            origin: [{
+                latitude: null,
+                longitude: null
             }],
-            destinationOrigin:[{
-                latitude:null,
-                longitude:null
+            destinationOrigin: [{
+                latitude: null,
+                longitude: null
             }]
         }
 
@@ -44,9 +44,9 @@ export default class BarDetailsScreen extends Component {
         this.setState({
             latitude: data.latitude,
             longitude: data.longitude,
-            destinationOrigin:[{
+            destinationOrigin: [{
                 latitude: data.latitude,
-                longitude:data.longitude
+                longitude: data.longitude
             }]
         })
         this.findDistance(data.longitude, data.latitude)
@@ -61,41 +61,41 @@ export default class BarDetailsScreen extends Component {
 
     }
     toggleExpanded = () => {
-        if(this.state.collapsed===true){
+        if (this.state.collapsed === true) {
             this.setState({
                 collapsed: false
             })
         }
-        else{
+        else {
             this.setState({
-                collapsed:true
+                collapsed: true
             })
         }
 
     };
-    foodToggleExpanded=()=>{
-        if(this.state.isFoodcollapsed===true){
+    foodToggleExpanded = () => {
+        if (this.state.isFoodcollapsed === true) {
             this.setState({
                 isFoodcollapsed: false
             })
         }
-        else{
+        else {
             this.setState({
-                isFoodcollapsed:true
+                isFoodcollapsed: true
             })
         }
 
 
     }
-    drinkToggleExpanded=()=>{
-        if(this.state.isDrinkcollapsed===true){
+    drinkToggleExpanded = () => {
+        if (this.state.isDrinkcollapsed === true) {
             this.setState({
-                isDrinkcollapsed:false
+                isDrinkcollapsed: false
             })
         }
-        else{
+        else {
             this.setState({
-                isDrinkcollapsed:true
+                isDrinkcollapsed: true
             })
         }
 
@@ -104,7 +104,7 @@ export default class BarDetailsScreen extends Component {
     render() {
         const { navigation } = this.props
         let data = navigation.getParam("data")
-        let drinkMenu =data.drinkMenu
+        let drinkMenu = data.drinkMenu
         return (
             <ScrollView>
 
@@ -160,14 +160,19 @@ export default class BarDetailsScreen extends Component {
 
                     <View style={styles.accordianContainer}>
                         <TouchableOpacity style={styles.accordian} onPress={this.toggleExpanded}>
-                            <View style={styles.accordianHeaderContainer}>
-                                <View>
-                                    <Image style={styles.accordianIcon} source={require("../assets/icons/hotel_details/happyHourIcon.png")} />
+                            <View style={styles.accordianTop}>
+                                <View style={styles.accordianHeaderContainer}>
+                                    <View>
+                                        <Image style={styles.accordianIcon} source={require("../assets/icons/hotel_details/happyHourIcon.png")} />
+                                    </View>
+                                    <View>
+                                        <Text style={styles.accordianHeading}>Happy Hour</Text>
+                                    </View>
+                                    {/*Heading of Single Collapsible*/}
                                 </View>
-                                <View>
-                                    <Text style={styles.accordianHeading}>Happy Hour</Text>
+                                <View style={styles.dropDownContainer}>
+                                    <Image style={styles.dropDownIcon} source={require("../assets/icons/hotel_details/dropDownIcon.png")} />
                                 </View>
-                                {/*Heading of Single Collapsible*/}
                             </View>
                         </TouchableOpacity>
 
@@ -186,14 +191,19 @@ export default class BarDetailsScreen extends Component {
 
                     <View style={styles.accordianContainer}>
                         <TouchableOpacity style={styles.accordian} onPress={this.drinkToggleExpanded}>
-                            <View style={styles.accordianHeaderContainer}>
-                                <View>
-                                    <Image style={styles.accordianIcon} source={require("../assets/icons/hotel_details/drinkMenuIcon.png")} />
+                        <View style={styles.accordianTop}>
+                                <View style={styles.accordianHeaderContainer}>
+                                    <View>
+                                        <Image style={styles.accordianIcon} source={require("../assets/icons/hotel_details/drinkMenuIcon.png")} />
+                                    </View>
+                                    <View>
+                                        <Text style={styles.accordianHeading}>Drink Menu</Text>
+                                    </View>
+                                    {/*Heading of Single Collapsible*/}
                                 </View>
-                                <View>
-                                    <Text style={styles.accordianHeading}>Drink Menu</Text>
+                                <View style={styles.dropDownContainer}>
+                                    <Image style={styles.dropDownIcon} source={require("../assets/icons/hotel_details/dropDownIcon.png")} />
                                 </View>
-                                {/*Heading of Single Collapsible*/}
                             </View>
                         </TouchableOpacity>
                         {/*Content of Single Collapsible*/}
@@ -221,14 +231,19 @@ export default class BarDetailsScreen extends Component {
 
                     <View style={styles.accordianContainer}>
                         <TouchableOpacity style={styles.accordian} onPress={this.foodToggleExpanded}>
-                            <View style={styles.accordianHeaderContainer}>
-                                <View>
-                                    <Image style={styles.accordianIcon} source={require("../assets/icons/hotel_details/foodMenuIcon.png")} />
+                        <View style={styles.accordianTop}>
+                                <View style={styles.accordianHeaderContainer}>
+                                    <View>
+                                        <Image style={styles.accordianIcon} source={require("../assets/icons/hotel_details/foodMenuIcon.png")} />
+                                    </View>
+                                    <View>
+                                        <Text style={styles.accordianHeading}>Food Menu</Text>
+                                    </View>
+                                    {/*Heading of Single Collapsible*/}
                                 </View>
-                                <View>
-                                    <Text style={styles.accordianHeading}>Food Menu</Text>
+                                <View style={styles.dropDownContainer}>
+                                    <Image style={styles.dropDownIcon} source={require("../assets/icons/hotel_details/dropDownIcon.png")} />
                                 </View>
-                                {/*Heading of Single Collapsible*/}
                             </View>
                         </TouchableOpacity>
                         {/*Content of Single Collapsible*/}
@@ -334,7 +349,7 @@ export default class BarDetailsScreen extends Component {
         );
     }
 
-    drinkMenuList = (drinkMenu)=>drinkMenu.map((d)=>
+    drinkMenuList = (drinkMenu) => drinkMenu.map((d) =>
 
         <View style={styles.tableItemContainer}>
             <View style={styles.itemNameContainer}>
@@ -347,7 +362,7 @@ export default class BarDetailsScreen extends Component {
     )
 
 
-    foodMenuList=(foodMenu)=>foodMenu.map((d)=>
+    foodMenuList = (foodMenu) => foodMenu.map((d) =>
         <View style={styles.tableItemContainer}>
             <View style={styles.itemNameContainer}>
                 <Text style={styles.itemName}>{d.menu}</Text>
@@ -382,15 +397,15 @@ export default class BarDetailsScreen extends Component {
 const styles = StyleSheet.create({
 
 
-    recenterContainer:{
-        display:"flex",
-        alignItems:"center",
+    recenterContainer: {
+        display: "flex",
+        alignItems: "center",
         justifyContent: 'center',
-        flexDirection:"row",
-        backgroundColor:"white",
-        width:100,
-        padding:5,
-        borderRadius:50,
+        flexDirection: "row",
+        backgroundColor: "white",
+        width: 100,
+        padding: 5,
+        borderRadius: 50,
         position: "absolute",
         bottom: 60,
         right: 35,
@@ -407,14 +422,14 @@ const styles = StyleSheet.create({
 
         elevation: 12,
     },
-    recenterIcon:{
-        width:20,
-        height:20,
-        resizeMode:"contain",
-        marginRight:10,
+    recenterIcon: {
+        width: 20,
+        height: 20,
+        resizeMode: "contain",
+        marginRight: 10,
 
     },
-    recenterText:{
+    recenterText: {
 
     },
     // accordian table stylings
@@ -469,7 +484,7 @@ const styles = StyleSheet.create({
 
 
 
-// accordian styling
+    // accordian styling
     accordianContainer: {
         marginHorizontal: 20,
         marginBottom: 5,
@@ -480,23 +495,36 @@ const styles = StyleSheet.create({
         display: "flex",
         alignItems: "flex-start",
         justifyContent: "center",
-        borderRadius:5,
+        borderRadius: 5,
 
+    },
+    accordianTop:{
+        display:"flex",
+        flexDirection:"row",
+        alignItems:"center",
+        justifyContent:"space-between",
     },
     accordianHeaderContainer: {
         display: "flex",
         flexDirection: "row",
+        flex:1,
     },
     accordianIcon: {
         width: 20,
         height: 20,
-        resizeMode:"contain",
+        resizeMode: "contain",
     },
     accordianHeading: {
         fontSize: 16,
         fontWeight: "bold",
         color: "#fff",
         marginLeft: 20,
+    },
+    dropDownContainer:{},
+    dropDownIcon:{
+        width:15,
+        height:10,
+        resizeMode:"contain",
     },
     accordiancontentContainer: {
         backgroundColor: "white",
@@ -507,6 +535,7 @@ const styles = StyleSheet.create({
     content: {
         color: "#000",
     },
+
 
 
 
@@ -586,7 +615,7 @@ const styles = StyleSheet.create({
     },
     hotelWebsiteUrl: {
         fontSize: 14,
-        fontWeight:"bold",
+        fontWeight: "bold",
         color: "#008080",
         backgroundColor: "#fff",
         textAlign: "center",
@@ -659,7 +688,7 @@ const styles = StyleSheet.create({
 
 
     mapContainerMain: {
-        marginTop:30,
+        marginTop: 30,
         position: "relative",
         borderWidth: 5,
         borderColor: "white",
