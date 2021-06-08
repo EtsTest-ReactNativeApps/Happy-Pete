@@ -34,7 +34,9 @@ export default class BarDetailsScreen extends Component {
             destinationOrigin:[{
                 latitude:null,
                 longitude:null
-            }]
+            }],
+            latitudeDelta:0.100,
+            longitudeDelta:0.0121
         }
 
     }
@@ -256,6 +258,7 @@ export default class BarDetailsScreen extends Component {
                     <View style={styles.mapContainerMain}>
 
                         <View style={styles.mapContainer}>
+
                             <MapView
                                 showsUserLocation={true}
                                 showsMyLocationButton={true}
@@ -264,11 +267,13 @@ export default class BarDetailsScreen extends Component {
                                 region={{
                                     latitude: Number(this.state.latitude),
                                     longitude: Number(this.state.longitude),
-                                    longitudeDelta: 0.0121,
-                                    latitudeDelta: 0.100
+                                    longitudeDelta: this.state.longitudeDelta,
+                                    latitudeDelta: this.state.latitudeDelta
 
                                 }}
-                            >{
+                            >
+
+                                {
                                     this.state.latitude &&
                                     <Marker
                                         coordinate={{ latitude: parseFloat(data.latitude), longitude: parseFloat(data.longitude) }}
@@ -292,7 +297,7 @@ export default class BarDetailsScreen extends Component {
                         </Text>
                     </TouchableNativeFeedback>
 
-                    <TouchableNativeFeedback onPress={() => { this.getCurrentLocation() }}>
+                    <TouchableNativeFeedback onPress={() => { this.recenterLocation() }}>
                         <View style={styles.recenterContainer}>
                             <Image style={styles.recenterIcon} source={require("../assets/icons/location.png")} />
                             <Text style={styles.recenterText}>Recenter</Text>
@@ -357,6 +362,7 @@ export default class BarDetailsScreen extends Component {
             </View>
         </View>
     )
+/*Method for finding user current location*/
 
     getCurrentLocation() {
         navigator.geolocation = require('@react-native-community/geolocation');
@@ -377,6 +383,13 @@ export default class BarDetailsScreen extends Component {
             }
         );
     }
+/*Recenter the map to Restaurant location*/
+    recenterLocation() {
+        this.setState({
+            latitudeDelta:0.100,
+            longitudeDelta:0.0121
+        })
+    }
 }
 
 const styles = StyleSheet.create({
@@ -394,17 +407,13 @@ const styles = StyleSheet.create({
         position: "absolute",
         bottom: 60,
         right: 35,
-
-
         shadowColor: "#000",
-
         shadowOffset: {
             width: 0,
             height: 6,
         },
         shadowOpacity: 0.37,
         shadowRadius: 7.49,
-
         elevation: 12,
     },
     recenterIcon:{
@@ -412,7 +421,6 @@ const styles = StyleSheet.create({
         height:20,
         resizeMode:"contain",
         marginRight:10,
-
     },
     recenterText:{
 
@@ -423,7 +431,6 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         marginBottom: 10,
     },
-
     tableHeading1: {
         flex: 1,
     },
@@ -435,7 +442,6 @@ const styles = StyleSheet.create({
     },
 
     tableHeading2: {},
-
     heading2: {
         fontWeight: "bold",
         color: "#000",
