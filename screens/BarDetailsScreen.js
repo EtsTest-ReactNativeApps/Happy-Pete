@@ -3,7 +3,7 @@ import {
     StyleSheet,
     View,
     ScrollView,
-    Linking, Text, Image, TouchableHighlight, TouchableNativeFeedback, TouchableOpacity, FlatList, Alert
+    Linking, Text, Image, TouchableHighlight, TouchableNativeFeedback, TouchableOpacity, FlatList, Alert, Dimensions
 } from "react-native";
 import * as geolib from 'geolib';
 import MapViewDirections from 'react-native-maps-directions';
@@ -31,12 +31,13 @@ export default class BarDetailsScreen extends Component {
                 latitude: null,
                 longitude: null
             }],
-            destinationOrigin:[{
-                latitude:null,
-                longitude:null
+            destinationOrigin: [{
+                latitude: null,
+                longitude: null
             }],
-            latitudeDelta:0.100,
-            longitudeDelta:0.0121
+            latitudeDelta: 0.100,
+            longitudeDelta: 0.0121,
+            active: 0,
         }
 
     }
@@ -103,21 +104,69 @@ export default class BarDetailsScreen extends Component {
 
     }
 
+    change = ({ nativeEvent }) => {
+        const slide = Math.ceil(nativeEvent.contentOffset.x / nativeEvent.layoutMeasurement.width);
+        if (slide !== this.state.active) {
+            this.setState({ active: slide })
+        }
+    }
+
+    state = {
+        active:0
+    }
+
     render() {
         const { navigation } = this.props
         let data = navigation.getParam("data")
         let drinkMenu = data.drinkMenu
+        const images = [
+            "https://images.pexels.com/photos/340996/pexels-photo-340996.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+            "https://images.pexels.com/photos/1058277/pexels-photo-1058277.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+            "https://images.pexels.com/photos/331107/pexels-photo-331107.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+            "https://images.pexels.com/photos/2079438/pexels-photo-2079438.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+        ]
+        const { width } = Dimensions.get("window")
+        const height = width * 0.6
         return (
             <ScrollView>
+                <View style={{ marginTop: 0, width, height }}>
+                    <ScrollView
+                        pagingEnabled
+                        horizontal
+                        onScroll = {this.change}
+                        showsHorizontalScrollIndicator={false}
+                        style={{ width, height }}
+                    >
+                        {
+                            images.map((image, index) => (
+                                <Image
+                                    key={index}
+                                    source={{ uri: image }}
+                                    style={{ width, height, resizeMode: 'cover' }}
+                                />
+                            ))
+                        }
+                    </ScrollView>
+                    <View style={{ flexDirection: "row", position: "absolute", bottom: 0, alignSelf: "center" }}>
+                        {
+                            images.map((i, k) => (
+                                <Text key={k} style={k == this.state.active ? styles.carousalPaginationTextActive : styles.carousalPaginationText}>⬤</Text>
+
+                            ))
+                        }
+                    </View>
+
+                </View>
+
 
                 <View style={styles.container}>
                     {/* section 1 header image */}
-                    <View style={styles.imageContainer}>
+                    {/* <View style={styles.imageContainer}>
                         <Image
                             style={styles.featureImage}
                             source={{ uri: data.avatar_url }}
                         />
-                    </View>
+                    </View> */}
 
                     {/* section 2 : contact details : hotelname, address, website url, phone, map */}
                     <View style={styles.hotelDetails}>
@@ -193,7 +242,7 @@ export default class BarDetailsScreen extends Component {
 
                     <View style={styles.accordianContainer}>
                         <TouchableOpacity style={styles.accordian} onPress={this.drinkToggleExpanded}>
-                        <View style={styles.accordianTop}>
+                            <View style={styles.accordianTop}>
                                 <View style={styles.accordianHeaderContainer}>
                                     <View>
                                         <Image style={styles.accordianIcon} source={require("../assets/icons/hotel_details/drinkMenuIcon.png")} />
@@ -233,7 +282,7 @@ export default class BarDetailsScreen extends Component {
 
                     <View style={styles.accordianContainer}>
                         <TouchableOpacity style={styles.accordian} onPress={this.foodToggleExpanded}>
-                        <View style={styles.accordianTop}>
+                            <View style={styles.accordianTop}>
                                 <View style={styles.accordianHeaderContainer}>
                                     <View>
                                         <Image style={styles.accordianIcon} source={require("../assets/icons/hotel_details/foodMenuIcon.png")} />
@@ -377,7 +426,7 @@ export default class BarDetailsScreen extends Component {
             </View>
         </View>
     )
-/*Method for finding user current location*/
+    /*Method for finding user current location*/
 
     getCurrentLocation() {
         navigator.geolocation = require('@react-native-community/geolocation');
@@ -398,16 +447,19 @@ export default class BarDetailsScreen extends Component {
             }
         );
     }
-/*Recenter the map to Restaurant location*/
+    /*Recenter the map to Restaurant location*/
     recenterLocation() {
         this.setState({
-            latitudeDelta:0.100,
-            longitudeDelta:0.0121
+            latitudeDelta: 0.100,
+            longitudeDelta: 0.0121
         })
     }
 }
 
 const styles = StyleSheet.create({
+
+    carousalPaginationText: { fontSize:16, marginHorizontal:5, color: "#888", marginBottom: 10 },
+    carousalPaginationTextActive: {fontSize:16, marginHorizontal:5,  color: "#008080", marginBottom: 10 },
 
 
     recenterContainer: {
@@ -431,11 +483,11 @@ const styles = StyleSheet.create({
         shadowRadius: 7.49,
         elevation: 12,
     },
-    recenterIcon:{
-        width:20,
-        height:20,
-        resizeMode:"contain",
-        marginRight:10,
+    recenterIcon: {
+        width: 20,
+        height: 20,
+        resizeMode: "contain",
+        marginRight: 10,
     },
     recenterText: {
 
@@ -502,16 +554,16 @@ const styles = StyleSheet.create({
         borderRadius: 5,
 
     },
-    accordianTop:{
-        display:"flex",
-        flexDirection:"row",
-        alignItems:"center",
-        justifyContent:"space-between",
+    accordianTop: {
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between",
     },
     accordianHeaderContainer: {
         display: "flex",
         flexDirection: "row",
-        flex:1,
+        flex: 1,
     },
     accordianIcon: {
         width: 20,
@@ -524,11 +576,11 @@ const styles = StyleSheet.create({
         color: "#fff",
         marginLeft: 20,
     },
-    dropDownContainer:{},
-    dropDownIcon:{
-        width:15,
-        height:10,
-        resizeMode:"contain",
+    dropDownContainer: {},
+    dropDownIcon: {
+        width: 15,
+        height: 10,
+        resizeMode: "contain",
     },
     accordiancontentContainer: {
         backgroundColor: "white",
