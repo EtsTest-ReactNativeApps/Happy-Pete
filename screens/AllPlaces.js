@@ -8,7 +8,7 @@ import {
     TouchableOpacity,
     Image,
     TouchableHighlight,
-    ImageBackground, FlatList, Dimensions, Alert,
+    ImageBackground, FlatList, Dimensions, Alert, TouchableNativeFeedback,
 } from "react-native";
 
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
@@ -45,7 +45,7 @@ export default class AllPlaces extends Component {
     }
      renderItem = ({ item }) => (
 
-
+         <TouchableNativeFeedback delayPressIn={0} background={TouchableNativeFeedback.SelectableBackground()} onPress={()=>this.goToBarDetails(item)}>
         <View style={styles.listItem}>
 
             {/* image */}
@@ -78,6 +78,7 @@ export default class AllPlaces extends Component {
             </View>
 
         </View>
+         </TouchableNativeFeedback>
 
     )
     goToBarDetails(item) {
