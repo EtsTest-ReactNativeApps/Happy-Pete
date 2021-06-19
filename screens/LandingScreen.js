@@ -24,7 +24,7 @@ export default function Welcome({ navigation }) {
             </View>
 
             <Text style={styles.exclusive}>Register for exclusive, personalized food, drink,beer and restaurant places in </Text>
-            <Text style={styles.exclusive}>St. Petersburg</Text>
+            <Text style={styles.stPete}>St. Petersburg</Text>
 
             <View>
                 <TouchableHighlight
@@ -46,6 +46,7 @@ export default function Welcome({ navigation }) {
     )
 }
 const styles =StyleSheet.create({
+
 container:{
     display:'flex',
     height:"100%",
@@ -70,6 +71,19 @@ container:{
     marginRight : "auto",
     lineHeight : 31,
     },
+
+    stPete:{
+        fontWeight:'bold',
+        fontSize:30,
+        marginTop:-20,
+        marginBottom : 30,
+        color : "#323232",
+        textAlign : "center",
+        width:300,
+        marginLeft:"auto",
+        marginRight : "auto",
+        lineHeight : 31,
+        },
 
 
     buttonContainer: {
