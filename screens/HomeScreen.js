@@ -6,7 +6,7 @@ import {
     Text,
     Image,
     TouchableHighlight,
-    FlatList, Alert,TextInput,
+    FlatList, Alert, TextInput, TouchableOpacity,
 } from "react-native";
 import * as Updates from 'expo-updates';
 import FeaturedMap from "./FeaturedMap";
@@ -15,7 +15,9 @@ import * as geolib from "geolib";
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { fetchUser,clearData } from '../redux/actions/index'
+import SearchInput, { createFilter } from 'react-native-search-filter';
 
+const KEYS_TO_FILTERS = ['name','foodMenu.menu','drinkMenu.menu','happyHour'];
 class HomeScreen extends Component {
     state = {
         search: '',
@@ -25,20 +27,32 @@ class HomeScreen extends Component {
         AllBarList: [],
         role: this.props.navigation.getParam("role"),
         isNearestPlace:false,
-
-
+        searchTerm: '',
+        isFilteredItems:false
     };
 
     componentDidMount() {
         const { navigation } = this.props;
+
       this.focusListener=navigation.addListener("didFocus",()=>{
           this.fetchAllDetails()
           this.getNearestPlace()
           this.props.fetchUser()
+          this.falseItems()
 
       })
 
     }
+
+
+    falseItems(){
+        if(this.state.searchTerm===""||this.state.searchTerm===null||true) {
+            this.setState({
+                isFilteredItems: false
+            })
+        }
+    }
+
     componentWillUnmount() {
         this.focusListener.remove();
     }
@@ -81,8 +95,20 @@ class HomeScreen extends Component {
 
 
     )
+    searchUpdated(term) {
+        this.setState({ searchTerm: term,isFilteredItems:true })
 
+    }
+    goToBarDetails(item) {
+        this.falseItems()
+        this.props.navigation.navigate("BarDetailsScreen", {
+            data:item
+        })
+    }
     render() {
+
+        const filteredEmails = this.state.barLists.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS))
+
         let wine ="Restaurant"
         let cocktail="Cocktails"
         let food ="Food"
@@ -158,26 +184,30 @@ class HomeScreen extends Component {
 
                 {/* featured  section */}
                 <View style={styles.featuredContainer}>
-                    <Text style={styles.featuredText}>Featured Places</Text>
+                    <Text style={styles.featuredText}>Our Happiest Places</Text>
                 </View>
 
                 {/* search section */}
+                <SearchInput
+                    onChangeText={(term) => { this.searchUpdated(term) }}
+                    style={styles.searchInput}
+                    placeholder="Type a Bar name to search"
+                />
+                {this.state.searchTerm!==""&&
+                <ScrollView>
+                    {filteredEmails.map(bar => {
+                        return (
+                            <TouchableOpacity onPress={() => this.goToBarDetails(bar)} key={bar.key}
+                                              style={styles.emailItem}>
+                                <View>
+                                    <Text>{bar.name}</Text>
+                                </View>
+                            </TouchableOpacity>
+                        )
+                    })}
 
-                <View style={styles.searchContainer}>
-                    <View style={styles.inputContainer}>
-                            <Image
-                                style={styles.inputIcon}
-                                source={require("../assets/search.png")}
-                            />
-                            <TextInput
-                                style={styles.inputs}
-                                placeholder="Search for bars, restaurants"
-                                keyboardType="default"
-                                underlineColorAndroid="transparent"
-                                onChangeText={(name) => this.setState({ name })}                            />
-                    </View>
-                </View>
-
+                </ScrollView>
+                }
                 <View style={styles.mapView}>
                     <FeaturedMap children={this.state.barLists} />
                 </View>
@@ -201,7 +231,7 @@ class HomeScreen extends Component {
                         </TouchableHighlight>
                     </ScrollView>
                     :
-                    <View><Text style={styles.noplaces}>No nearest places or Bar found for your location</Text>
+                    <View><Text style={styles.noplaces}>No Bar found for your location</Text>
                         <TouchableHighlight
                             style={styles.viewAll}
                             onPress={() => {
@@ -269,6 +299,9 @@ class HomeScreen extends Component {
 
 
     goToBarDetails(item) {
+        this.setState({
+
+        })
         let listDetails = item;
         this.props.navigation.navigate("BarDetailsScreen", {
             data:listDetails
@@ -294,6 +327,12 @@ class HomeScreen extends Component {
                         avatar_url:child.val().avatar_url
                     })
                     this.getNearestPlace(bar)
+                    this.setState({
+
+                    })
+                    this.setState({
+                        barLists:bar
+                    })
                 })
             })
     }
@@ -613,6 +652,12 @@ const styles = StyleSheet.create({
         marginLeft: 15,
         justifyContent: "center",
       },
+    itemText: {
+        fontSize: 15,
+        paddingTop: 5,
+        paddingBottom: 5,
+        margin: 2,
+    },
 
 
 

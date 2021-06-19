@@ -1,19 +1,16 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 import {
-    StyleSheet,
-    View,
-    ScrollView,
-    Text,
-    Button,
-    TouchableOpacity,
+    FlatList,
     Image,
+    ScrollView,
+    StyleSheet,
+    Text,
     TouchableHighlight,
-    ImageBackground, FlatList, Dimensions, Alert, TouchableNativeFeedback,
+    TouchableNativeFeedback,
+    View,
 } from "react-native";
 
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-
-
+import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 
 
 export default class AllPlaces extends Component {
@@ -36,7 +33,6 @@ export default class AllPlaces extends Component {
                                     data={this.state.barLists}
                                     keyExtractor={(a, b) => b.toString()}
                                     renderItem={(item) => this.renderItem(item)}
-
                                 />
                             }
             </ScrollView>
@@ -82,10 +78,8 @@ export default class AllPlaces extends Component {
 
     )
     goToBarDetails(item) {
-
-        let listDetails = item;
         this.props.navigation.navigate("BarDetailsScreen", {
-            data:listDetails
+            data:item
         })
     }
 
