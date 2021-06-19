@@ -326,7 +326,8 @@ class HomeScreen extends Component {
                         drinkMenu: child.val().drinkMenu,
                         happyHour: child.val().happyHour,
                         category: child.val().category,
-                        avatar_url: child.val().avatar_url
+                        avatar_url: child.val().avatar_url,
+                        swipeImageURIs:child.val().swipeImageURIs
                     })
 
                 })
@@ -364,15 +365,14 @@ class HomeScreen extends Component {
                         foodMenu: child.val().foodMenu,
                         drinkMenu: child.val().drinkMenu,
                         happyHour: child.val().happyHour,
-                        avatar_url: child.val().avatar_url
+                        avatar_url: child.val().avatar_url,
+                        swipeImageURIs:child.val().swipeImageURIs
                     })
                     this.getNearestPlace(bar)
                     this.setState({
-
-                    })
-                    this.setState({
                         barLists: bar
                     })
+                    console.log(this.state.barLists)
                 })
             })
     }
@@ -400,7 +400,8 @@ class HomeScreen extends Component {
                             address: barList[i].address,
                             drinkMenu: barList[i].drinkMenu,
                             foodMenu: barList[i].foodMenu,
-                            happyHour: barList[i].happyHour
+                            happyHour: barList[i].happyHour,
+                            swipeImageURIs:barList[i].swipeImageURIs
                         })
                         this.setState({
                             isNearestPlace: true
@@ -436,7 +437,8 @@ class HomeScreen extends Component {
                         foodMenu: child.val().foodMenu,
                         drinkMenu: child.val().drinkMenu,
                         happyHour: child.val().happyHour,
-                        avatar_url: child.val().avatar_url
+                        avatar_url: child.val().avatar_url,
+                        swipeImageURIs:child.val().swipeImageURIs
                     })
                     this.props.navigation.navigate("AllPlaces", {
                         barList: bar

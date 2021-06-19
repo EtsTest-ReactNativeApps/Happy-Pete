@@ -120,12 +120,13 @@ export default class BarDetailsScreen extends Component {
         let data = navigation.getParam("data")
         console.log(data);
         let drinkMenu = data.drinkMenu
-        const images = [
+        const images = data.swipeImageURIs
+        /*const images = [
             "https://images.pexels.com/photos/340996/pexels-photo-340996.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
             "https://images.pexels.com/photos/1058277/pexels-photo-1058277.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
             "https://images.pexels.com/photos/331107/pexels-photo-331107.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
             "https://images.pexels.com/photos/2079438/pexels-photo-2079438.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
-        ]
+        ]*/
         const { width } = Dimensions.get("window")
         const height = width * 0.6
         return (
@@ -142,7 +143,7 @@ export default class BarDetailsScreen extends Component {
                             images.map((image, index) => (
                                 <Image
                                     key={index}
-                                    source={{ uri: image }}
+                                    source={{ uri: image.swipeImageURI }}
                                     style={{ width, height, resizeMode: 'cover' }}
                                 />
                             ))
