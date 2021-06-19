@@ -14,10 +14,10 @@ import Firebase from "../components/config";
 import * as geolib from "geolib";
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { fetchUser,clearData } from '../redux/actions/index'
+import { fetchUser, clearData } from '../redux/actions/index'
 import SearchInput, { createFilter } from 'react-native-search-filter';
 
-const KEYS_TO_FILTERS = ['name','foodMenu.menu','drinkMenu.menu','happyHour'];
+const KEYS_TO_FILTERS = ['name', 'foodMenu.menu', 'drinkMenu.menu', 'happyHour'];
 class HomeScreen extends Component {
     state = {
         search: '',
@@ -26,27 +26,27 @@ class HomeScreen extends Component {
         bar: [],
         AllBarList: [],
         role: this.props.navigation.getParam("role"),
-        isNearestPlace:false,
+        isNearestPlace: false,
         searchTerm: '',
-        isFilteredItems:false
+        isFilteredItems: false
     };
 
     componentDidMount() {
         const { navigation } = this.props;
 
-      this.focusListener=navigation.addListener("didFocus",()=>{
-          this.fetchAllDetails()
-          this.getNearestPlace()
-          this.props.fetchUser()
-          this.falseItems()
+        this.focusListener = navigation.addListener("didFocus", () => {
+            this.fetchAllDetails()
+            this.getNearestPlace()
+            this.props.fetchUser()
+            this.falseItems()
 
-      })
+        })
 
     }
 
 
-    falseItems(){
-        if(this.state.searchTerm===""||this.state.searchTerm===null||true) {
+    falseItems() {
+        if (this.state.searchTerm === "" || this.state.searchTerm === null || true) {
             this.setState({
                 isFilteredItems: false
             })
@@ -96,23 +96,23 @@ class HomeScreen extends Component {
 
     )
     searchUpdated(term) {
-        this.setState({ searchTerm: term,isFilteredItems:true })
+        this.setState({ searchTerm: term, isFilteredItems: true })
 
     }
     goToBarDetails(item) {
         this.falseItems()
         this.props.navigation.navigate("BarDetailsScreen", {
-            data:item
+            data: item
         })
     }
     render() {
 
         const filteredEmails = this.state.barLists.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS))
 
-        let wine ="Restaurant"
-        let cocktail="Cocktails"
-        let food ="Food"
-        let beer ="Beer"
+        let wine = "Restaurant"
+        let cocktail = "Cocktails"
+        let food = "Food"
+        let beer = "Beer"
         return (
             <ScrollView style={styles.container}>
 
@@ -193,25 +193,65 @@ class HomeScreen extends Component {
                     style={styles.searchInput}
                     placeholder="Type a Bar name to search"
                 />
-                {this.state.searchTerm!==""&&
-                <ScrollView>
-                    {filteredEmails.map(bar => {
-                        return (
-                            <TouchableOpacity onPress={() => this.goToBarDetails(bar)} key={bar.key}
-                                              style={styles.emailItem}>
-                                <View>
-                                    <Text>{bar.name}</Text>
-                                </View>
-                            </TouchableOpacity>
-                        )
-                    })}
+                {this.state.searchTerm !== "" &&
+                    <ScrollView>
+                        {filteredEmails.map(bar => {
+                            return (
+                                <TouchableOpacity onPress={() => this.goToBarDetails(bar)} underlayColor="none" key={bar.key}
+                                    style={styles.emailItem}>
+                                    <View>
+                                        {/* <Text>{bar.name}</Text> */}
 
-                </ScrollView>
+
+                                        {/* list item starts */}
+
+                                        <View style={styles.listItem}>
+
+                                            {/* image */}
+                                            <View style={styles.listImageContainer}>
+
+                                                <Image
+                                                    style={styles.listImage}
+                                                    source={{ uri: bar.avatar_url }} />
+                                            </View>
+
+                                            {/* hotelDetails */}
+                                            <View style={styles.hotelInfoAndWebsite}>
+
+                                                <View style={styles.nameAndRating}>
+                                                    <Text style={styles.hotelName}>{bar.name}</Text>
+                                                    <View style={styles.Rating}>
+                                                        <Image style={styles.RatingStar} source={require("../assets/icons/hotel_details/starRating.png")} />
+                                                        {/*<Text style={styles.RatingValue}>4.3</Text>*/}
+                                                    </View>
+                                                </View>
+
+                                                <Text style={styles.hotelAddress}>{bar.address}</Text>
+                                            </View>
+
+                                            {/* learn */}
+
+                                            <View style={styles.learnMore}>
+                                                <TouchableHighlight underlayColor="none" onPress={() => this.goToBarDetails(item)}>
+                                                    <Image style={styles.learnMoreIcon} source={require("../assets/icons/all_places/next.png")} />
+                                                </TouchableHighlight>
+                                            </View>
+
+                                        </View>
+
+                                        {/* list item ends */}
+
+                                    </View>
+                                </TouchableOpacity>
+                            )
+                        })}
+
+                    </ScrollView>
                 }
                 <View style={styles.mapView}>
                     <FeaturedMap children={this.state.barLists} />
                 </View>
-                {this.state.isNearestPlace === true  ?
+                {this.state.isNearestPlace === true ?
                     <ScrollView >
                         <View style={styles.featuredContainer}>
                             <Text style={styles.featuredText}>Best places near you</Text>
@@ -223,7 +263,7 @@ class HomeScreen extends Component {
                             renderItem={(item) => this.renderItem(item)}
                         />
 
-                    <TouchableHighlight
+                        <TouchableHighlight
                             style={styles.viewAll}
                             onPress={() => this.gotoAllPlace()}
                         >
@@ -286,7 +326,7 @@ class HomeScreen extends Component {
                         drinkMenu: child.val().drinkMenu,
                         happyHour: child.val().happyHour,
                         category: child.val().category,
-                        avatar_url:child.val().avatar_url
+                        avatar_url: child.val().avatar_url
                     })
 
                 })
@@ -304,7 +344,7 @@ class HomeScreen extends Component {
         })
         let listDetails = item;
         this.props.navigation.navigate("BarDetailsScreen", {
-            data:listDetails
+            data: listDetails
         })
     }
 
@@ -324,14 +364,14 @@ class HomeScreen extends Component {
                         foodMenu: child.val().foodMenu,
                         drinkMenu: child.val().drinkMenu,
                         happyHour: child.val().happyHour,
-                        avatar_url:child.val().avatar_url
+                        avatar_url: child.val().avatar_url
                     })
                     this.getNearestPlace(bar)
                     this.setState({
 
                     })
                     this.setState({
-                        barLists:bar
+                        barLists: bar
                     })
                 })
             })
@@ -352,7 +392,7 @@ class HomeScreen extends Component {
                     if (disKM < 50) {
                         bar.push({
                             name: barList[i].name,
-                            avatar_url:barList[i].avatar_url,
+                            avatar_url: barList[i].avatar_url,
                             website: barList[i].website,
                             longitude: barList[i].longitude,
                             latitude: barList[i].latitude,
@@ -363,7 +403,7 @@ class HomeScreen extends Component {
                             happyHour: barList[i].happyHour
                         })
                         this.setState({
-                            isNearestPlace:true
+                            isNearestPlace: true
                         })
                     }
                 }
@@ -396,7 +436,7 @@ class HomeScreen extends Component {
                         foodMenu: child.val().foodMenu,
                         drinkMenu: child.val().drinkMenu,
                         happyHour: child.val().happyHour,
-                        avatar_url:child.val().avatar_url
+                        avatar_url: child.val().avatar_url
                     })
                     this.props.navigation.navigate("AllPlaces", {
                         barList: bar
@@ -410,8 +450,8 @@ class HomeScreen extends Component {
     }
 }
 
-const mapStateToProps=(store)=>{
-    return{
+const mapStateToProps = (store) => {
+    return {
         currentUser: store.userState.currentUser
     }
 }
@@ -421,13 +461,31 @@ const mapDispatchProps = (dispatch) => bindActionCreators({ fetchUser, clearData
 export default connect(mapStateToProps, mapDispatchProps)(HomeScreen);
 
 const styles = StyleSheet.create({
+
+    emailItem: {
+        backgroundColor: "#fff",
+        marginHorizontal: 25,
+        padding: 5,
+        color: "#000",
+        fontSize: 16,
+    },
+    searchInput: {
+        backgroundColor: "#fff",
+        margin: 20,
+        borderRadius: 50,
+        paddingHorizontal: 20,
+        color: "#000",
+        fontSize: 16,
+        marginBottom: 5,
+
+    },
     buttonSection: {
         display: "flex",
         alignItems: "center",
         justifyContent: "space-evenly",
         flexDirection: "row",
         marginVertical: 20,
-        marginTop : 30,
+        marginTop: 30,
     },
     buttonContainer: {
         display: "flex",
@@ -477,7 +535,6 @@ const styles = StyleSheet.create({
 
     mapcontainer: {
         ...StyleSheet.absoluteFillObject,
-
     },
     map: {
         display: 'none',
@@ -485,10 +542,10 @@ const styles = StyleSheet.create({
     },
 
     mapView: {
-        paddingHorizontal:50,
-        display:"flex",
-        alignItems:"center",
-        justifyContent:"center",
+        paddingHorizontal: 50,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
     },
 
     mapText: {
@@ -515,18 +572,18 @@ const styles = StyleSheet.create({
     },
     viewAll: {
         color: '#fff',
-        display:"flex",
+        display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        flex:1,
+        flex: 1,
         backgroundColor: "#000",
         height: 45,
         // width: wp(90),
         borderRadius: 30,
         paddingVertical: 25,
         marginBottom: 50,
-        marginHorizontal:15,
-        marginTop : 20,
+        marginHorizontal: 15,
+        marginTop: 20,
     },
     viewAllText: {
         color: "#fff",
@@ -536,15 +593,18 @@ const styles = StyleSheet.create({
     },
 
     listItem: {
-        marginVertical: 5,
+        // marginVertical: 5,
+        paddingHorizontal : 5,
         borderRadius: 5,
-        marginHorizontal: 20,
+        // marginHorizontal: 5,
         display: "flex",
         backgroundColor: "#fff",
         alignItems: "center",
         justifyContent: "space-between",
         flexDirection: "row",
-        padding: 10,
+        padding: 5,
+        borderBottomWidth : 1,
+        borderBottomColor : "#f1f1f1",
 
         // shadowColor: "#fff",
         // shadowOffset: {
@@ -614,22 +674,22 @@ const styles = StyleSheet.create({
         height: 25,
 
     },
-    searchContainer:{
-        display:"flex",
-        alignItems:"center",
-        justifyContent:"center",
+    searchContainer: {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
     },
     inputContainer: {
         backgroundColor: "white",
         borderRadius: 30,
-        width : 360,
+        width: 360,
         height: 45,
         marginBottom: 20,
         flexDirection: "row",
         alignItems: "center",
         // borderWidth:2,
-        paddingVertical:25,
-                shadowColor: "#fff",
+        paddingVertical: 25,
+        shadowColor: "#fff",
         shadowOffset: {
             width: 0,
             height: 2,
@@ -637,21 +697,21 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
         elevation: 5,
-      },
-      inputs: {
+    },
+    inputs: {
         height: 45,
         marginLeft: 16,
         borderBottomColor: "#FFFFFF",
         flex: 1,
-        fontWeight:"500",
-        fontSize : 18
-      },
-      inputIcon: {
+        fontWeight: "500",
+        fontSize: 18
+    },
+    inputIcon: {
         width: 20,
         height: 20,
         marginLeft: 15,
         justifyContent: "center",
-      },
+    },
     itemText: {
         fontSize: 15,
         paddingTop: 5,

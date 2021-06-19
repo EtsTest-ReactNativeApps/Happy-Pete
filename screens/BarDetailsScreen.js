@@ -118,6 +118,7 @@ export default class BarDetailsScreen extends Component {
     render() {
         const { navigation } = this.props
         let data = navigation.getParam("data")
+        console.log(data);
         let drinkMenu = data.drinkMenu
         const images = [
             "https://images.pexels.com/photos/340996/pexels-photo-340996.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",

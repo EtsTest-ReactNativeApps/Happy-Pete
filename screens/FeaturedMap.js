@@ -290,6 +290,7 @@ const styles = StyleSheet.create({
         ...StyleSheet.absoluteFillObject,
     },
     mapContainer: {
+        marginTop : 20,
         display:"flex",
         justifyContent: "center",
         alignItems: 'center',
