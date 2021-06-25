@@ -191,8 +191,9 @@ class HomeScreen extends Component {
                 <SearchInput
                     onChangeText={(term) => { this.searchUpdated(term) }}
                     style={styles.searchInput}
-                    placeholder="Type a Bar name to search"
+                    placeholder="Search for bars, restaurants"
                 />
+                
                 {this.state.searchTerm !== "" &&
                     <ScrollView>
                         {filteredEmails.map(bar => {
@@ -479,6 +480,7 @@ const styles = StyleSheet.create({
         color: "#000",
         fontSize: 16,
         marginBottom: 5,
+        marginTop: 0,
 
     },
     buttonSection: {
@@ -525,7 +527,7 @@ const styles = StyleSheet.create({
         fontWeight: "bold"
     },
     featuredContainer: {
-        marginTop: 30,
+        marginTop: 20,
         marginBottom: 20,
     },
     featuredText: {
