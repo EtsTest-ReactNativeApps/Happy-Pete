@@ -232,7 +232,7 @@ class HomeScreen extends Component {
                                             {/* learn */}
 
                                             <View style={styles.learnMore}>
-                                                <TouchableHighlight underlayColor="none" onPress={() => this.goToBarDetails(item)}>
+                                                <TouchableHighlight underlayColor="none" onPress={() => this.goToBarDetails(bar)}>
                                                     <Image style={styles.learnMoreIcon} source={require("../assets/icons/all_places/next.png")} />
                                                 </TouchableHighlight>
                                             </View>
